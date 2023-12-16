@@ -7,30 +7,34 @@ import React from 'react'
 const page = () => {
 
 //     const [loading, setloading] = useState(false)
-//     const [banners, setBanners] = useState([])
-//     const [page, setPage] = useState(1);
-//     const [count, setcount] = useState(1)
+//     const [subCategory, setSubCategory] = useState([])
 //     const { token } = useSelector((state) => state.auth);
+//     const [count, setcount] = useState(1)
+//     let [searchParams, setSearchParams] = useSearchParams();
+//     const pages = searchParams.get('page')
+//     const [page, setPage] = useState(parseInt(pages) );
 //     const navigate = useNavigate()
   
 //     const handleChange = (e,p) => {
 //       setPage(p);
 //     };
-//   const fetchBanner = () =>{
+  
+//   const fetchSubCategory = () =>{
 //     var config = {
 //       method: 'get',
-//       url: baseURL + `/banners?page=${page}`,
+//       url: baseURL + `/subCategories?page=${page}`,
 //       headers: { 
-//         Authorization: `Bearer ${token}`
+//         'Authorization': `Bearer ${token}`,
 //       }
 //     };
 //     setloading(true)
 //     axios(config)
 //     .then(function (response) {
 //       const {data}=response.data
-//       setBanners(data.data)
+//       setSubCategory(data.data)
 //       setcount(data.last_page)
 //       setloading(false)
+  
 //     })
 //     .catch(function (error) {
 //     setloading(false)
@@ -39,8 +43,9 @@ const page = () => {
 //   }
   
 //   useEffect(() => {
-//     fetchBanner()
-//     navigate(`/banner?page=${page}`)
+//     fetchSubCategory()
+//     navigate(`/subcategory?page=${page}`)
+    
 //   }, [page])
   
   
@@ -59,49 +64,50 @@ const page = () => {
 //     };
   
 //     const handleDelete = (id) => {
-//       const index = banners.findIndex((p) => p.id === id);
+//       //Update
+//       const index = subCategory.findIndex((p) => p.id === id);
   
-//       handleDialog("Are you sure you want to delete?", true, banners[index].name);
+//       handleDialog("Are you sure you want to delete?", true, subCategory[index].name);
 //       idProductRef.current = id;
 //     };
   
 //     const areUSureDelete = (choose) => {
 //       if (choose) {
-//           setBanners(banners.filter((p) => p.id !== idProductRef.current));
 //         var config = {
 //           method: 'delete',
-//           url:baseURL + `/banners/${idProductRef.current}`,
+//           url:baseURL + `/subCategories/${idProductRef.current}`,
 //           headers: { 
-//               Authorization: `Bearer ${token}`
-//             }
+//             'Authorization': `Bearer ${token}`,
+//           }
 //         };
         
 //         axios(config)
 //         .then(function (response) {
 //           const {message} = response.data
 //           toast.info(message)
+//         setSubCategory(subCategory.filter((p) => p.id !== idProductRef.current));
+//           handleDialog("", false);
 //         })
 //         .catch(function (error) {
 //           console.log(error);
 //         });
         
-//         handleDialog("", false);
 //       } else {
 //         handleDialog("", false);
 //       }
 //     };
-  
+    
   return (
     <>
       <section>
       <section className="container-fluid products_main_banner">
         <div className="container">
           <div className="banner_content">
-            <h4>Dashboard</h4>
+            <h4>Dashboard - Sub Category</h4>
             <div>
               {/* <Breadcrumb>
                 <BreadcrumbItem>
-                  <Link to="/">Home</Link>
+                  <Link href="/">Home</Link>
                 </BreadcrumbItem>
               </Breadcrumb> */}
             </div>
@@ -113,34 +119,33 @@ const page = () => {
           <div className="row">
             <AdminDashboardSidebar />
             <div className="col-md-9">
-              
             <div>
       <div className='card'>
         <div className='card-body'>
           <div className="d-flex justify-content-between align-items-center">
         <div className="position-relative">
-            <h3>Banners</h3>
+            <h3>Sub Category</h3>
             <div className="position-absolute heading__line"></div>
           </div>
-          <Link href="/dashboard/banner/add"><button className="btn add__Btn">Add</button></Link>
+          <Link href="/dashboard/sub-category/add"><button className="btn add__Btn">Add</button></Link>
           </div>
 
-          <table className="table no-wrap mt-3 align-middle">
+          <table className="table no-wrap mt-3 align-middle" >
             <thead>
               <tr>
-                <th>Banner Image</th>
-                <th>Banner Name</th>
-                <th>Status</th>
-
+                <th>Sub Category Image</th>
+                <th>Sub Category Name</th>
+                <th>Main Category Name</th>
+                {/* <th>Category Name</th>
+                <th>Main Category Name</th> */}
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-            {/* {loading && <tr><td colSpan={4} className="text-center"><Spinner/></td></tr>}
-            {!loading && banners.length===0 && <tr><td colSpan={4} className="text-center">No Data</td></tr>}
-              {!loading && banners.map((tdata, index) => ( */}
-                <tr className="border-top">
-                  <td>
+            {/* {!loading && subCategory.length===0 && <tr><td colSpan={3} className="text-center">No Data</td></tr>}
+              {subCategory.map((tdata, index) => ( */}
+                <tr  className="border-top">
+                     <td>
                     <div className="d-flex align-items-center p-2">
                       <Image
                         // src={imageUrl + `/${tdata.image}`}
@@ -153,17 +158,11 @@ const page = () => {
                     </div>
                   </td>
                   {/* <td>{tdata.name}</td> */}
-                  <td>anas</td>
+                  <td>Men's Jacket</td>
+                  {/* <td>{tdata.main_cat_name}</td> */}
+                  <td>Men</td>
                   <td>
-                  {/* <span
-                      className={tdata.active !== "0" ? "bg-success text-white" : "bg-danger text-white"}
-                    >
-                      {tdata.active !== "0" ? "Active" : "Not Active"}
-                    </span> */}
-                    Active
-                  </td>
-                  <td>
-                  <Link href={`/banner/edit`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
+                  <Link href={`/dashboard/subcategory/edit`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
                   {/* <Link href={`/banner/edit/${tdata.id}`}><i className="bi bi-pencil-square text-success fs-4"></i></Link> */}
                   {/* <i className="bi bi-trash text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i> */}
                   <i className="fa-regular fa-trash-can text-danger fs-4 ms-3"></i>
@@ -176,14 +175,14 @@ const page = () => {
       </div>
       {/* <Pagination count={count} page={page} onChange={handleChange} color="primary"/> */}
 
-      {/* {dialog.isLoading && ( */}
-        {/* <DeleteModal
+      {/* {dialog.isLoading && (
+        <DeleteModal
           //Update
-        //   nameProduct={dialog.nameProduct}
-        //   onDialog={areUSureDelete}
-        //   message={dialog.message}
-        /> */}
-      {/* )} */}
+          nameProduct={dialog.nameProduct}
+          onDialog={areUSureDelete}
+          message={dialog.message}
+        />
+      )} */}
     </div>
 
             </div>

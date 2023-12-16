@@ -97,7 +97,7 @@ const page = () => {
       <section className="container-fluid products_main_banner">
         <div className="container">
           <div className="banner_content">
-            <h4>Dashboard</h4>
+            <h4>Dashboard - Users</h4>
             <div>
               {/* <Breadcrumb>
                 <BreadcrumbItem>
@@ -119,18 +119,18 @@ const page = () => {
         <div className='card-body'>
           <div className="d-flex justify-content-between align-items-center">
         <div className="position-relative">
-            <h3>Banners</h3>
+            <h3>User</h3>
             <div className="position-absolute heading__line"></div>
           </div>
-          <Link href="/dashboard/banner/add"><button className="btn add__Btn">Add</button></Link>
+          {/* <Link href="/dashboard/banner/add"><button className="btn add__Btn">Add</button></Link> */}
           </div>
 
           <table className="table no-wrap mt-3 align-middle">
             <thead>
               <tr>
-                <th>Banner Image</th>
-                <th>Banner Name</th>
-                <th>Status</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date</th>
 
                 <th>Actions</th>
               </tr>
@@ -140,31 +140,12 @@ const page = () => {
             {!loading && banners.length===0 && <tr><td colSpan={4} className="text-center">No Data</td></tr>}
               {!loading && banners.map((tdata, index) => ( */}
                 <tr className="border-top">
-                  <td>
-                    <div className="d-flex align-items-center p-2">
-                      <Image
-                        // src={imageUrl + `/${tdata.image}`}
-                        src='/img/banner-1.jpg'   
-                        // className="rounded-circle"
-                        alt="avatar"
-                        width={45}
-                        height={45}
-                      />
-                    </div>
-                  </td>
-                  {/* <td>{tdata.name}</td> */}
+
                   <td>anas</td>
+                  <td>anas@gmail.com</td>
+                  <td>23/02/2024</td>
+
                   <td>
-                  {/* <span
-                      className={tdata.active !== "0" ? "bg-success text-white" : "bg-danger text-white"}
-                    >
-                      {tdata.active !== "0" ? "Active" : "Not Active"}
-                    </span> */}
-                    Active
-                  </td>
-                  <td>
-                  <Link href={`/banner/edit`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
-                  {/* <Link href={`/banner/edit/${tdata.id}`}><i className="bi bi-pencil-square text-success fs-4"></i></Link> */}
                   {/* <i className="bi bi-trash text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i> */}
                   <i className="fa-regular fa-trash-can text-danger fs-4 ms-3"></i>
                   </td>

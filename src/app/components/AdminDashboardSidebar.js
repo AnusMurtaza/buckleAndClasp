@@ -21,42 +21,42 @@ const AdminDashboardSidebar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="naV__link__item">
+                <Link href="/dashboard/banner" className="naV__link__item">
                 <p >
                   <i className="fa-solid fa-clipboard-list f__light"></i> Banners
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="naV__link__item">
+                <Link href="/dashboard/main-category" className="naV__link__item">
                 <p>
                   <i className="fa-solid fa-download f__light"></i> Main Category
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="naV__link__item">
+                <Link href="/dashboard/sub-category" className="naV__link__item">
                 <p>
                   <i className="fa-solid fa-location-dot f__light"></i> Sub Category
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="naV__link__item">
+                <Link href="/dashboard/products" className="naV__link__item">
                 <p>
                   <i className="fa-solid fa-circle-user f__light"></i> Products
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="naV__link__item">
+                <Link href="/dashboard/orders" className="naV__link__item">
                 <p>
                   <i className="fa-solid fa-circle-user f__light"></i> Orders
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="naV__link__item">
+                <Link href="/dashboard/users" className="naV__link__item">
                 <p>
                   <i className="fa-solid fa-circle-user f__light"></i> Users
                 </p>
