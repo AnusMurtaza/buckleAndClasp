@@ -90,13 +90,7 @@ const Footer = () => {
       <div className="row">
         <div className="col-lg-12">
           <div className="copyright-text">
-            {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-            Copyright © All rights reserved | This template is made with{" "}
-            <i className="fa fa-heart-o" aria-hidden="true" /> by{" "}
-            <Link href="https://colorlib.com" target="_blank">
-              Colorlib
-            </Link>
-            {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
+            Copyright © 2023 Bucle & Clasp. All Rights Reserved
           </div>
           <div className="payment-pic">
             <img src="img/payment-method.png" alt="" />

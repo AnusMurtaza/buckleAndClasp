@@ -9,8 +9,8 @@ let persistor = persistStore(store);
 export function Providers({ children }) {
   return (
     <Provider store={store}>
-      {children}
-      {/* <PersistGate persistor={persistor}>{children}</PersistGate> */}
+      {/* {children} */}
+      <PersistGate persistor={persistor}>{children}</PersistGate>
     </Provider>
   );
 }

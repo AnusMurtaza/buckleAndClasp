@@ -1,108 +1,102 @@
+"use client"
+
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
 import DeleteModal from '@/app/components/modals/DeleteModal'
+import { baseURL } from '@/app/config/apiUrl'
+import axios from 'axios'
+// import DeleteModal from '@/app/components/modals/DeleteModal'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const page = () => {
 
-    // const [loading, setloading] = useState(false);
-    // const [mainCategory, setMainCategory] = useState([]);
-    // const { token } = useSelector((state) => state.auth);
-    // const [count, setcount] = useState(1)
-    // let [searchParams, setSearchParams] = useSearchParams();
-    // const pages = searchParams.get('page')
-    // const [page, setPage] = useState(parseInt(pages) );
-    // const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const [mainCategory, setMainCategory] = useState([]);
+  const { token } = useSelector((state) => state.auth);
+  const [page, setPage] = useState(1);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+  };
+
+  const fetchMainCategory = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${baseURL}/main_category?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { data } = response.data;
+      setMainCategory(data.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMainCategory();
+  }, [page, token]);
   
-    // const handleChange = (e, p) => {
-    //   setPage(p);
-    // };
-    // const fetchMainCategory = () => {
-    //   var config = {
-    //     method: "get",
-    //     url: baseURL + `/mainCategories?page=${page}`,
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   };
-    //   setloading(true);
-    //   axios(config)
-    //     .then(function (response) {
-    //       const { data } = response.data;
-    //       setMainCategory(data.data);
-    //       setcount(data.last_page);
-    //       setloading(false);
-    //     })
-    //     .catch(function (error) {
-    //       setloading(false);
-    //       console.log(error);
-    //     });
-    // };
+    const [dialog, setDialog] = useState({
+      message: "",
+      isLoading: false,
+      nameProduct: "",
+    });
+    const idProductRef = useRef();
+    const handleDialog = (message, isLoading, nameProduct) => {
+      setDialog({
+        message,
+        isLoading,
+        //Update
+        nameProduct,
+      });
+    };
   
+    const handleDelete = (id) => {
+      //Update
+      const index = mainCategory.findIndex((p) => p.id === id);
   
-    // useEffect(() => {
-        
-    //     fetchMainCategory();
-    //     navigate(`/main-category?page=${page}`)
-    
-    // }, [page])
+      handleDialog(
+        "Are you sure you want to delete?",
+        true,
+        mainCategory[index].name
+      );
+      idProductRef.current = id;
+    };
   
+    const areUSureDelete = (choose) => {
+      if (choose) {
+        var config = {
+          method: "delete",
+          url: baseURL + `/main_category/${idProductRef.current}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
   
-    // const [dialog, setDialog] = useState({
-    //   message: "",
-    //   isLoading: false,
-    //   nameProduct: "",
-    // });
-    // const idProductRef = useRef();
-    // const handleDialog = (message, isLoading, nameProduct) => {
-    //   setDialog({
-    //     message,
-    //     isLoading,
-    //     //Update
-    //     nameProduct,
-    //   });
-    // };
+        axios(config)
+          .then(function (response) {
+            const { message } = response.data;
+            toast.info(message);
+            setMainCategory(
+              mainCategory.filter((p) => p.id !== idProductRef.current)
+            );
+           handleDialog("", false);
   
-    // const handleDelete = (id) => {
-    //   //Update
-    //   const index = mainCategory.findIndex((p) => p.id === id);
-  
-    //   handleDialog(
-    //     "Are you sure you want to delete?",
-    //     true,
-    //     mainCategory[index].name
-    //   );
-    //   idProductRef.current = id;
-    // };
-  
-    // const areUSureDelete = (choose) => {
-    //   if (choose) {
-    //     var config = {
-    //       method: "delete",
-    //       url: baseURL + `/mainCategories/${idProductRef.current}`,
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     };
-  
-    //     axios(config)
-    //       .then(function (response) {
-    //         const { message } = response.data;
-    //         toast.info(message);
-    //         setMainCategory(
-    //           mainCategory.filter((p) => p.id !== idProductRef.current)
-    //         );
-    //        handleDialog("", false);
-  
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-    //   } else {
-    //     handleDialog("", false);
-    //   }
-    // };
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        handleDialog("", false);
+      }
+    };
     
   return (
     <>
@@ -149,16 +143,17 @@ const page = () => {
               </tr>
             </thead>
             <tbody>
-            {/* {!loading && mainCategory.length===0 && <tr><td colSpan={2} className="text-center">No Data</td></tr>}
+            {!loading && mainCategory.length===0 && <tr><td colSpan={2} className="text-center">No Data</td></tr>}
               {loading && (
                 <tr>
                   <td colSpan={3} className="text-center">
-                    <Spinner />
+                  <div class="spinner-border text-secondary" role="status">
+</div>
                   </td>
                 </tr>
-              )} */}
-              {/* {!loading &&
-                mainCategory.map((tdata, index) => ( */}
+              )}
+              {!loading &&
+                mainCategory.map((tdata, index) => (
                   <tr className="border-top">
                   <td>
                     <div className="d-flex align-items-center p-2">
@@ -173,17 +168,17 @@ const page = () => {
                     </div>
                   </td>
                     <td>
-                      {/* <h6 className="mb-0">{tdata.name}</h6> */}
-                      <h6 className="mb-0">Men</h6>
+                      <h6 className="mb-0">{tdata.name}</h6>
+                      {/* <h6 className="mb-0">Men</h6> */}
                     </td>
                     <td>
-                  <Link href={`/dashboard/banner/edit`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
+                  <Link href={`/dashboard/main-category/${tdata.id}`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
                   {/* <Link href={`/banner/edit/${tdata.id}`}><i className="bi bi-pencil-square text-success fs-4"></i></Link> */}
                   {/* <i className="bi bi-trash text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i> */}
-                  <i className="fa-regular fa-trash-can text-danger fs-4 ms-3"></i>
+                  <i className="fa-regular fa-trash-can text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i>
                   </td>
                   </tr>
-                {/* ))} */}
+                ))}
             </tbody>
           </table>
         </div>
@@ -195,14 +190,14 @@ const page = () => {
         color="primary"
       /> */}
 
-      {/* {dialog.isLoading && (
+      {dialog.isLoading && (
         <DeleteModal
           //Update
           nameProduct={dialog.nameProduct}
           onDialog={areUSureDelete}
           message={dialog.message}
         />
-      )} */}
+      )}
     </div>
 
             </div>

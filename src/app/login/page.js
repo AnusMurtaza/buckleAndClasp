@@ -1,14 +1,53 @@
 'use client';
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
+import { signInSchema } from '../schemas';
+import axios from 'axios';
+import { baseURL } from '../config/apiUrl';
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import { login } from '@/redux/features/auth/authSlice';
 
 const page = () => {
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch();
+
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: signInSchema,
+      onSubmit: async (values, action) => {
+        var userData = new FormData();
+        userData.append("email", values.email);
+        userData.append("password", values.password);
+
+        setLoading(true);
+        try {
+          const response = await axios.post(baseURL + "/login", userData)
+          const { message, data } = response.data;
+          dispatch(login(data));
+          toast.success(message);
+          setLoading(false);
+          console.log(response)
+        } catch (error) {
+          toast.error(error.response.data.message);
+          setLoading(false);
+          console.log("2")
+
+        }
+      },
+    });
   return (
     <>
     {/* Breadcrumb Section Begin */}
     <div className="breacrumb-section">
       <div className="container">
-        <div className="row">
+        {/* <div className="row">
           <div className="col-lg-12">
             <div className="breadcrumb-text">
               <Link href="/">
@@ -17,7 +56,7 @@ const page = () => {
               <span>Login</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
     {/* Breadcrumb Form Section Begin */}
@@ -28,14 +67,33 @@ const page = () => {
           <div className="col-lg-6 offset-lg-3">
             <div className="login-form">
               <h2>Login</h2>
-              <form action="/">
+              <form onSubmit={handleSubmit}>
                 <div className="group-input">
-                  <label htmlFor="username">Username or email address *</label>
-                  <input type="text" id="username" />
+                  <label htmlFor="email">Email Address *</label>
+                  <input type="text"
+                                            id="email" 
+                                            name="email"
+                                            value={values.email}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                   />
+                                   {errors.email && touched.email ? (
+                                     <p className="form-error">{errors.email}</p>
+                                   ) : null}
                 </div>
                 <div className="group-input">
                   <label htmlFor="pass">Password *</label>
-                  <input type="text" id="pass" />
+                  <input type="password"
+                                     id="password" 
+                                     name="password"
+                                     value={values.password}
+                                     onChange={handleChange}
+                                     onBlur={handleBlur}
+                                     />
+                 
+                                     {errors.password && touched.password ? (
+                                       <p className="form-error">{errors.password}</p>
+                                     ) : null}
                 </div>
                 <div className="group-input gi-check">
                   <div className="gi-more">
@@ -49,8 +107,8 @@ const page = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="site-btn login-btn">
-                  Sign In
+                <button type="submit" className="site-btn login-btn" disabled={loading?true:false}>
+                {loading? (<div class="spinner-grow text-secondary" role="status"></div>): "Sign In"}  
                 </button>
               </form>
               <div className="switch-login">
