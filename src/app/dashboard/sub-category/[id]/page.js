@@ -1,142 +1,239 @@
+// import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
+// import React from 'react'
+
+// const page = () => {
+//   return (
+//     <section>
+//     <section className="container-fluid products_main_banner">
+//       <div className="container">
+//         <div className="banner_content">
+//           <h4>Dashboard</h4>
+//           <div>
+//             {/* <Breadcrumb>
+//               <BreadcrumbItem>
+//                 <Link to="/">Home</Link>
+//               </BreadcrumbItem>
+//             </Breadcrumb> */}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//     <section className="mt-4 mb-4">
+//       <div className="container">
+//         <div className="row">
+//           <AdminDashboardSidebar />
+//           <div className="col-md-9">
+            
+//           <div>
+//         <div className="position-relative">
+//           <h3>Add Banner</h3>
+//           <div className="position-absolute heading__line"></div>
+//         </div>
+//         {/* <form onSubmit={handleSubmit}> */}
+//         <form >
+//         <div className="p-3 main_border">
+//           <div className="row">
+//             <div className="col-md-6 mb-2">
+//               <label htmlFor="name" className="form-label">
+//                 Banner Name
+//               </label>
+//               <input
+//                   type="text"
+//                   className="form-control"
+//                   id="name"
+//                   autoComplete="off"
+//                   name="name"
+//                 //   onChange={handleChange}
+//                 //   onBlur={handleBlur}
+//                 //   value={values.name}
+//                   placeholder="Banner 01"
+//                 />
+//                 {/* {errors.name && touched.name ? <p>{errors.name}</p> : null} */}
+//             </div>
+//             <div className="col-md-6 mb-2">
+//             <label htmlFor="image" className="form-label">
+//                   Upload Image
+//                 </label>
+//                 <input
+//                   className="form-control"
+//                   type="file"
+//                   name="image"
+//                 //   accept='image/*'
+//                 //   onBlur={handleBlur}
+//                 //   onChange={(e) =>setFieldValue('image', e.currentTarget.files[0])}
+//                   id="image"
+//                 />
+//                 {/* {errors.image && touched.image ? <p>{errors.image}</p> : null} */}
+//             </div>
+
+//             <div className="col-md-12 my-3">
+//                 <div className="form-check form-switch">
+//                   <input
+//                     className="form-check-input"
+//                     type="checkbox"
+//                     id="active"
+//                     // onChange={handleChange}
+//                     // onBlur={handleBlur}
+//                     // value={values.active}
+//                     // checked={values.active}
+//                   />
+//                   <label className="form-check-label" htmlFor="active">
+//                     Active
+//                   </label>
+//                 </div>
+//                 {/* {errors.active && touched.active ? (
+//                   <p>{errors.active}</p>
+//                 ) : null} */}
+//               </div>
+
+//             <div className="mt-2 text-center">
+//             {/* <button type="submit" className="btn check_out_btn" disabled={loading?true:false}>{loading?<Spinner></Spinner>:"Save"}</button> */}
+//             <button type="submit" className="btn check_out_btn" >Save</button>
+//             </div>
+//           </div>
+//         </div>
+//         </form>
+//       </div>
+
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   </section>
+//   )
+// }
+
+// export default page
+
+
+
+
+
+
+"use client"
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
-import React from 'react'
+import { baseURL } from '@/app/config/apiUrl';
+import { SubCategorySchema, mainCategorySchema, signUpSchema, updateMainCategorySchema, updateSubCategorySchema } from '@/app/schemas';
+import axios from 'axios';
+import { useFormik } from 'formik';
+// import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useParams, useRouter } from 'next/navigation';
+import Spinner from '@/app/components/Spinner';
 
 const page = () => {
-//     const [loading, setLoading] = useState(false);
-//   const [data, setData] = useState();
-//   const [maincategories, setMainCategories] = useState([])
-//   const { token } = useSelector((state) => state.auth);
+  const router = useRouter()
+  const params = useParams();
+  const id = params.id;
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState();
+  const [mainCategories, setMainCategories] = useState([])
+  const { token } = useSelector ((state) => state.auth);
 
-//   const navigate = useNavigate();
-//   const { id } = useParams();
+  useEffect(() => {
+    // Function to make API request
+    const sendRequest = async () => {
+      try {
+        const response = await axios.get(`${baseURL}/sub_category/${params.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const {data}= response.data
+        setData(data);
+        console.log(data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-//   const sendRequest = () => {
-//     var config = {
-//       method: "get",
-//       url: baseURL + `/subCategories/${id}`,
-//       headers: { 
-//         'Authorization': `Bearer ${token}`,
-//       }
-//     };
-//     axios(config)
-//       .then(function (response) {
-//         setData(response.data.data);
-//       })
-//       .catch(function (error) {});
-//   };
-//   useEffect(() => {
-//     if (id) {
-//       sendRequest();
-//     }
-//   }, []);
+    if (id !== "add") {
+      sendRequest();
+    }
+  }, [id, token]);
 
-//   const {
-//     values,
-//     errors,
-//     touched,
-//     handleBlur,
-//     handleChange,
-//     handleSubmit,
-//     setFieldValue,
-//   } = useFormik({
-//     enableReinitialize: true,
-//     initialValues: {
-//       name: data?.name || "",
-//       main_cat_id: data?.main_cat_id || "",
-//       active: data?.active === "1" && true || "",
-//     },
-
-//     validationSchema: subCategorySchema,
-//     onSubmit: (values, action) => {
-//       var data = new FormData();
-//       data.append("name", values.name);
-//       data.append("main_cat_id", values.main_cat_id);
-//       data.append("active", values.active ? 1 : 0);
-
-//       if (id) {
-//         var data = qs.stringify({
-//           name: values.name,
-//           main_cat_id: values.main_cat_id,
-//           active: values.active ? 1 : 0,
-//         });
-//         var config = {
-//           method: "put",
-//           url: baseURL + `/subCategories/${id}`,
-//           headers: {
-//             'Authorization': `Bearer ${token}`,
-//             "Content-Type": "application/x-www-form-urlencoded",
-//           },
-//           data: data,
-//         };
-//         setLoading(true);
-//         axios(config)
-//           .then(function (response) {
-//             const { message } = response.data;
-//             toast.success(message);
-//             setTimeout(() => {
-//               navigate("/subcategory?page=1");
-//               setLoading(false);
-//             }, 2000);
-//           })
-//           .catch(function (error) {
-//             setLoading(false);
-//           });
-//       } else {
-//         var config = {
-//           method: "post",
-//           url: baseURL + "/subCategories",
-//           headers: { 
-//             Authorization: `Bearer ${token}`,
-//           },
-//           data: data,
-//         };
-
-//         setLoading(true);
-//         axios(config)
-//           .then(function (response) {
-//             const { message } = response.data;
-//             toast.success(message);
-//             setTimeout(() => {
-//               navigate("/subcategory?page=1");
-//               setLoading(false);
-//             }, 2000);
-//           })
-//           .catch(function (error) {
-//             setLoading(false);
-//           });
-//       }
-//     },
-//   });
-
-//   const fetchMainCategories = () =>{
-//     var config = {
-//       method: 'get',
-//       url: baseURL + '/getMainCategory',
-//       headers: { 
-//         'Authorization': `Bearer ${token}`
-//       }
-//     };
-//     axios(config)
-//     .then(function (response) {
-//       setMainCategories(response.data.data)
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-//   }
+  const fetchMainCategory = () =>{
+    var config = {
+      method: 'get',
+      url: baseURL + '/all_main_categories',
+      headers: { 
+        'Authorization': `Bearer ${token}`
+      }
+    };
+    axios(config)
+    .then(function (response) {
+      setMainCategories(response.data.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
 
 
 
-// useEffect(() => {
-//     fetchMainCategories()
+useEffect(() => {
+    fetchMainCategory()
 
-// }, [])
+}, [])
 
-  
-// console.log(values);
+const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      name: data?.name || "",
+      main_cat_id: data?.main_cat_id || "",
+      image: "",
+    },
+    validationSchema:data?updateSubCategorySchema:SubCategorySchema,
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('name', values.name);
+      formData.append('image', values.image);
+      formData.append("main_cat_id", values.main_cat_id);
+    
+      let response;
+    
+      try {
+        if (id !== "add") {
+          response = await axios.post(`${baseURL}/update_sub_category/${data.id}`, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        } else {
+          response = await axios.post(`${baseURL}/sub_category`, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        }
+    
+        const { message } = response.data;
+        toast.success(message);
+        router.push('/dashboard/sub-category');
+      } catch (error) {
+        console.error(error);
+        toast.error('Error creating/updating banner');
+      } finally {
+        setLoading(false);
+      }
+    },
+    
+  });
+
   return (
-    <section>
+    <>
     <section className="container-fluid products_main_banner">
       <div className="container">
         <div className="banner_content">
@@ -157,15 +254,12 @@ const page = () => {
           <AdminDashboardSidebar />
           <div className="col-md-9">
             
-          <>
-      <section>
+          <div>
         <div className="position-relative">
-          <h3>Add Sub Category</h3>
+          <h3>Add Sub Category </h3>
           <div className="position-absolute heading__line"></div>
         </div>
-        <section className="add_product___">
-        <form>
-        {/* <form onSubmit={handleSubmit}> */}
+        <form onSubmit={handleSubmit}>
         <div className="p-3 main_border">
           <div className="row">
             <div className="col-md-6 mb-2">
@@ -176,26 +270,26 @@ const page = () => {
                   type="text"
                   className="form-control"
                   id="name"
+                  autoComplete="off"
                   name="name"
-                //   onChange={handleChange}
-                //   onBlur={handleBlur}
-                //   value={values.name}
-                  placeholder="Men Clothing"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                  placeholder="Men"
                 />
-                {/* {errors.name && touched.name ? <p>{errors.name}</p> : null} */}
+                {errors.name && touched.name ? <p>{errors.name}</p> : null}
             </div>
             <div className="col-md-6 mb-2">
               <label htmlFor="main_cat_id" className="form-label">
-                Main Categories
+                Mid Categories
               </label>
-              {/* <select className="form-select" id="main_cat_id"  name="main_cat_id" value={values.main_cat_id} onChange={handleChange}> */}
-              <select className="form-select" id="main_cat_id" >
+              <select className="form-select" id="main_cat_id"  name="main_cat_id" value={values.main_cat_id} onChange={handleChange}>
               
               <option  value={0}>select Categories</option>
-               {/* {maincategories.map((val,index)=> <option key={index} value={val.id}>{val.name}</option>)} */}
+               {mainCategories.map((val,index)=> <option key={index} value={val.id}>{val.name}</option>)}
             </select>
             </div>
-            <div className="col-md-12 mb-2">
+            <div className="col-md-6 mb-2">
             <label htmlFor="image" className="form-label">
                   Upload Image
                 </label>
@@ -203,49 +297,27 @@ const page = () => {
                   className="form-control"
                   type="file"
                   name="image"
-                //   accept='image/*'
-                //   onBlur={handleBlur}
-                //   onChange={(e) =>setFieldValue('image', e.currentTarget.files[0])}
+                  accept='image/*'
+                  onBlur={handleBlur}
+                  onChange={(e) =>setFieldValue('image', e.currentTarget.files[0])}
                   id="image"
                 />
-                {/* {errors.image && touched.image ? <p>{errors.image}</p> : null} */}
+                {errors.image && touched.image ? <p>{errors.image}</p> : null}
             </div>
-            <div className="col-12 my-3">
-                <div className="form-check form-switch">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="active"
-                    // onChange={handleChange}
-                    // onBlur={handleBlur}
-                    // value={values.active}
-                    // checked={values.active}
-                  />
-                  <label className="form-check-label" htmlFor="active">
-                    Status
-                  </label>
-                </div>
-                {/* {errors.active && touched.active ? (
-                  <p>{errors.active}</p>
-                ) : null} */}
-              </div>
 
             <div className="mt-2 text-center">
-            {/* <button type="submit" className="btn check_out_btn" disabled={loading?true:false}>{loading?<Spinner></Spinner>:"Save"}</button> */}
-            <button type="submit" className="btn check_out_btn">Save</button>
+            <button type="submit" className="btn check_out_btn" disabled={loading?true:false}>{loading?<Spinner/>:"Save"}</button>
             </div>
           </div>
         </div>
         </form>
-        </section>
-      </section>
-    </>
+      </div>
 
           </div>
         </div>
       </div>
     </section>
-  </section>
+  </>
   )
 }
 

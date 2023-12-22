@@ -2,9 +2,8 @@
 
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
 import DeleteModal from '@/app/components/modals/DeleteModal'
-import { baseURL } from '@/app/config/apiUrl'
+import { baseURL, imageUrl } from '@/app/config/apiUrl'
 import axios from 'axios'
-// import DeleteModal from '@/app/components/modals/DeleteModal'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
@@ -59,9 +58,7 @@ const page = () => {
     };
   
     const handleDelete = (id) => {
-      //Update
       const index = mainCategory.findIndex((p) => p.id === id);
-  
       handleDialog(
         "Are you sure you want to delete?",
         true,
@@ -105,13 +102,6 @@ const page = () => {
         <div className="container">
           <div className="banner_content">
             <h4>Dashboard - Main Category</h4>
-            <div>
-              {/* <Breadcrumb>
-                <BreadcrumbItem>
-                  <Link href="/">Home</Link>
-                </BreadcrumbItem>
-              </Breadcrumb> */}
-            </div>
           </div>
         </div>
       </section>
@@ -154,13 +144,11 @@ const page = () => {
               )}
               {!loading &&
                 mainCategory.map((tdata, index) => (
-                  <tr className="border-top">
+                  <tr key={index} className="border-top">
                   <td>
                     <div className="d-flex align-items-center p-2">
                       <Image
-                        // src={imageUrl + `/${tdata.image}`}
-                        src='/img/banner-1.jpg'   
-                        // className="rounded-circle"
+                        src={`${imageUrl}/uploads/${tdata.image}`}
                         alt="avatar"
                         width={45}
                         height={45}
@@ -169,12 +157,9 @@ const page = () => {
                   </td>
                     <td>
                       <h6 className="mb-0">{tdata.name}</h6>
-                      {/* <h6 className="mb-0">Men</h6> */}
                     </td>
                     <td>
                   <Link href={`/dashboard/main-category/${tdata.id}`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
-                  {/* <Link href={`/banner/edit/${tdata.id}`}><i className="bi bi-pencil-square text-success fs-4"></i></Link> */}
-                  {/* <i className="bi bi-trash text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i> */}
                   <i className="fa-regular fa-trash-can text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i>
                   </td>
                   </tr>

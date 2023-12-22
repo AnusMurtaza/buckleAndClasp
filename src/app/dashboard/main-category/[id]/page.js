@@ -1,17 +1,20 @@
 "use client"
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
 import { baseURL } from '@/app/config/apiUrl';
-import { mainCategorySchema, signUpSchema } from '@/app/schemas';
+import { mainCategorySchema, signUpSchema, updateMainCategorySchema } from '@/app/schemas';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/navigation';
+// import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useParams, useRouter } from 'next/navigation';
+import Spinner from '@/app/components/Spinner';
 
-const page = ({params }) => {
-  const router = useRouter();
-  console.log(params)
+const page = () => {
+  const router = useRouter()
+  const params = useParams();
+  const id = params.id;
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const { token } = useSelector ((state) => state.auth);
@@ -30,15 +33,13 @@ const page = ({params }) => {
         console.log(data)
       } catch (error) {
         console.error(error);
-        // Handle error as needed
       }
     };
 
-    // Check if id is present in params and make the API request
-    if (params.id) {
+    if (id !== "add") {
       sendRequest();
     }
-  }, [params.id, token]);
+  }, [id, token]);
 
 const {
     values,
@@ -51,39 +52,48 @@ const {
   } = useFormik({
     initialValues: {
       name: data?.name || "",
-      image: null,
+      image: "",
     },
-    validationSchema: mainCategorySchema,
+    validationSchema:data?updateMainCategorySchema:mainCategorySchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
+      setLoading(true);
       const formData = new FormData();
       formData.append('name', values.name);
       formData.append('image', values.image);
-      // console.log(formValues)
+    
+      let response;
+    
       try {
-        const response = await axios.post(`${baseURL}/main_category`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-
+        if (id !== "add") {
+          response = await axios.post(`${baseURL}/update_main_category/${data.id}`, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        } else {
+          response = await axios.post(`${baseURL}/main_category`, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        }
+    
         const { message } = response.data;
         toast.success(message);
-        router.push('/dashboard/main-category')
-        
+        router.push('/dashboard/main-category');
       } catch (error) {
         console.error(error);
-        toast.error('Error creating main category.');
+        toast.error('Error creating/updating main category.');
       } finally {
         setLoading(false);
       }
     },
+    
   });
-  console.log(values)
 
   return (
-    <section>
+    <>
     <section className="container-fluid products_main_banner">
       <div className="container">
         <div className="banner_content">
@@ -167,8 +177,8 @@ const {
               </div> */}
 
             <div className="mt-2 text-center">
-            {/* <button type="submit" className="btn check_out_btn" disabled={loading?true:false}>{loading?<Spinner></Spinner>:"Save"}</button> */}
-            <button type="submit" className="btn check_out_btn" >Save</button>
+            <button type="submit" className="btn check_out_btn" disabled={loading?true:false}>{loading?<Spinner/>:"Save"}</button>
+            {/* <button type="submit" className="btn check_out_btn" >Save</button> */}
             </div>
           </div>
         </div>
@@ -179,7 +189,7 @@ const {
         </div>
       </div>
     </section>
-  </section>
+  </>
   )
 }
 
