@@ -1,17 +1,50 @@
 'use client';
+import { logout } from '@/redux/features/auth/authSlice';
+import { getCategories } from '@/redux/features/categories/categoriesSlice';
 import { decreaseCart } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { baseURL, imageUrl } from '../config/apiUrl';
+import axios from 'axios';
 
 const Header = () => {
   const { cartItems, cartTotalQuantity, cartTotalAmount } = useSelector((state) => state.cart);
+  const { token, name } = useSelector((state) => state.auth);
+  const { categories } = useSelector((state) => state.category);
+
   const dispatch = useDispatch();
 
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
   };
+
+  const router = useRouter()
+
+  const handleLogout = () => {
+    dispatch(logout())
+    router.push("/")
+  }
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(baseURL + "/allCategories");
+      const { data } = response.data;
+      dispatch(getCategories(data));
+      // setCatalog(data);
+    } catch (error) { }
+  };
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+  const [openCategory, setOpenCategory] = useState(null);
+
+  const toggleDropdown = (categoryId) => {
+    setOpenCategory(openCategory === categoryId ? null : categoryId);
+  };
+
   return (
     <>
       {/* Header Section Begin */}
@@ -31,50 +64,46 @@ const Header = () => {
 
             </div>
             <div className="ht-right">
-              <Link href="/login" className="login-panel">
-                <i className="fa fa-user" />
-                Login
-              </Link>
-              {/* <div className="lan-selector">
-            <select
-              className="language_drop"
-              name="countries"
-              id="countries"
-              style={{ width: 300 }}
-            >
-              <option
-                value="yt"
-                data-image="img/flag-1.jpg"
-                data-imagecss="flag yt"
-                data-title="English"
-              >
-                English
-              </option>
-              <option
-                value="yu"
-                data-image="img/flag-2.jpg"
-                data-imagecss="flag yu"
-                data-title="Bangladesh"
-              >
-                German{" "}
-              </option>
-            </select>
-          </div> */}
-              {/* <div className="top-social">
-            <Link href="/">
-              <i className="ti-facebook" />
-            </Link>
-            <Link href="/">
-              <i className="ti-twitter-alt" />
-            </Link>
-            <Link href="/">
-              <i className="ti-linkedin" />
-            </Link>
-            <Link href="/">
-              <i className="ti-pinterest" />
-            </Link>
-          </div> */}
+              {!token && (
+
+                <Link href="/login" className="login-panel">
+                  <i className="fa fa-user" />
+                  Login
+                </Link>
+              )}
+
+              {token && (
+                <div className="position-relative login-panel login__Regs">
+                  <i className="fa-regular fa-circle-user" />
+                  <span>&nbsp;Hi, {name}!</span>
+                  <div className="login_content">
+                    <div>
+                      <ul>
+                        {/* <li>
+                        <h6>Hello, {name}!</h6>
+                      </li> */}
+                        <li>
+                          <Link href="/my-account">My Account</Link>
+                        </li>
+                        <li>
+                          <Link href="/orders">Orders</Link>
+                        </li>
+                        <li className="border-bottom">
+                          <Link href="/edit-account">Account details</Link>
+                        </li>
+                        <li className="py-2">
+                          <span onClick={handleLogout}>
+                            <i className="fa-solid fa-right-from-bracket"></i>{" "}
+                            Logout
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
+
           </div>
         </div>
         <div className="container">
@@ -121,7 +150,7 @@ const Header = () => {
                               {cartItems.map((value, index) => (
                                 <tr key={index}>
                                   <td className="si-pic">
-                                    <Image src={value.image} alt="" width={70} height={70} />
+                                    <Image src={`${imageUrl}/${value.images[0].image}`}  alt="" width={70} height={70} />
                                   </td>
                                   <td className="si-text">
                                     <div className="product-selected">
@@ -175,11 +204,19 @@ const Header = () => {
 
                   </li>
                   <li className="cart-price">{cartItems.length > 0 && `$ ${cartTotalAmount}`} 00</li>
-                 
+
                 </ul>
                 <span className='d-block d-md-none'>
+                  <span
+                    className="navbar-toggler"
+                    // type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasExample"
+                    aria-controls="offcanvasExample"
+                  >
 
-                <i class="fa-solid fa-bars"></i>
+                    <i className="fa-solid fa-bars"></i>
+                  </span>
                 </span>
               </div>
             </div>
@@ -224,37 +261,26 @@ const Header = () => {
                 <li className="active">
                   <Link href="/">Home</Link>
                 </li>
-                <li>
-                  <Link href="/">Men</Link>
-                </li>
-                <li>
-                  <Link href="/">Women</Link>
-                </li>
-                <li>
-                  <Link href="/">Kids</Link>
-                  <ul className="dropdown">
-                    <li>
-                      <Link href="/">Boys Jackets</Link>
-                    </li>
-                    <li>
-                      <Link href="/">Girls Jackets</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <Link href="/">Accessories</Link>
-                  <ul className="dropdown">
-                    <li>
-                      <Link href="/">Men's Bag</Link>
-                    </li>
-                    <li>
-                      <Link href="/">Women's Bag</Link>
-                    </li>
-                  </ul>
-                </li>
+                {categories && categories.map(category => (
+                  <li key={category.id}>
+                    <Link
+                     href={`/collections/${category.slug}`}
+                    >{category.name}</Link>
+                    {category.sub_categories && category.sub_categories.length > 0 && (
+                      <ul className="dropdown">
+                        {category.sub_categories.map(subCategory => (
+                          <li key={subCategory.id}>
+                            <Link href={`/collections/${subCategory.slug}`}>{subCategory.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+
 
                 <li>
-                  <Link href="/">About</Link>
+                  <Link href="/about-us">About</Link>
                 </li>
                 <li>
                   <Link href="/contact-us">Contact</Link>
@@ -266,6 +292,98 @@ const Header = () => {
         </div>
       </header>
       {/* Header End */}
+
+
+      {/* =========== FOR MOBILE NAVBAR STARTS ==============  */}
+      <div
+        className="offcanvas offcanvas-start"
+        tabIndex={-1}
+        id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel"
+      >
+        <div className="offcanvas-body">
+          <div className="">
+            <div
+              className="close_btn_MobNav"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            >
+              <i className="fa-solid fa-chevron-left" />
+            </div>
+            <a className="navbar-brand fw-bold p-0   mb-5" href="#">
+              <img
+                src="https://jew.zishstudio.com/wp-content/themes/elessi-theme/assets/images/logo.jpg"
+                alt=""
+              />
+            </a>
+            <div className="filterMain_height">
+              <div>
+                <div className="categories__Main">
+                  <ul className="ul_style">
+                    <a href="#">
+                      <li>
+                        <p className="d-flex justify-content-between mb-2 border-top mt-4 mob_naV_linK">
+                          <span className="active_link">Home</span>
+                        </p>
+                      </li>
+                    </a>
+
+
+                    {categories && categories.map((category, index) => {
+                      const hasSubcategories = category.sub_categories && category.sub_categories.length > 0;
+
+                      return (
+                        <li className="mob_naV_linK" key={category.id}>
+                          <p
+                            className="collapsed d-flex justify-content-between mb-2"
+                            data-bs-toggle={hasSubcategories ? "collapse" : ""}
+                            data-bs-target={hasSubcategories ? `#category-${category.id}` : ""}
+                            aria-expanded="false"
+                            aria-controls={hasSubcategories ? `category-${category.id}` : ""}
+                          >
+                            <Link href={`/collections/${category.slug}`}>{category.name}</Link>
+                            {hasSubcategories && (
+                              <span>
+                                <i className="fa-solid fa-plus"></i>
+                              </span>
+                            )}
+                          </p>
+                          <div id={`category-${category.id}`} className="accordion-collapse collapse">
+                            {hasSubcategories && (
+                              <ul>
+                                {category.sub_categories.map(subcategory => (
+                                  <Link href={`/collections/${subcategory.slug}`} key={subcategory.id}>
+                                    <li>{subcategory.name}</li>
+                                  </Link>
+                                ))}
+                              </ul>
+                            )}
+                            {!hasSubcategories && (
+                              <a href="#">
+                                <li>
+                                  <p className="d-flex justify-content-between mb-2 border-top mt-4 mob_naV_linK">
+                                    <span className="active_link">Home</span>
+                                  </p>
+                                </li>
+                              </a>
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
+
+
+
+
+                  </ul>
+                </div>
+                <div />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* =========== FOR MOBILE NAVBAR ENDS ==============  */}
     </>
 
   )

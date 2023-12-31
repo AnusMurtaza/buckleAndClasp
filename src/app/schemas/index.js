@@ -18,6 +18,12 @@ export const signUpSchema = Yup.object({
     .required('Password is required'),
 });
 
+export const BannerSchema = Yup.object({
+  image: Yup.string().required("Please Upload image"),
+});
+export const updateBannerSchema = Yup.object({
+  image: Yup.string(),
+});
 export const mainCategorySchema = Yup.object({
   name: Yup.string().required("Please enter banner name"),
   // active:Yup.string().required("Please select the status"),
@@ -46,12 +52,12 @@ export const updateSubCategorySchema = Yup.object({
 export const ProductSchema = Yup.object({
   name: Yup.string().required("Please enter name"),
   main_cat_id: Yup.string().required("Please select main category"),
-  image: Yup.string().required("Please Upload image"),
+  // image: Yup.string().required("Please Upload image"),
 });
 export const updateProductSchema = Yup.object({
   name: Yup.string().required("Please enter name"),
   main_cat_id: Yup.string().required("Please select main category"),
-  image: Yup.string(),
+  // image: Yup.string(),
 });
 
 // export const contactUsSchema = Yup.object({

@@ -133,11 +133,11 @@ const page = () => {
               </tr>
             </thead>
             <tbody>
-            {!loading && mainCategory.length===0 && <tr><td colSpan={2} className="text-center">No Data</td></tr>}
+            {!loading && mainCategory.length===0 && <tr><td colSpan={3} className="text-center">No Data</td></tr>}
               {loading && (
                 <tr>
                   <td colSpan={3} className="text-center">
-                  <div class="spinner-border text-secondary" role="status">
+                  <div className="spinner-border text-secondary" role="status">
 </div>
                   </td>
                 </tr>

@@ -79,9 +79,9 @@ const page = () => {
                 <td className="qua-col first-row">
                   <div className="quantity">
                     <div className="pro-qty">
-                    <span class="dec qtybtn" onClick={() => handleDecreaseCart(value)}>-</span>
+                    <span className="dec qtybtn" onClick={() => handleDecreaseCart(value)}>-</span>
                       <input type="text" disabled  value={value.cartQuantity} />
-                      <span class="inc qtybtn" onClick={() => handleincreaseCart(value)}>+</span>
+                      <span className="inc qtybtn" onClick={() => handleincreaseCart(value)}>+</span>
                     </div>
                   </div>
                 </td>

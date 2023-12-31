@@ -1,12 +1,14 @@
 "use client"
 import Image from 'next/image'
 import styles from './page.module.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart, getTotals } from '@/redux/slices/cartSlice';
 import HeroSection from './components/HeroSection';
 import ProductCard from './components/ProductCard';
 import Link from 'next/link';
+import axios from 'axios';
+import { baseURL, imageUrl } from './config/apiUrl';
 
 // import asasa from '../../public/img'
 
@@ -24,10 +26,10 @@ export default function Home() {
       dots: false,
       animateOut: 'fadeOut',
       animateIn: 'fadeIn',
-      navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
+      navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
       smartSpeed: 1200,
       autoHeight: false,
-      autoplay: true,
+      // autoplay: true,
     });
 
     
@@ -44,7 +46,7 @@ $(".hero-items").owlCarousel({
     dots: false,
     animateOut: 'fadeOut',
     animateIn: 'fadeIn',
-    navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
+    navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
     smartSpeed: 1200,
     autoHeight: false,
     autoplay: true,
@@ -59,7 +61,7 @@ $(".product-slider").owlCarousel({
     nav: true,
     items: 4,
     dots: true,
-    navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
+    navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
     smartSpeed: 1200,
     autoHeight: false,
     autoplay: true,
@@ -88,7 +90,7 @@ $(".logo-carousel").owlCarousel({
     nav: false,
     items: 5,
     dots: false,
-    navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
+    navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
     smartSpeed: 1200,
     autoHeight: false,
     mouseDrag: false,
@@ -112,14 +114,31 @@ $(".ps-slider").owlCarousel({
     nav: true,
     items: 3,
     dots: false,
-    navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+    navText: ['<i className="fa fa-angle-left"></i>', '<i className="fa fa-angle-right"></i>'],
     smartSpeed: 1200,
     autoHeight: false,
     autoplay: true,
 });
 
-
   }, []);
+
+  const [main_cat, setMain_cat] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchMain_cat = async () => {
+    setLoading(true)
+    try {
+      const response = await axios.get(baseURL + "/all_main_categories");
+      const { data } = response.data;
+      setMain_cat(data);
+    } catch (error) {
+    }
+  };
+  useEffect(() => {
+    fetchMain_cat()
+  }, [])
+
+
   return (
     <>
     <main>
@@ -128,19 +147,27 @@ $(".ps-slider").owlCarousel({
 
 
   {/* Banner Section Begin */}
+
+
+
+
   <div className="banner-section spad">
     <div className="container-fluid">
       <div className="row">
-        <div className="col-lg-4">
-          <div className="single-banner">
-            <Image src='/img/banner-1.jpg' alt=""   width={386}
-        height={217} />
-            <div className="inner-text">
-              <h4>Men’s</h4>
-            </div>
+        {main_cat.map((item,index)=>(
+        <div className="col-lg-3" key={index}>
+        <div className="single-banner">
+          <Image  src={`${imageUrl}/uploads/${item.image}`} style={{objectFit: "cover"}} alt=""   width={386}
+      height={217} />
+          <div className="inner-text">
+            <h4>{item.name}</h4>
           </div>
         </div>
-        <div className="col-lg-4">
+      </div>
+
+        ))}
+
+        {/* <div className="col-lg-4">
           <div className="single-banner">
             <Image src='/img/banner-2.jpg' alt=""   width={386}
         height={217} />
@@ -157,7 +184,7 @@ $(".ps-slider").owlCarousel({
               <h4>Kid’s</h4>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   </div>

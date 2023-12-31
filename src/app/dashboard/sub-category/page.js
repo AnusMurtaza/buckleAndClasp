@@ -137,7 +137,7 @@ const page = () => {
                           {loading && (
                             <tr>
                               <td colSpan={4} className="text-center">
-                                <div class="spinner-border text-secondary" role="status">
+                                <div className="spinner-border text-secondary" role="status">
                                 </div>
                               </td>
                             </tr>

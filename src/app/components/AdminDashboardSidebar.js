@@ -1,13 +1,27 @@
+"use client"
+import { logout } from '@/redux/features/auth/authSlice';
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
 const AdminDashboardSidebar = () => {
+  const { name } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const router = useRouter()
+
+  const handleLogout = () =>{
+    dispatch(logout())
+    router.push("/")
+  }
+
   return (
     <div className="col-md-3 mb-2">
         <div className="userName_Log_div">
-          <p className="fw-bold text-uppercase">ADMIN</p>
+          <p className="fw-bold text-uppercase">{name}</p>
           {/* <p className="fw-bold text-uppercase">{name}anas</p> */}
-          <p className="logout___ orderNo" >LOGOUT</p>
+          <p className="logout___ orderNo" onClick={handleLogout} >LOGOUT</p>
           {/* <p className="logout___ orderNo" onClick={handleLogout}>LOGOUT</p> */}
         </div>
         <div>
@@ -63,7 +77,7 @@ const AdminDashboardSidebar = () => {
                 </Link>
               </li>
               <li>
-                <p className="naV__link__item">
+                <p className="naV__link__item" onClick={handleLogout}>
                 {/* <p onClick={handleLogout}> */}
                 <p >
                   <i className="fa-solid fa-reply f__light"></i> Logout

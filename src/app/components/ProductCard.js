@@ -1,3 +1,4 @@
+"use client"
 import { addToCart, getTotals } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -54,7 +55,8 @@ const ProductCard = () => {
       discount_price:""
     },
   ];
-
+  const collectionId = 1; // Replace with the actual collection ID or dynamic value
+  const productId = 2;
   return (
     <>
       {data.map((value, index) => (
@@ -64,14 +66,7 @@ const ProductCard = () => {
         //   query: data // the data
         // }}
         // >
-        <Link
-        href={{
-          pathname: `/product/${value.id}`,
-          query: {
-            search: value
-          }
-        }}
-      >
+        <Link href={`/collections/${collectionId}/products/${productId}`}>
         <div className="product-item" key={index}>
           <div className="pi-pic">
             <Image src={value.image} alt="" width={244} height={298}/>
@@ -80,21 +75,21 @@ const ProductCard = () => {
               <i className="icon_heart_alt" />
             </div>
             <ul>
-              <li className="w-icon active">
+              {/* <li className="w-icon active">
                 <span>
                   <i className="ti-shopping-cart" onClick={() => handleAddToCart(value)} />
                 </span>
-              </li>
+              </li> */}
               <li className="quick-view">
                 <span >
-                  + Quick View
+                  + View
                   </span>
               </li>
-              <li className="w-icon">
+              {/* <li className="w-icon">
                 <span >
                   <i className="fa fa-random" />
                 </span>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="pi-text">

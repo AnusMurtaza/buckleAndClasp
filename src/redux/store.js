@@ -14,6 +14,7 @@ import {
 } from 'redux-persist';
 import authReducer from './features/auth/authSlice';
 import cartReducer from './slices/cartSlice';
+import categoryReducer from './features/categories/categoriesSlice';
 import storage from "redux-persist/lib/storage";
 
 
@@ -25,7 +26,9 @@ const persistConfig = {
 
 const reducer = combineReducers({
     auth: authReducer,
-    cart:cartReducer
+    cart:cartReducer,
+    category: categoryReducer,
+
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

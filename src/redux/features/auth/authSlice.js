@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialStateValue = {
   token:"",
   name:"",
-  user_id:""
+  user_type:""
 }
 
 export const authSlice = createSlice({
@@ -13,14 +13,14 @@ export const authSlice = createSlice({
       login: (state,action) =>{
           state.token = action.payload.token;
           state.name = action.payload.name;
-          state.user_id = action.payload.id;
+          state.user_type = action.payload.user_type;
           // state.address = action.payload.address;
       },
 
       logout:(state) =>{
         state.token = "";
         state.name = "";
-        state.user_id = "";
+        state.user_type = "";
         // state.address = "";
       },
     //   isAdminn: (state, action) => {

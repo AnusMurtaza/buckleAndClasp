@@ -126,8 +126,8 @@ const page = () => {
                       <table className="table no-wrap mt-3 align-middle" >
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Banner Name</th>
+                            <th>Banner Image</th>
+                            {/* <th>Banner Name</th> */}
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -135,8 +135,8 @@ const page = () => {
                           {!loading && banner.length === 0 && <tr><td colSpan={2} className="text-center">No Data</td></tr>}
                           {loading && (
                             <tr>
-                              <td colSpan={3} className="text-center">
-                                <div class="spinner-border text-secondary" role="status">
+                              <td colSpan={2} className="text-center">
+                                <div className="spinner-border text-secondary" role="status">
                                 </div>
                               </td>
                             </tr>
@@ -154,9 +154,9 @@ const page = () => {
                                     />
                                   </div>
                                 </td>
-                                <td>
+                                {/* <td>
                                   <h6 className="mb-0">{tdata.name}</h6>
-                                </td>
+                                </td> */}
                                 <td>
                                   <Link href={`/dashboard/banner/${tdata.id}`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
                                   <i className="fa-regular fa-trash-can text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i>

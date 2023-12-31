@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "./productGallery.module.css";
 import utils from "./utils.module.css";
 import Lightbox from "./lightbox";
+import { imageUrl } from "@/app/config/apiUrl";
 
 export default function ProductGallery({ images }) {
   const [showLightbox, setShowLightbox] = useState(false);
@@ -12,13 +13,13 @@ export default function ProductGallery({ images }) {
   // Handle slider buttons click
   const goToPrevSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === 0 ? images.sliderImgs.length - 1 : prevIndex - 1
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
   const goToNextSlide = () => {
     setImgIndex((prevIndex) =>
-      prevIndex === images.sliderImgs.length - 1 ? 0 : prevIndex + 1
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -28,10 +29,14 @@ export default function ProductGallery({ images }) {
         className={styles.productGalleryCover}
         onClick={() => setShowLightbox(true)}
       >
-        <img src={images.mainImgs[imgIndex].src} alt="gallery-cover-image" />
+        {/* <img src={`${imageUrl}/${images[0]?.image}`} alt="gallery-cover-image" /> */}
+        {images && images.length > 0 && (
+  <img src={`${imageUrl}/${images[imgIndex]?.image}`} alt="gallery-cover-image" />
+)}
+        {/* <img src={images?.mainImgs[imgIndex].src} alt="gallery-cover-image" /> */}
       </div>
       <ul className={`${styles.productThumbnails} ${utils.flex}`}>
-        {images.thumbnails.map((element, index) => (
+        {images?.map((element, index) => (
           <li
             key={index}
             className={
@@ -41,27 +46,29 @@ export default function ProductGallery({ images }) {
             }
             onClick={() => setImgIndex(index)}
           >
-            <img src={element.src} alt={`product thumbnail ${index}`} />
+            {/* <img src={element.src} alt={`product thumbnail ${index}`} /> */}
+            <img src={`${imageUrl}/${element.image}`} alt={`product thumbnail ${index}`} />
           </li>
         ))}
       </ul>
 
-      <Lightbox
+      {/* <Lightbox
         showLightbox={showLightbox}
         imgIndex={imgIndex}
         images={images}
         setImgIndex={setImgIndex}
         onClose={() => setShowLightbox(false)}
-      />
+      /> */}
 
       <div
         className={styles.productGallerySlider}
         style={{ transform: `translateX(-${imgIndex * 100}%)` }}
       >
-        {images.sliderImgs.map((element, index) => (
+        {images?.map((element, index) => (
           <img
             key={element.id}
-            src={element.img.src}
+            // src={element.img.src}
+            src={`${imageUrl}/${element.image}`}
             alt={`Product Image ${index}`}
           />
         ))}

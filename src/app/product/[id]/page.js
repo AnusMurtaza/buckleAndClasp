@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 // import { useParams } from 'next/navigation';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./page.module.css";
 import utils from "@/components/utils.module.css";
 import ProductGallery from "@/components/productGallery";
@@ -11,6 +11,8 @@ import AddToCart from "@/components/addToCart";
 import { product } from "../../../../public/data";
 import SizeModal from '@/app/components/modals/SizeModal';
 import DeliveryReturnModal from '@/app/components/modals/DeliveryReturnModal';
+import { baseURL } from '@/app/config/apiUrl';
+import axios from 'axios';
 // import $ from 'jquery';
 const page = () => {
     const router = useRouter();
@@ -112,9 +114,9 @@ const page = () => {
                 </div>
                 <div className="quantity">
                   <div className="pro-qty">
-                  <span class="dec qtybtn" >-</span>
+                  <span className="dec qtybtn" >-</span>
                     <input type="text" defaultValue={1} />
-                    <span class="inc qtybtn" >+</span>
+                    <span className="inc qtybtn" >+</span>
                   </div>
                   <Link href="/" className="primary-btn pd-cart">
                     Add To Cart

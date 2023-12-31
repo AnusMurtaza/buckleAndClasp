@@ -113,7 +113,7 @@
 "use client"
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
 import { baseURL } from '@/app/config/apiUrl';
-import { mainCategorySchema, signUpSchema, updateMainCategorySchema } from '@/app/schemas';
+import { BannerSchema, mainCategorySchema, signUpSchema, updateBannerSchema, updateMainCategorySchema } from '@/app/schemas';
 import axios from 'axios';
 import { useFormik } from 'formik';
 // import { useRouter, useSearchParams } from 'next/navigation';
@@ -163,15 +163,15 @@ const {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      name: data?.name || "",
+      // name: data?.name || "",
       image: "",
     },
-    validationSchema:data?updateMainCategorySchema:mainCategorySchema,
+    validationSchema:data?updateBannerSchema:BannerSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
       setLoading(true);
       const formData = new FormData();
-      formData.append('name', values.name);
+      // formData.append('name', values.name);
       formData.append('image', values.image);
     
       let response;
@@ -235,7 +235,7 @@ const {
         {/* <form > */}
         <div className="p-3 main_border">
           <div className="row">
-            <div className="col-md-6 mb-2">
+            {/* <div className="col-md-6 mb-2">
               <label htmlFor="name" className="form-label">
                 Banner Name
               </label>
@@ -251,7 +251,7 @@ const {
                   placeholder="Men"
                 />
                 {errors.name && touched.name ? <p>{errors.name}</p> : null}
-            </div>
+            </div> */}
             <div className="col-md-6 mb-2">
             <label htmlFor="image" className="form-label">
                   Upload Image

@@ -147,7 +147,7 @@ const page = () => {
       </button>
     </h2>
     <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">
+      <div className="accordion-body">
       <div className="row">
                           <div className="col-md-4 col-sm-6">
                             <p>

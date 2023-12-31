@@ -8,11 +8,13 @@ import { login } from '@/redux/features/auth/authSlice';
 import { useFormik } from 'formik';
 import { baseURL } from '../config/apiUrl';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
 
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
+  const router = useRouter()
 
   const initialValues = {
     name:"",
@@ -39,6 +41,7 @@ const page = () => {
           const { message, data } = response.data;
           dispatch(login(data));
           toast.success(message);
+          router.push("/")
           setLoading(false);
           console.log("1")
         } catch (error) {
@@ -144,7 +147,7 @@ const page = () => {
                     ) : null}
                   </div>
                   <button type="submit" className="site-btn register-btn" disabled={loading?true:false}>
-                  {loading? (<div class="spinner-grow text-secondary" role="status"></div>): "SETUP YOUR ACCOUNT"} 
+                  {loading? (<div className="spinner-grow text-secondary" role="status"></div>): "SETUP YOUR ACCOUNT"} 
                   </button>
                 </form>
                 <div className="switch-login">

@@ -60,7 +60,7 @@ const page = () => {
                   <label htmlFor="exampleInputEmail1" className="form-label">
                   Country/Region
                   </label>
-        <select class="form-select" aria-label="Default select example">
+        <select className="form-select" aria-label="Default select example">
   <option selected>Select Country</option>
   <option value="1">United State</option>
 </select>

@@ -20,7 +20,7 @@ const page = () => {
     setPage(p);
   };
 
-  const fetchBanner = async () => {
+  const fetchProducts = async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${baseURL}/product?page=${page}`, {
@@ -38,7 +38,7 @@ const page = () => {
   };
 
   useEffect(() => {
-    fetchBanner();
+    fetchProducts();
   }, [page, token]);
 
   const [dialog, setDialog] = useState({
@@ -127,8 +127,9 @@ const page = () => {
                         <thead>
                           <tr>
                             <th>Product</th>
-                            <th>Sub Category Name</th>
-                            <th>Select Main Category</th>
+                            <th>Title</th>
+                            <th>Name</th>
+                            <th>Detail</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -137,7 +138,7 @@ const page = () => {
                           {loading && (
                             <tr>
                               <td colSpan={4} className="text-center">
-                                <div class="spinner-border text-secondary" role="status">
+                                <div className="spinner-border text-secondary" role="status">
                                 </div>
                               </td>
                             </tr>
@@ -149,7 +150,7 @@ const page = () => {
                                 <td>
                                   <div className="d-flex align-items-center p-2">
                                     <Image
-                                      src={`${imageUrl}/uploads/${tdata.image}`}
+                                      src={`${imageUrl}/${tdata.images[0].image}`}
                                       alt="avatar"
                                       width={45}
                                       height={45}
@@ -161,11 +162,11 @@ const page = () => {
                                     </div>
                                   </div>
                                 </td>
-                                <td> {tdata.name} </td>
-                                <td> {tdata.main_cat_name}</td>
+                                <td> {tdata.title} </td>
+                                <td> {tdata.name}</td>
                                 <td>
                     {/* <Link href={`/dashboard/products/detail/${tdata.id}`}> */}
-                    <button type="button" class="btn btn-outline-info">View</button>
+                    <button type="button" className="btn btn-outline-info">View</button>
                 {/* </Link> */}
                   </td>
                                 <td>

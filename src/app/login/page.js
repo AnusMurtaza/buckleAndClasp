@@ -8,10 +8,12 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { login } from '@/redux/features/auth/authSlice';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
+  const router = useRouter()
 
   const initialValues = {
     email: "",
@@ -30,8 +32,13 @@ const page = () => {
         try {
           const response = await axios.post(baseURL + "/login", userData)
           const { message, data } = response.data;
-          dispatch(login(data));
           toast.success(message);
+          dispatch(login(data));
+          if(data.user_type === "admin"){
+            router.push("/dashboard")
+          }else{
+            router.push("/")
+          }
           setLoading(false);
           console.log(response)
         } catch (error) {
@@ -108,7 +115,7 @@ const page = () => {
                   </div>
                 </div>
                 <button type="submit" className="site-btn login-btn" disabled={loading?true:false}>
-                {loading? (<div class="spinner-grow text-secondary" role="status"></div>): "Sign In"}  
+                {loading? (<div className="spinner-grow text-secondary" role="status"></div>): "Sign In"}  
                 </button>
               </form>
               <div className="switch-login">
