@@ -256,10 +256,17 @@ const page = () => {
                               {/* <Link href="/"> */}
                               <h5>{value.name}</h5>
                               {/* </Link */}
+                              {value.sale == 0 &&
                               <div className="product-price">
                                 ${(value.price)}
-                                {value.sale > 0 && <span>${value.discount_price}</span>}
                               </div>
+                                }
+                              {value.sale > 0 &&
+                              <div className="product-price">
+                                ${(value.discounted_price)}
+                                {value.sale > 0 && <span>${value.price}</span>}
+                              </div>
+                             }
                             </div>
                           </div>
                         </Link>

@@ -124,7 +124,7 @@ $(".ps-slider").owlCarousel({
 
   const [main_cat, setMain_cat] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const dispatch =useDispatch()
   const fetchMain_cat = async () => {
     setLoading(true)
     try {
@@ -136,6 +136,7 @@ $(".ps-slider").owlCarousel({
   };
   useEffect(() => {
     fetchMain_cat()
+    dispatch(getTotals())
   }, [])
 
 

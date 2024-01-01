@@ -99,7 +99,7 @@ const ProductCard = () => {
             {/* </Link */}
             <div className="product-price">
             ${(value.price)}
-            {value.sale && <span>${value.discount_price}</span>}
+            {value.sale && <span>$ {value.discount_price} </span>}
             </div>
           </div>
         </div>

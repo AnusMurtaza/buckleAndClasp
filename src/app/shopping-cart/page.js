@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { imageUrl } from '../config/apiUrl';
 
 const page = () => {
   const { cartItems, cartTotalAmount } = useSelector((state) => state.cart);
@@ -66,11 +67,11 @@ const page = () => {
               </thead>
               <tbody>
                 {cartItems.map((value,index) => {
-                   const amount = value.sale?value.discount_price:value.price
+                   const amount = value.sale > 0 ?value.discounted_price:value.price
                   return(
                 <tr key={index}>
                 <td className="cart-pic first-row">
-                  <Image src={value.image} alt="" width={170} height={170} />
+                  <Image src={`${imageUrl}/${value.images[0]?.image}`} alt="" width={170} height={170} />
                 </td>
                 <td className="cart-title first-row">
                   <h5>{value.name}</h5>
@@ -162,16 +163,16 @@ const page = () => {
               <div className="proceed-checkout">
                 <ul>
                   <li className="subtotal">
-                    Subtotal <span>$240.00</span>
+                    Subtotal <span>$ {cartTotalAmount}</span>
                   </li>
-                  <li className="subtotal">
-                    Shipping<span>$17.00</span>
+                  <li className="subtotal text-success">
+                    Shipping<span>$10.00</span>
                   </li>
                   <li className="cart-total">
-                    Total <span>$240.00</span>
+                    Total <span>$ {cartTotalAmount + 10.00}</span>
                   </li>
                 </ul>
-                <Link href="/" className="proceed-btn">
+                <Link href="/checkout" className="proceed-btn">
                   PROCEED TO CHECK OUT
                 </Link>
               </div>

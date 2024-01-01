@@ -118,11 +118,17 @@ const page = () => {
                       {/* <p>
                   {product?.description}
                   </p> */}
-                      <h4>
-                        ${product?.price}
-                        {product?.sale > 0 && <span>${product?.discount_price}</span>}
-                        {/* $495.00 <span>629.99</span> */}
-                      </h4>
+                      {product?.sale > 0 &&
+                        <h4>
+                          ${product?.discounted_price}
+                          <span>${product?.price}</span>
+                        </h4>
+                      }
+                      {product?.sale == 0 &&
+                        <h4>
+                          ${product?.price}
+                        </h4>
+                      }
                     </div>
                     <div className="pd-color">
                       <h6>Color</h6>
@@ -156,12 +162,12 @@ const page = () => {
                     </div>
                     <div className="quantity">
                       <div className="pro-qty">
-                        <span className="dec qtybtn"  onClick={handleDecrement}>-</span>
-                        <input type="text" 
-                         disabled
-                      value={num}
-                      onChange={handleChange} />
-                        <span className="inc qtybtn"  onClick={handleIncrement}>+</span>
+                        <span className="dec qtybtn" onClick={handleDecrement}>-</span>
+                        <input type="text"
+                          disabled
+                          value={num}
+                          onChange={handleChange} />
+                        <span className="inc qtybtn" onClick={handleIncrement}>+</span>
                       </div>
                       <button className="primary-btn pd-cart" onClick={() => handleAddToCart(product, num)}>
                         Add To Cart

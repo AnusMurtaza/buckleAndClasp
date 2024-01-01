@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { act } from "@testing-library/react";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -27,8 +26,7 @@ const cartSlice = createSlice({
           position: "bottom-right",
         });
       } else {
-        // let tempProductItem = { ...action.payload, cartQuantity: action.payload.num || + 1};
-        let tempProductItem = { ...action.payload, cartQuantity: + 1};
+        let tempProductItem = { ...action.payload, cartQuantity: action.payload.num || + 1};
         state.cartItems.push(tempProductItem);
         toast.success("Product added to cart", {
           position: "bottom-right",
@@ -82,9 +80,9 @@ const cartSlice = createSlice({
 
         let { total, quantity } = state.cartItems.reduce(
           (cartTotal, cartItem) => {
-            const { discount_price,price, cartQuantity } = cartItem;
+            const { discounted_price,price, cartQuantity } = cartItem;
 
-          let totalPrice = discount_price===""?price:discount_price
+          let totalPrice = discounted_price===""?price:discounted_price
           const itemTotal = parseFloat(totalPrice) * cartQuantity;
 
           cartTotal.total += itemTotal;

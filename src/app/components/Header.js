@@ -1,7 +1,7 @@
 'use client';
 import { logout } from '@/redux/features/auth/authSlice';
 import { getCategories } from '@/redux/features/categories/categoriesSlice';
-import { decreaseCart } from '@/redux/slices/cartSlice';
+import { decreaseCart, getTotals, removeFromCart } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,8 +17,8 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
-  const handleDecreaseCart = (product) => {
-    dispatch(decreaseCart(product));
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeFromCart(product));
   };
 
   const router = useRouter()
@@ -38,6 +38,8 @@ const Header = () => {
   };
   useEffect(() => {
     fetchCategories()
+    dispatch(getTotals())
+
   }, [])
   const [openCategory, setOpenCategory] = useState(null);
 
@@ -154,12 +156,12 @@ const Header = () => {
                                   </td>
                                   <td className="si-text">
                                     <div className="product-selected">
-                                      <p>${value.sale ? value.discount_price : value.price} x 1</p>
+                                      <p>${value.sale > 0 ? value.discounted_price : value.price} x {value.cartQuantity}</p>
                                       <h6>{value.name}</h6>
                                     </div>
                                   </td>
                                   <td className="si-close">
-                                    <i className="ti-close" onClick={() => handleDecreaseCart(value)} />
+                                    <i className="ti-close" onClick={() => handleRemoveFromCart(value)} />
                                   </td>
                                 </tr>
                               ))}
@@ -203,7 +205,7 @@ const Header = () => {
                     </div>
 
                   </li>
-                  <li className="cart-price">{cartItems.length > 0 && `$ ${cartTotalAmount}`} 00</li>
+                  <li className="cart-price">{cartItems.length > 0 && `$ ${cartTotalAmount}`}</li>
 
                 </ul>
                 <span className='d-block d-md-none'>
