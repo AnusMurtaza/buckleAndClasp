@@ -20,7 +20,8 @@ const page = () => {
   console.log(params)
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   let [num, setNum] = useState(1);
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ const page = () => {
     let data = {
       ...product,
       num,
+      size:selectedColor,
+      color:selectedColor
     };
     dispatch(addToCart(data));
     dispatch(getTotals());
@@ -54,7 +57,7 @@ const page = () => {
   const fetchProduct = async () => {
     setLoading(true)
     try {
-      const response = await axios.get(baseURL + `/get_product_by_id/${params.id}`);
+      const response = await axios.get(baseURL + `/get_product_by_${params.id}`);
       const { data } = response.data;
       setProduct(data);
       setLoading(false)
@@ -65,8 +68,17 @@ const page = () => {
   useEffect(() => {
     fetchProduct()
   }, [])
-  console.log(product.images)
-  console.log(product)
+  
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+  };
+
+  const handleSizeChange = (size) => {
+    setSelectedSize(size);
+  };
+
+  console.log(selectedColor)
+  console.log(selectedSize)
   return (
     <>
       {/* Breadcrumb Section Begin */}
@@ -133,33 +145,35 @@ const page = () => {
                     <div className="pd-color">
                       <h6>Color</h6>
                       <div className="pd-color-choose">
-                        {product && product.colors?.map((value, index) =>
-                          <div className="cc-item" key={index}>
-                            <input type="radio" id="cc-black" />
-                            <label htmlFor="cc-black" style={{ background: value.color }} />
-                          </div>
-                        )}
-
-                      </div>
+          {product &&
+            product.colors?.map((value, index) => (
+              <div className="cc-item" key={index}>
+                <input
+                  type="radio"
+                  id={`cc-${value.color}`}
+                  name="color"
+                  checked={selectedColor === value.color}
+                  onChange={() => handleColorChange(value.color)}
+                />
+                <label className={selectedColor === value.color ? 'active' : ''} htmlFor={`cc-${value.color}`} style={{ background: value.color }} />
+              </div>
+            ))}
+        </div>
                     </div>
                     <div className="pd-size-choose">
-                      <div className="sc-item">
-                        <input type="radio" id="sm-size" />
-                        <label htmlFor="sm-size">s</label>
-                      </div>
-                      <div className="sc-item">
-                        <input type="radio" id="md-size" />
-                        <label htmlFor="md-size">m</label>
-                      </div>
-                      <div className="sc-item">
-                        <input type="radio" id="lg-size" />
-                        <label htmlFor="lg-size">l</label>
-                      </div>
-                      <div className="sc-item">
-                        <input type="radio" id="xl-size" />
-                        <label htmlFor="xl-size">xs</label>
-                      </div>
-                    </div>
+        {['S', 'M', 'L', 'XL'].map((size) => (
+          <div className="sc-item" key={size}>
+            <input
+              type="radio"
+              id={`size-${size}`}
+              name="size"
+              checked={selectedSize === size}
+              onChange={() => handleSizeChange(size)}
+            />
+            <label className={selectedSize === size ? 'active' : ''} htmlFor={`size-${size}`}>{size}</label>
+          </div>
+        ))}
+      </div>
                     <div className="quantity">
                       <div className="pro-qty">
                         <span className="dec qtybtn" onClick={handleDecrement}>-</span>

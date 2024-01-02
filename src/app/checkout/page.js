@@ -8,6 +8,8 @@ import axios from 'axios';
 
 const page = () => {
   const { cartItems, cartTotalAmount } = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
+
   const [loading, setLoading] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -19,10 +21,14 @@ const page = () => {
     phone_number: "",
     address: "",
     appartment: "",
-    country: "",
-    state: "",
-    status: "",
+    total_price: "",
+    // status: "",
+    // order_items: "",
+
+    // country: "",
+    // state: "",
   };
+
 
   const {
     values,
@@ -31,90 +37,47 @@ const page = () => {
     handleBlur,
     handleChange,
     handleSubmit,
+    setFieldValue,
   } = useFormik({
+    initialValues: initialValues,
+    // validationSchema: data ? updateProductSchema : ProductSchema,
     enableReinitialize: true,
-    initialValues,
-    // validationSchema: checkoutSchema,
-    onSubmit: async (values, action) => {
-      handleNext();
+    onSubmit: async (values) => {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("first_name", values.first_name);
+      formData.append("last_name", values.last_name);
+      formData.append("email", values.email);
+      formData.append("phone_number", values.phone_number);
+      formData.append("address", values.address);
+      formData.append("appartment", values.appartment);
+      formData.append("total_price", cartTotalAmount);
+      formData.append("order_items", JSON.stringify(cart.cartItems));
+      formData.append("status", "pending");
+
+
+      try {
+
+        const response = await axios.post(`${baseURL}/order_store`, formData, {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : '',
+          },
+        });
+
+
+        const { message } = response.data;
+        toast.success(message);
+        // router.push('/dashboard/products');
+      } catch (error) {
+        console.error(error);
+        // toast.error('Error creating/updating banner');
+      } finally {
+        setLoading(false);
+      }
     },
+
   });
 
-
-
-  const handleDetailSubmitb = async (e) => {
-    e.preventDefault()
-    if (selectedOption === null) {
-      toast.error("Please Select Payment Method")
-    } else {
-      var data = new FormData();
-      data.append("address", values.address);
-      data.append("appartment", values.appartment);
-      data.append("country", values.country);
-      data.append("email", values.email);
-      data.append("first_name", values.first_name);
-      data.append("last_name", values.last_name);
-      data.append("notes", values.notes);
-      data.append("phone_number", values.phone_number);
-      data.append("order_items", JSON.stringify(cart.cartItems));
-      data.append("payment_type", selectedOption);
-      data.append("status", selectedOption === "COD" ? "pending" : "paid");
-      data.append("total_price", finalAmount);
-      data.append("currency_id", currency_id);
-      // data.append("shipping_charges", bundlePrices && bundlePrices !== {}? bundlePrices.price : "0.00");
-
-      var config = {
-        method: "post",
-        url: baseURL + "/storeOrder",
-        headers: {
-          Authorization: token ? `Bearer ${token}` : '',
-        },
-        data: data,
-      };
-      setLoading(true);
-      await axios(config)
-        .then(function (response) {
-          toast.success(response.data.message);
-          const { data } = response.data
-          //  if(selectedOption==="COD"){
-          //   setTimeout(() => {
-          //     navigate(`/checkout/order-received/${data.order_id}`, {
-          //       state: 
-          //        { orderID: data.order_id ,
-          //          orderData: values,
-          //          paymentType:selectedOption,
-          //          cartData:cart.cartItems,
-          //          amount:cartTotalAmount,
-          //         //  shipping_charges:bundlePrices && bundlePrices !== {}? bundlePrices.price : "0.00",
-          //         },
-          //     });
-          //     setLoading(false);
-          //   }, 2000);
-          //  }else{
-          //   const link = data.order_paypage_url ;
-          // window.open(link, '_blank');
-          //   setTimeout(() => {
-          //     navigate(`/checkout/order-received/${data.order_id}`, {
-          //       state: 
-          //        { orderID: data.order_id ,
-          //          orderData: values,
-          //          paymentType:selectedOption,
-          //          cartData:cart.cartItems,
-          //          amount:cartTotalAmount,
-          //         //  shipping_charges:bundlePrices && bundlePrices !== {}? bundlePrices.price : "0.00",
-          //         },
-          //     });
-          //     setLoading(false);
-          //   }, 2000);
-          //  }
-
-        })
-        .catch(function (error) {
-          toast.error(error.response.data.message);
-          setLoading(false);
-        });
-    }
-  };
 
   const [useShippingAsBilling, setUseShippingAsBilling] = useState(false);
 
@@ -129,133 +92,199 @@ const page = () => {
             <div className="payment-form-wrap">
               <div className="card">
                 <div className="card-title mx-auto">PAYMENT</div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="exampleInputEmail1" className="form-label">
+                      <label htmlFor="first_name" className="form-label">
                         First Name
                       </label>
                       <input
                         type="text"
                         className="form-control mt-3"
-                        id="exampleInputEmail1"
                         placeholder="John"
-                        aria-describedby="emailHelp"
+                        id="first_name"
+                        name="first_name"
+                        value={values.first_name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+
                       />
+                      {errors.first_name && touched.first_name ? (
+                        <p className="form-error">{errors.first_name}</p>
+                      ) : null}
                     </div>
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="exampleInputEmail1" className="form-label">
+                      <label htmlFor="last_name" className="form-label">
                         Last Name
                       </label>
                       <input
                         type="text"
                         className="form-control mt-3"
-                        id="exampleInputEmail1"
                         placeholder="Cena"
-                        aria-describedby="emailHelp"
+                        id="last_name"
+                        name="last_name"
+                        value={values.last_name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+
                       />
+                       {errors.last_name && touched.last_name ? (
+                        <p className="form-error">{errors.last_name}</p>
+                      ) : null}
                     </div>
 
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="email" className="form-label">
                       Email
                     </label>
                     <input
                       type="email"
                       className="form-control"
-                      id="exampleInputEmail1"
                       placeholder="Email Address"
-                      aria-describedby="emailHelp"
+                      id="email"
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+
                     />
+                     {errors.email && touched.email ? (
+                        <p className="form-error">{errors.email}</p>
+                      ) : null}
                   </div>
 
 
                   <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="country" className="form-label">
                       Country/Region
                     </label>
                     <select className="form-select" aria-label="Default select example">
                       <option selected>Select Country</option>
                       <option value="1">United State</option>
                     </select>
+                    {errors.country && touched.country ? (
+                        <p className="form-error">{errors.country}</p>
+                      ) : null}
                   </div>
 
 
                   <div className="row">
                     <div className="col-md-4 mb-3">
-                      <label htmlFor="exampleInputEmail1" className="form-label">
-                        Zip
+                      <label htmlFor="zip_code" className="form-label">
+                        Zip Code
                       </label>
                       <input
                         type="number"
                         className="form-control mt-3"
-                        id="exampleInputEmail1"
                         placeholder="Zip Code"
-                        aria-describedby="emailHelp"
+                        id="zip_code"
+                        name="zip_code"
+                        value={values.zip_code}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+
                       />
+                       {errors.zip_code && touched.zip_code ? (
+                        <p className="form-error">{errors.zip_code}</p>
+                      ) : null}
                     </div>
                     <div className="col-md-4 mb-3">
-                      <label htmlFor="exampleInputEmail1" className="form-label">
+                      <label htmlFor="state" className="form-label">
                         State
                       </label>
                       <input
                         type="text"
                         className="form-control mt-3"
-                        id="exampleInputEmail1"
                         placeholder="State"
-                        aria-describedby="emailHelp"
+                        id="state"
+                        name="state"
+                        value={values.state}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+
                       />
+                       {errors.state && touched.state ? (
+                        <p className="form-error">{errors.state}</p>
+                      ) : null}
                     </div>
                     <div className="col-md-4 mb-3">
-                      <label htmlFor="exampleInputEmail1" className="form-label">
+                      <label htmlFor="city" className="form-label">
                         City
                       </label>
                       <input
                         type="text"
                         className="form-control mt-3"
-                        id="exampleInputEmail1"
                         placeholder="City"
-                        aria-describedby="emailHelp"
+                        id="city"
+                        name="city"
+                        value={values.city}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+
                       />
+                       {errors.city && touched.city ? (
+                        <p className="form-error">{errors.city}</p>
+                      ) : null}
                     </div>
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="address" className="form-label">
                       Address
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="exampleInputEmail1"
+                      id="address"
+                      name="address"
+                      value={values.address}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="Address"
                     />
+                     {errors.address && touched.address ? (
+                        <p className="form-error">{errors.address}</p>
+                      ) : null}
                   </div>
 
 
                   <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="appartment" className="form-label">
                       Apartment, suite, etc. (optional)
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="exampleInputEmail1"
                       placeholder="Apartment, suite, etc. (optional)"
-                      aria-describedby="emailHelp"
+                      id="appartment"
+                      name="appartment"
+                      value={values.appartment}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+
                     />
+                     {errors.appartment && touched.appartment ? (
+                        <p className="form-error">{errors.appartment}</p>
+                      ) : null}
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="phone_number" className="form-label">
                       Contact Number
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="exampleInputEmail1"
+                      id="phone_number"
+                      name="phone_number"
+                      value={values.phone_number}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="Contact Number"
                     />
+                     {errors.phone_number && touched.phone_number ? (
+                        <p className="form-error">{errors.phone_number}</p>
+                      ) : null}
                   </div>
 
                   <div className="form-check">
@@ -282,9 +311,13 @@ const page = () => {
                           <input
                             type="text"
                             className="form-control mt-3"
-                            id="exampleInputEmail1"
                             placeholder="John"
-                            aria-describedby="emailHelp"
+                            id="email"
+                            name="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+
                           />
                         </div>
                         <div className="col-md-6 mb-3">
@@ -294,9 +327,13 @@ const page = () => {
                           <input
                             type="text"
                             className="form-control mt-3"
-                            id="exampleInputEmail1"
                             placeholder="Cena"
-                            aria-describedby="emailHelp"
+                            id="email"
+                            name="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+
                           />
                         </div>
 
@@ -309,9 +346,13 @@ const page = () => {
                         <input
                           type="email"
                           className="form-control"
-                          id="exampleInputEmail1"
                           placeholder="Email Address"
-                          aria-describedby="emailHelp"
+                          id="email"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+
                         />
                       </div>
 
@@ -335,9 +376,13 @@ const page = () => {
                           <input
                             type="number"
                             className="form-control mt-3"
-                            id="exampleInputEmail1"
                             placeholder="Zip Code"
-                            aria-describedby="emailHelp"
+                            id="email"
+                            name="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+
                           />
                         </div>
                         <div className="col-md-4 mb-3">
@@ -347,9 +392,13 @@ const page = () => {
                           <input
                             type="text"
                             className="form-control mt-3"
-                            id="exampleInputEmail1"
                             placeholder="State"
-                            aria-describedby="emailHelp"
+                            id="state"
+                            name="state"
+                            value={values.state}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+
                           />
                         </div>
                         <div className="col-md-4 mb-3">
@@ -359,9 +408,13 @@ const page = () => {
                           <input
                             type="text"
                             className="form-control mt-3"
-                            id="exampleInputEmail1"
                             placeholder="City"
-                            aria-describedby="emailHelp"
+                            id="email"
+                            name="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+
                           />
                         </div>
                       </div>
@@ -372,7 +425,11 @@ const page = () => {
                         <input
                           type="text"
                           className="form-control"
-                          id="exampleInputEmail1"
+                          id="email"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                           placeholder="Address"
                         />
                       </div>
@@ -385,9 +442,13 @@ const page = () => {
                         <input
                           type="text"
                           className="form-control"
-                          id="exampleInputEmail1"
                           placeholder="Apartment, suite, etc. (optional)"
-                          aria-describedby="emailHelp"
+                          id="email"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+
                         />
                       </div>
                       <div className="mb-3">
@@ -397,7 +458,11 @@ const page = () => {
                         <input
                           type="text"
                           className="form-control"
-                          id="exampleInputEmail1"
+                          id="email"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                           placeholder="Contact Number"
                         />
                       </div>
