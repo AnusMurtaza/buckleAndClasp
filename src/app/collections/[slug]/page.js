@@ -18,7 +18,7 @@ const page = () => {
     try {
       const response = await axios.get(baseURL + `/products_by_${params.slug}`);
       const { data } = response.data;
-      setProducts(data);
+      setProducts(data.data);
       setLoading(false)
     } catch (error) {
       setLoading(false)

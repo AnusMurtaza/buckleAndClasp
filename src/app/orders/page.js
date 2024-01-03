@@ -1,8 +1,47 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import DashboardSidebar from '../components/DashboardSidebar'
 import Link from 'next/link'
+import { baseURL } from '../config/apiUrl';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const page = () => {
+  const { token } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const fetchOrder = async () => {
+    try {
+      var config = {
+        method: "get",
+        url: baseURL + `/user_order_view?page=${currentPage}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      setLoading(true);
+      await axios(config).then(function(response) {
+        const { data } = response.data;
+        setOrders(data.data);
+        setCurrentPage(data.current_page);
+        setTotalPages(data.last_page);
+        setLoading(false);
+      });
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrder();
+  }, [currentPage]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   return (
     <section>
     <section className="container-fluid products_main_banner">

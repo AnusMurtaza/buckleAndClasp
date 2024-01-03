@@ -3,6 +3,7 @@ import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
 import Spinner from '@/app/components/Spinner';
 import { baseURL } from '@/app/config/apiUrl';
 import axios from 'axios';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
@@ -111,6 +112,20 @@ console.log(orders)
             <p>{`Order ID # ${order.id}`}</p>
             <p>{`Total Amount $${order.total_price}`}</p>
             <p>{`Status ${order.status}`}</p>
+            <Link
+              href={{
+                pathname: '/dashboard/orders',
+                query: {
+                  id: order.id,
+                  name: order.name,
+                  description: order.description,
+                  price: order.price,
+                },
+              }}
+              as={`/dashboard/orders/${order.id}`}
+            >
+              <span>View Details</span>
+            </Link>
             <div className="btn view__order___btn">
               View Order <i className="fa-solid fa-angle-down"></i>
             </div>
