@@ -1,14 +1,51 @@
+"use client"
 import DashboardSidebar from '@/app/components/DashboardSidebar'
-import React from 'react'
+import { baseURL } from '@/app/config/apiUrl';
+import axios from 'axios';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
-const page = () => {
+const page = ({params}) => {
+  console.log(params)
+  const { token } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState(null);
+ 
+
+  const fetchOrder = async () => {
+    try {
+      var config = {
+        method: "get",
+        url: baseURL + `/view_a_order/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      setLoading(true);
+      await axios(config).then(function(response) {
+        const { data } = response.data;
+        setOrder(data);
+        setLoading(false);
+      });
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrder();
+  }, []);
+  const orderItems = order?.order_items ? JSON.parse(order.order_items) : null;
+
+
+  console.log(order)
   return (
     <section>
     <section className="container-fluid products_main_banner">
       <div className="container">
         <div className="banner_content">
-          {/* <h4>Order #{order.id}</h4> */}
-          <h4>Order #01</h4>
+          <h4>Order #{order?.id}</h4>
           <div>
             {/* <Breadcrumb>
               <BreadcrumbItem>
@@ -29,16 +66,15 @@ const page = () => {
           <div className="col-md-9">
             <div>
               <div>
-                {/* <p>Order #<mark>{order.id}</mark> was placed on <mark> {moment(order.created_at).format("MMMM DD, YYYY" )}</mark> and is currently <mark>{order.status}</mark>.</p> */}
-                <p>Order #<mark>01</mark> was placed on <mark> 02/10/2023</mark> 
-                and is currently <mark>pending</mark>.</p>
+                <p>Order #<mark>{order?.id}</mark> was placed on <mark> {moment(order?.created_at).format("MMMM DD, YYYY" )}</mark> and is currently <mark>{order?.status}</mark>.</p>
+
               </div>
             <div className="mt-3">
               <h3>Order Details</h3>
               <div className="mt-3">
                 <table className="table table_main_bor">
                   <tbody>
-                    {/* {orderItems.map((value,index)=>{
+                    {orderItems?.map((value,index)=>{
 
                       return(
                         <tr key={index}>
@@ -49,37 +85,14 @@ const page = () => {
                         </th>
                         <th>
                           <p className="order__item_pad order_detail_sec_th">
-                            {order.currency_abbr} {value.price}
+                            $ {value.price}
                           </p>
                         </th>
                       </tr>
                       )
-                    })} */}
+                    })}
 
-                     <tr>
-                        <th>
-                          <p className="order__item_pad">
-                           Leatherpro × 2
-                          </p>
-                        </th>
-                        <th>
-                          <p className="order__item_pad order_detail_sec_th">
-                            $20.00
-                          </p>
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          <p className="order__item_pad">
-                           Leather × 3
-                          </p>
-                        </th>
-                        <th>
-                          <p className="order__item_pad order_detail_sec_th">
-                            $30.00
-                          </p>
-                        </th>
-                      </tr>
+
      
                   </tbody>
                   <tfoot className="t_foo_bg">
@@ -88,9 +101,8 @@ const page = () => {
                         <p className="order_det_amounts_D pt-2">Subtotal:</p>
                       </th>
                       <th className="td_border_n">
-                        {/* <p className="order_detail_sec_th pt-2">{order.currency_abbr}  {(order.total_price - order.shipping_charges).toFixed(2)}</p> */}
-                        <p className="order_detail_sec_th pt-2">
-                            $200.00</p>
+                        <p className="order_detail_sec_th pt-2">$ {(order?.total_price - order?.shipping_charges).toFixed(2)}</p>
+
                       </th>
                     </tr>
                     <tr>
@@ -130,8 +142,7 @@ const page = () => {
                       </th>
                       <th className="td_border_n">
                         <p className="order_detail_sec_th tot_Order_head total_am_color">
-                        {/* {order.currency_abbr}  {order.total_price} */}
-                        20.99
+                        $ {order?.total_price}
                         </p>
                       </th>
                     </tr>
@@ -146,20 +157,16 @@ const page = () => {
                     <h4 className="mb-2">Billing Address</h4>
                       <div>
                         <p>
-                        {/* {order.user_details.first_name} {order.user_details.last_name} */}
-                        anas murtaza
+                        {order?.user_details.first_name} {order?.user_details.last_name}
                           <br />
-                          {/* {order.user_details.address}  */}
-                          block 12
+                          {order?.user_details.address} 
                           <br />
-                          {/* {order.user_details.country}  Bahrain */}
-                           USA
+                          {order?.user_details.country}  
+                          
                           <br />
-                          {/* {order.user_details.phone_number} */}
-                          0987654323
+                          {order?.user_details.phone_number}
                           <br />
-                          {/* {order.user_details.email} */}
-                          anas@gmail.com
+                          {order?.user_details.email}
                         </p>
                       </div>
                   </div>
@@ -169,14 +176,11 @@ const page = () => {
                     <h4 className="mb-2">Shipping Address</h4>
                       <div>
                         <p>
-                        {/* {order.user_details.first_name} {order.user_details.last_name} */}
-                        anas murtaza
+                        {order?.user_details.first_name} {order?.user_details.last_name}
                           <br />
-                          {/* {order.user_details.address} */}
-                          block 12
+                          {order?.user_details.address}
                           <br />
-                          {/* {order.user_details.country} */}
-                          USA
+                          {order?.user_details.country}
                         </p>
                       </div>
                   </div>

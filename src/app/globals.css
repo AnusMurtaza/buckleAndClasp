@@ -5537,3 +5537,24 @@ border: 2px solid pink;
 	color: #e1dcdc;
   }
   
+
+
+
+
+
+
+
+
+  .kitchen_comp{
+	border: none;
+  background-color: #383779;
+  padding: 7px 12px;
+  color: #fff;
+  border-radius: 12px;
+  }
+  .kitchen_comp:hover{
+  background-color: #5e5da4;
+  
+  color: #fff;
+  
+  }

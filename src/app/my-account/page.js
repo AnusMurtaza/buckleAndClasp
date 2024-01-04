@@ -38,12 +38,6 @@ function page() {
                   <Link href="/orders">
                     <span className="terms__con">recent orders</span>
                   </Link>
-                  , manage your{" "}
-                  <Link href="/addresses">
-                    <span className="terms__con">
-                      shipping and billing addresses
-                    </span>
-                  </Link>
                   , and{" "}
                   <Link href="/edit-account">
                     <span className="terms__con">

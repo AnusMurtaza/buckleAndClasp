@@ -17,6 +17,8 @@ const page = () => {
   const router = useRouter()
 
   const initialValues = {
+    first_name:"",
+    last_name:"",
     name:"",
     email: "",
     phone_number: "",
@@ -29,6 +31,8 @@ const page = () => {
       validationSchema: signUpSchema,
       onSubmit: async (values, action) => {
         var userData = new FormData();
+        userData.append("first_name", values.first_name);
+        userData.append("last_name", values.last_name);
         userData.append("name", values.name);
         userData.append("email", values.email);
         userData.append("phone_number", values.phone_number);
@@ -78,6 +82,32 @@ const page = () => {
               <div className="register-form">
                 <h2>Register</h2>
                 <form onSubmit={handleSubmit}>
+                <div className="group-input">
+                    <label htmlFor="first_name">First Name *</label>
+                    <input type="text"
+                             id="first_name" 
+                             name="first_name"
+                             value={values.first_name}
+                             onChange={handleChange}
+                             onBlur={handleBlur}
+                    />
+                    {errors.first_name && touched.first_name ? (
+                      <p className="form-error">{errors.first_name}</p>
+                    ) : null}
+                  </div>
+                  <div className="group-input">
+                    <label htmlFor="last_name">Last Name *</label>
+                    <input type="text"
+                             id="last_name" 
+                             name="last_name"
+                             value={values.last_name}
+                             onChange={handleChange}
+                             onBlur={handleBlur}
+                    />
+                    {errors.last_name && touched.last_name ? (
+                      <p className="form-error">{errors.last_name}</p>
+                    ) : null}
+                  </div>
                   <div className="group-input">
                     <label htmlFor="name">Username *</label>
                     <input type="text"

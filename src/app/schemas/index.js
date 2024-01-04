@@ -7,6 +7,8 @@ export const signInSchema = Yup.object({
 
 
 export const signUpSchema = Yup.object({
+  first_name: Yup.string().required('The field is required'),
+  last_name: Yup.string().required('The field is required'),
   name: Yup.string().required('The field is required'),
   email: Yup.string().email().required('Please Enter Your Email'),
   phone_number: Yup.string()
