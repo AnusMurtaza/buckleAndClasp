@@ -105,7 +105,7 @@ const page = () => {
           </div>
         </section>
         <section className="mt-4 mb-4">
-          <div className="container">
+          <div className="container-fluid">
             <div className="row">
               <AdminDashboardSidebar />
               <div className="col-md-9">
@@ -165,9 +165,9 @@ const page = () => {
                                 <td> {tdata.title} </td>
                                 <td> {tdata.name}</td>
                                 <td>
-                    {/* <Link href={`/dashboard/products/detail/${tdata.id}`}> */}
+                    <Link href={`/dashboard/products/detail/${tdata.id}`}>
                     <button type="button" className="btn btn-outline-info">View</button>
-                {/* </Link> */}
+                </Link>
                   </td>
                                 <td>
                                   <Link href={`/dashboard/products/${tdata.id}`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>

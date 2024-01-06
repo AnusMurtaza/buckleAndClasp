@@ -177,7 +177,7 @@ console.log(values)
         </div>
       </section>
       <section className="mt-4 mb-4">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <AdminDashboardSidebar />
             <div className="col-md-9">

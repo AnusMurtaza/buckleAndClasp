@@ -119,7 +119,16 @@ import Link from 'next/link';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { imageUrl } from '../config/apiUrl';
+// import Swiper core and required modules
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
 const ProductCard = ({ products }) => {
 
   const dispatch = useDispatch();
@@ -174,7 +183,56 @@ const ProductCard = ({ products }) => {
   const productId = 2;
   return (
     <>
-      {products && products.map((value, index) => (
+    <Swiper
+        slidesPerView={3}
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+             {products && products.map((value, index) => (
+                <SwiperSlide>
+
+<Link href={`/collections/mens/products/${value.slug}`}>
+  <div className="product-item" key={index}>
+    <div className="pi-pic">
+      <Image src={`${imageUrl}/${value.images[0].image}`} alt="" width={244} height={298} />
+      {value.sale > 0 && <div className="sale">Sale</div>}
+      <div className="icon">
+        <i className="icon_heart_alt" />
+      </div>
+      <ul>
+        <li className="quick-view">
+          <span >
+            + View
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div className="pi-text">
+      <div className="catagory-name">{value.title}</div>
+      <h5>{value.name}</h5>
+      {value.sale == 0 &&
+        <div className="product-price">
+          ${(value.price)}
+        </div>
+      }
+      {value.sale > 0 &&
+        <div className="product-price">
+          ${(value.discounted_price)}
+          {value.sale > 0 && <span>${value.price}</span>}
+        </div>
+      }
+    </div>
+  </div>
+</Link>
+</SwiperSlide>
+))}
+   
+      </Swiper>
+      {/* {products && products.map((value, index) => (
 
         <Link href={`/collections/mens/products/${value.slug}`}>
           <div className="product-item" key={index}>
@@ -209,7 +267,7 @@ const ProductCard = ({ products }) => {
             </div>
           </div>
         </Link>
-      ))}
+      ))} */}
     </>
   );
 };

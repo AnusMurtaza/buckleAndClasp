@@ -77,9 +77,9 @@ const page = () => {
     fetchOrders(currentPage, activeButton);
   }, [currentPage, activeButton]);
   const handleStatusComplete = async (id) => {
-    if (update_status !== "") {
+    if (updateStatus !== "") {
       let data = {
-        status: update_status,
+        status: updateStatus,
       }
       let config = {
         method: "post",
@@ -98,7 +98,7 @@ const page = () => {
           setTimeout(() => {
             fetchOrders();
             setIsLoading(false);
-            setUpdate_status()
+            setUpdateStatus()
           }, 2000);
 
 
@@ -234,7 +234,7 @@ const page = () => {
                     type="text"
                     className="form-control"
                     id="status"
-                    onChange={(e) => setUpdate_status(e.target.value)}
+                    onChange={(e) => setUpdateStatus(e.target.value)}
                     placeholder="completed, pending , delivered"
                   />
                 </div>
@@ -273,7 +273,7 @@ const page = () => {
         </div>
       </section>
       <section className="mt-4 mb-4">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <AdminDashboardSidebar />
             <div className="col-md-9">

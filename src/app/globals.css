@@ -2230,15 +2230,16 @@ a{
 }
 
 .product-details .pd-color .pd-color-choose .cc-item label {
-	height: 20px;
-	width: 20px;
+	height: 35px;
+	width: 35px;
 	/* background: #252525; */
 	border-radius: 50%;
 	cursor: pointer;
 	margin-bottom: 0;
 }
 .product-details .pd-color .pd-color-choose .cc-item .active {
-border: 2px solid pink;
+    outline: 5px solid #9f9f9f;
+	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 /* .product-details .pd-color .pd-color-choose .cc-item label.cc-yellow {
@@ -5557,4 +5558,25 @@ border: 2px solid pink;
   
   color: #fff;
   
+  }
+
+
+
+
+
+
+
+
+  
+  /* .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+  } */
+  
+  .product-detail-wrapper img{
+	width: 300px;
+	height: 300px;
+	object-fit: contain;
   }

@@ -14,11 +14,13 @@ import { baseURL } from '@/app/config/apiUrl';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addToCart, getTotals } from '@/redux/slices/cartSlice';
+import ProductCard from '@/app/components/ProductCard';
 // import $ from 'jquery';
 const page = () => {
   const params = useParams();
   console.log(params)
   const [product, setProduct] = useState([]);
+  const [relatedProduct, setRelatedProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
@@ -65,9 +67,30 @@ const page = () => {
       setLoading(false)
     }
   };
+  const fetchRelatedProduct = async () => {
+    setLoading(true)
+    try {
+      const response = await axios.get(baseURL + `/get_related_product_by_id/${product?.id}`);
+      const { data } = response.data;
+      setRelatedProduct(data);
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
+  };
   useEffect(() => {
     fetchProduct()
+    if(product?.id){
+
+      fetchRelatedProduct()
+    }
   }, [])
+  useEffect(() => {
+    if(product?.id){
+
+      fetchRelatedProduct()
+    }
+  }, [product?.id])
   
   const handleColorChange = (color) => {
     setSelectedColor(color);
@@ -490,7 +513,9 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="row">
+          <ProductCard products={relatedProduct}/>
+
+          {/* <div className="row">
             <div className="col-lg-3 col-sm-6">
               <div className="product-item">
                 <div className="pi-pic">
@@ -623,7 +648,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* -------Size-Guide-Modal-Start------------ */}

@@ -234,7 +234,9 @@ export default function Home() {
               <li>Accessories</li>
             </ul> */}
                 </div>
-                <div className="product-slider owl-carousel">
+                
+                {/* <div className="product-slider owl-carousel"> */}
+                <div className="">
                   <ProductCard products={mensproducts}/>
 
 
@@ -321,8 +323,9 @@ export default function Home() {
               <li>Accessories</li>
             </ul> */}
                 </div>
-                <div className="product-slider owl-carousel">
-                  <ProductCard />
+                {/* <div className="product-slider owl-carousel"> */}
+                <div className="">
+                  <ProductCard products={womenproducts}/>
                   {/* <div className="product-item">
               <div className="pi-pic">
                 <img src="img/products/women-1.jpg" alt="" />

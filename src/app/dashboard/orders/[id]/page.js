@@ -60,7 +60,7 @@ const page = ({params}) => {
       </div>
     </section>
     <section className="mt-4 mb-4">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <DashboardSidebar />
           <div className="col-md-9">
