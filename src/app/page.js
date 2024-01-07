@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, getTotals } from '@/redux/slices/cartSlice';
 import HeroSection from './components/HeroSection';
 import ProductCard from './components/ProductCard';
@@ -15,129 +15,19 @@ import { baseURL, imageUrl } from './config/apiUrl';
 
 export default function Home() {
 
-
-
-  useEffect(() => {
-    // $(".hero-items").owlCarousel({
-    //   loop: true,
-    //   margin: 0,
-    //   nav: true,
-    //   items: 1,
-    //   dots: false,
-    //   animateOut: 'fadeOut',
-    //   animateIn: 'fadeIn',
-    //   navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
-    //   smartSpeed: 1200,
-    //   autoHeight: false,
-    //   // autoplay: true,
-    // });
-
-
-
-
-    // /*------------------
-    //     Hero Slider
-    // --------------------*/
-    // $(".hero-items").owlCarousel({
-    //   loop: true,
-    //   margin: 0,
-    //   nav: true,
-    //   items: 1,
-    //   dots: false,
-    //   animateOut: 'fadeOut',
-    //   animateIn: 'fadeIn',
-    //   navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
-    //   smartSpeed: 1200,
-    //   autoHeight: false,
-    //   autoplay: true,
-    // });
-
-    /*------------------
-        Product Slider
-    --------------------*/
-    $(".product-slider").owlCarousel({
-      loop: true,
-      margin: 25,
-      nav: true,
-      items: 4,
-      dots: true,
-      navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
-      smartSpeed: 1200,
-      autoHeight: false,
-      autoplay: true,
-      responsive: {
-        0: {
-          items: 1,
-        },
-        576: {
-          items: 2,
-        },
-        992: {
-          items: 2,
-        },
-        1200: {
-          items: 3,
-        }
-      }
-    });
-
-    // /*------------------
-    //    logo Carousel
-    // --------------------*/
-    // $(".logo-carousel").owlCarousel({
-    //   loop: false,
-    //   margin: 30,
-    //   nav: false,
-    //   items: 5,
-    //   dots: false,
-    //   navText: ['<i className="ti-angle-left"></i>', '<i className="ti-angle-right"></i>'],
-    //   smartSpeed: 1200,
-    //   autoHeight: false,
-    //   mouseDrag: false,
-    //   autoplay: true,
-    //   responsive: {
-    //     0: {
-    //       items: 3,
-    //     },
-    //     768: {
-    //       items: 5,
-    //     }
-    //   }
-    // });
-
-    // /*-----------------------
-    //    Product Single Slider
-    // -------------------------*/
-    // $(".ps-slider").owlCarousel({
-    //   loop: false,
-    //   margin: 10,
-    //   nav: true,
-    //   items: 3,
-    //   dots: false,
-    //   navText: ['<i className="fa fa-angle-left"></i>', '<i className="fa fa-angle-right"></i>'],
-    //   smartSpeed: 1200,
-    //   autoHeight: false,
-    //   autoplay: true,
-    // });
-
-  }, []);
-
-  const [main_cat, setMain_cat] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { categories } = useSelector((state) => state.category);
+
   const dispatch = useDispatch()
-  const fetchMain_cat = async () => {
-    setLoading(true)
-    try {
-      const response = await axios.get(baseURL + "/all_main_categories");
-      const { data } = response.data;
-      setMain_cat(data);
-    } catch (error) {
-    }
-  };
-  useEffect(() => {
-    fetchMain_cat()
-    dispatch(getTotals())
-  }, [])
+
+
+
+
+
+  // useEffect(() => {
+  //   fetchMain_cat()
+  //   dispatch(getTotals())
+  // }, [])
 
   const [mensproducts, setMensProducts] = useState([]);
   const [womenproducts, setWomenProducts] = useState([]);
@@ -169,23 +59,70 @@ export default function Home() {
     fetchMensProducts()
   }, [])
 
+  const [time, setTime] = useState(calculateTimeRemaining());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      // Calculate the remaining time
+      const newTime = calculateTimeRemaining();
+
+      // Update the timer state
+      setTime(newTime);
+    }, 1000); // Update every second
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, []);
+
+  function calculateTimeRemaining() {
+    const now = new Date();
+    const currentDay = now.getDay();
+
+    // Calculate remaining time until 11:59 PM of the current Sunday
+    let endOfSunday;
+    if (currentDay === 0) {
+      // If today is Sunday, set endOfSunday to 11:59 PM today
+      endOfSunday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+    } else {
+      // If today is not Sunday, set endOfSunday to 11:59 PM next Sunday
+      endOfSunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (7 - currentDay), 23, 59, 59, 999);
+    }
+
+    const remainingTime = Math.max(endOfSunday - now, 0);
+
+    // Convert remaining time to seconds
+    const remainingSeconds = Math.floor(remainingTime / 1000);
+
+    // Calculate days, hours, minutes, and seconds
+    const remainingDays = Math.floor(remainingSeconds / (24 * 60 * 60));
+    const remainingHours = Math.floor((remainingSeconds % (24 * 60 * 60)) / 3600);
+    const remainingMinutes = Math.floor((remainingSeconds % 3600) / 60);
+    const remainingSecs = remainingSeconds % 60;
+
+    // Return the time object
+    return {
+      days: remainingDays,
+      hours: remainingHours,
+      minutes: remainingMinutes,
+      seconds: remainingSecs,
+    };
+  }
+
+
   return (
     <>
       <main>
         <HeroSection />
-
-
-
         {/* Banner Section Begin */}
-
-
-
 
         <div className="banner-section spad">
           <div className="container-fluid">
             <div className="row">
-              {main_cat.map((item, index) => (
+              {categories.map((item, index) => (
                 <div className="col-lg-3" key={index}>
+                  <Link
+                     href={`/collections/${item.slug}`}
+                    >
                   <div className="single-banner">
                     <Image src={`${imageUrl}/uploads/${item.image}`} style={{ objectFit: "cover" }} alt="" width={386}
                       height={217} />
@@ -193,28 +130,11 @@ export default function Home() {
                       <h4>{item.name}</h4>
                     </div>
                   </div>
+                  </Link>
                 </div>
 
               ))}
 
-              {/* <div className="col-lg-4">
-          <div className="single-banner">
-            <Image src='/img/banner-2.jpg' alt=""   width={386}
-        height={217} />
-            <div className="inner-text">
-              <h4>Women’s</h4>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4">
-          <div className="single-banner">
-            <Image src='/img/banner-3.jpg' alt=""   width={386}
-        height={217} />
-            <div className="inner-text">
-              <h4>Kid’s</h4>
-            </div>
-          </div>
-        </div> */}
             </div>
           </div>
         </div>
@@ -226,26 +146,14 @@ export default function Home() {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-8">
-                <div className="filter-control">
-                  {/* <ul>
-              <li className="active">Clothings</li>
-              <li>HandBag</li>
-              <li>Shoes</li>
-              <li>Accessories</li>
-            </ul> */}
-                </div>
-                
-                {/* <div className="product-slider owl-carousel"> */}
                 <div className="">
                   <ProductCard products={mensproducts}/>
-
-
                 </div>
               </div>
               <div className="col-lg-3 offset-lg-1">
                 <div
                   className="product-large set-bg m-large"
-                  style={{ backgroundImage: `url("img/products/man-large.jpg")` }}
+                  style={{ backgroundImage: `url("/img/products/man-large.jpg")` }}
                 >
                   <h2>Men’s</h2>
                   <Link href="/collections/mens">Discover More</Link>
@@ -256,10 +164,8 @@ export default function Home() {
         </section>
         {/* Man Banner Section End */}
 
-
-
         {/* Deal Of The Week Section Begin*/}
-        <section className="deal-of-week set-bg spad" style={{ backgroundImage: `url("img/2.png")` }}>
+        <section className="deal-of-week set-bg spad" style={{ backgroundImage: `url("/img/2.png")` }}>
 
           <div className="container">
             <div className="col-lg-6 text-center">
@@ -274,7 +180,25 @@ export default function Home() {
                   <span>/ HanBag</span>
                 </div>
               </div>
-              <div className="countdown-timer" id="countdown">
+              <div className="countdown-timer">
+      <div className="cd-item">
+        <span>{time.days}</span>
+        <p>Days</p>
+      </div>
+      <div className="cd-item">
+        <span>{time.hours}</span>
+        <p>Hrs</p>
+      </div>
+      <div className="cd-item">
+        <span>{time.minutes}</span>
+        <p>Mins</p>
+      </div>
+      <div className="cd-item">
+        <span>{time.seconds}</span>
+        <p>Secs</p>
+      </div>
+    </div>
+              {/* <div className="countdown-timer" id="countdown">
                 <div className="cd-item">
                   <span>56</span>
                   <p>Days</p>
@@ -288,10 +212,11 @@ export default function Home() {
                   <p>Mins</p>
                 </div>
                 <div className="cd-item">
-                  <span>52</span>
+                  
+                  <span>52 {time.seconds}</span>
                   <p>Secs</p>
                 </div>
-              </div>
+              </div> */}
               <Link href="/" className="primary-btn">
                 Shop Now
               </Link>
@@ -308,7 +233,7 @@ export default function Home() {
               <div className="col-lg-3">
                 <div
                   className="product-large set-bg"
-                  style={{ backgroundImage: `url("img/products/women-large.jpg")` }}
+                  style={{ backgroundImage: `url("/img/products/women-large.jpg")` }}
                 >
                   <h2>Women’s</h2>
                   <Link href="/collections/womens">Discover More</Link>
@@ -316,50 +241,11 @@ export default function Home() {
               </div>
               <div className="col-lg-8 offset-lg-1">
                 <div className="filter-control">
-                  {/* <ul>
-              <li className="active">Clothings</li>
-              <li>HandBag</li>
-              <li>Shoes</li>
-              <li>Accessories</li>
-            </ul> */}
+
                 </div>
-                {/* <div className="product-slider owl-carousel"> */}
                 <div className="">
                   <ProductCard products={womenproducts}/>
-                  {/* <div className="product-item">
-              <div className="pi-pic">
-                <img src="img/products/women-1.jpg" alt="" />
-                <div className="sale">Sale</div>
-                <div className="icon">
-                  <i className="icon_heart_alt" />
-                </div>
-                <ul>
-                  <li className="w-icon active">
-                    <Link href="/">
-                      <i className="ti-shopping-cart" onClick={() => handleAddToCart(value)}/>
-                    </Link>
-                  </li>
-                  <li className="quick-view">
-                    <Link href="/">+ Quick View</Link>
-                  </li>
-                  <li className="w-icon">
-                    <Link href="/">
-                      <i className="fa fa-random" />
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="pi-text">
-                <div className="catagory-name">Coat</div>
-                <Link href="/">
-                  <h5>Pure Pineapple</h5>
-                </Link>
-                <div className="product-price">
-                  $14.00
-                  <span>$35.00</span>
-                </div>
-              </div>
-            </div> */}
+    
 
                 </div>
               </div>
@@ -372,7 +258,7 @@ export default function Home() {
 
         {/* Instagram Section Begin */}
         <div className="instagram-photo">
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("img/insta-1.jpg")` }}>
+          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-1.jpg")` }}>
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -380,7 +266,7 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("img/insta-2.jpg")` }}>
+          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-2.jpg")` }}>
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -388,7 +274,7 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("img/insta-3.jpg")` }}>
+          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-3.jpg")` }}>
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -396,7 +282,7 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("img/insta-4.jpg")` }}>
+          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-4.jpg")` }}>
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -404,7 +290,7 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("img/insta-5.jpg")` }}>
+          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-5.jpg")` }}>
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -412,7 +298,7 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("img/insta-6.jpg")` }}>
+          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-6.jpg")` }}>
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>

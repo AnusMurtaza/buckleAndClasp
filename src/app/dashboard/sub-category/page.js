@@ -127,8 +127,8 @@ const page = () => {
                         <thead>
                           <tr>
                             <th>Image</th>
-                            <th>Sub Category Name</th>
-                            <th>Select Main Category</th>
+                            <th>Sub Category</th>
+                            <th>Main Category</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -156,7 +156,7 @@ const page = () => {
                                   </div>
                                 </td>
                                 <td> {tdata.name} </td>
-                                <td> {tdata.main_cat_name}</td>
+                                <td> {tdata.main_category.name}</td>
                                 <td>
                                   <Link href={`/dashboard/sub-category/${tdata.id}`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
                                   <i className="fa-regular fa-trash-can text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i>

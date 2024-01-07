@@ -134,7 +134,7 @@ const page = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {!loading && products.length === 0 && <tr><td colSpan={4} className="text-center">No Data</td></tr>}
+                          {!loading && products.length === 0 && <tr><td colSpan={5} className="text-center">No Data</td></tr>}
                           {loading && (
                             <tr>
                               <td colSpan={4} className="text-center">
@@ -157,7 +157,7 @@ const page = () => {
                                     />
                                     <div className="ms-3">
                                       {/* <h6 className="mb-0">{tdata.name}</h6> */}
-                                      <h6 className="mb-0">Leather</h6>
+                                      {/* <h6 className="mb-0">Leather</h6> */}
 
                                     </div>
                                   </div>

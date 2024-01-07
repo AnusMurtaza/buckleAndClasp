@@ -6,12 +6,14 @@ import Link from 'next/link'
 import { useParams, } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 const page = () => {
   const params = useParams()
   console.log(params)
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { categories } = useSelector((state) => state.category);
 
   const fetchProducts = async () => {
     setLoading(true)
@@ -56,151 +58,41 @@ const page = () => {
                 <ul className="filter-catagories">
                   <li>
                     <Link href="/">Men</Link>
+                      <ul>
+                        <li className='ms-3'>mens leather</li>
+                      </ul>
                   </li>
-                  <li>
+                  {categories && categories.map(category => (
+                  <li key={category.id}>
+                    <Link
+                     href={`/collections/${category.slug}`}
+                    >{category.name}</Link>
+                    {category.sub_categories && category.sub_categories.length > 0 && (
+                      <ul className="ms-3">
+                        {category.sub_categories.map(subCategory => (
+                          <li key={subCategory.id}>
+                            <Link href={`/collections/${subCategory.slug}`}>{subCategory.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+                  
+                  {/* <li>
                     <Link href="/">Women</Link>
                   </li>
                   <li>
                     <Link href="/">Kids</Link>
-                  </li>
+                  </li> */}
                 </ul>
+
+
+                
               </div>
-              <div className="filter-widget">
-                <h4 className="fw-title">Brand</h4>
-                <div className="fw-brand-check">
-                  <div className="bc-item">
-                    <label htmlFor="bc-calvin">
-                      Calvin Klein
-                      <input type="checkbox" id="bc-calvin" />
-                      <span className="checkmark" />
-                    </label>
-                  </div>
-                  <div className="bc-item">
-                    <label htmlFor="bc-diesel">
-                      Diesel
-                      <input type="checkbox" id="bc-diesel" />
-                      <span className="checkmark" />
-                    </label>
-                  </div>
-                  <div className="bc-item">
-                    <label htmlFor="bc-polo">
-                      Polo
-                      <input type="checkbox" id="bc-polo" />
-                      <span className="checkmark" />
-                    </label>
-                  </div>
-                  <div className="bc-item">
-                    <label htmlFor="bc-tommy">
-                      Tommy Hilfiger
-                      <input type="checkbox" id="bc-tommy" />
-                      <span className="checkmark" />
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="filter-widget">
-                <h4 className="fw-title">Price</h4>
-                <div className="filter-range-wrap">
-                  <div className="range-slider">
-                    <div className="price-input">
-                      <input type="text" id="minamount" />
-                      <input type="text" id="maxamount" />
-                    </div>
-                  </div>
-                  <div
-                    className="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                    data-min={33}
-                    data-max={98}
-                  >
-                    <div className="ui-slider-range ui-corner-all ui-widget-header" />
-                    <span
-                      tabIndex={0}
-                      className="ui-slider-handle ui-corner-all ui-state-default"
-                    />
-                    <span
-                      tabIndex={0}
-                      className="ui-slider-handle ui-corner-all ui-state-default"
-                    />
-                  </div>
-                </div>
-                <Link href="/" className="filter-btn">
-                  Filter
-                </Link>
-              </div>
-              <div className="filter-widget">
-                <h4 className="fw-title">Color</h4>
-                <div className="fw-color-choose">
-                  <div className="cs-item">
-                    <input type="radio" id="cs-black" />
-                    <label className="cs-black" htmlFor="cs-black">
-                      Black
-                    </label>
-                  </div>
-                  <div className="cs-item">
-                    <input type="radio" id="cs-violet" />
-                    <label className="cs-violet" htmlFor="cs-violet">
-                      Violet
-                    </label>
-                  </div>
-                  <div className="cs-item">
-                    <input type="radio" id="cs-blue" />
-                    <label className="cs-blue" htmlFor="cs-blue">
-                      Blue
-                    </label>
-                  </div>
-                  <div className="cs-item">
-                    <input type="radio" id="cs-yellow" />
-                    <label className="cs-yellow" htmlFor="cs-yellow">
-                      Yellow
-                    </label>
-                  </div>
-                  <div className="cs-item">
-                    <input type="radio" id="cs-red" />
-                    <label className="cs-red" htmlFor="cs-red">
-                      Red
-                    </label>
-                  </div>
-                  <div className="cs-item">
-                    <input type="radio" id="cs-green" />
-                    <label className="cs-green" htmlFor="cs-green">
-                      Green
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="filter-widget">
-                <h4 className="fw-title">Size</h4>
-                <div className="fw-size-choose">
-                  <div className="sc-item">
-                    <input type="radio" id="s-size" />
-                    <label htmlFor="s-size">s</label>
-                  </div>
-                  <div className="sc-item">
-                    <input type="radio" id="m-size" />
-                    <label htmlFor="m-size">m</label>
-                  </div>
-                  <div className="sc-item">
-                    <input type="radio" id="l-size" />
-                    <label htmlFor="l-size">l</label>
-                  </div>
-                  <div className="sc-item">
-                    <input type="radio" id="xs-size" />
-                    <label htmlFor="xs-size">xs</label>
-                  </div>
-                </div>
-              </div>
-              <div className="filter-widget">
-                <h4 className="fw-title">Tags</h4>
-                <div className="fw-tags">
-                  <Link href="/">Towel</Link>
-                  <Link href="/">Shoes</Link>
-                  <Link href="/">Coat</Link>
-                  <Link href="/">Dresses</Link>
-                  <Link href="/">Trousers</Link>
-                  <Link href="/">Men's hats</Link>
-                  <Link href="/">Backpack</Link>
-                </div>
-              </div>
+
+
+
             </div>
             <div className="col-lg-9 order-1 order-lg-2">
               {/* <div className="product-show-option">

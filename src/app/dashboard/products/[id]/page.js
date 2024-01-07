@@ -31,6 +31,7 @@ const page = () => {
         });
         const { data } = response.data
         setData(data);
+
         console.log(data)
       } catch (error) {
         console.error(error);
@@ -42,32 +43,36 @@ const page = () => {
     }
   }, [id, token]);
 
-  const fetchMainCategory = () => {
+
+  const fetchSubCategory = (selectedSubCategoryId) => {
     var config = {
       method: 'get',
-      url: baseURL + '/all_main_categories',
+      url: baseURL + `/sub_cat_by_main_cat/${selectedSubCategoryId}`,
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     };
     axios(config)
       .then(function (response) {
-        setMainCategories(response.data.data)
+        setMainCategories(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }
+  };
+
   useEffect(() => {
-    fetchMainCategory()
+    if(data?.main_cat_id){
+      fetchSubCategory(data?.main_cat_id)
+    }
+  }, [data?.main_cat_id])
+  
 
-  }, [])
 
-
-  const fetchSubCategory = () => {
+  const fetchMainCategory = () => {
     var config = {
       method: 'get',
-      url: baseURL + '/all_sub_categories',
+      url: baseURL + '/all_main_categories',
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -81,7 +86,7 @@ const page = () => {
       });
   }
   useEffect(() => {
-    fetchSubCategory()
+    fetchMainCategory()
 
   }, [])
 
@@ -103,8 +108,8 @@ const page = () => {
       main_cat_id: data?.main_cat_id || "",
       sub_cat_id: data?.sub_cat_id || "",
       image: "",
-      color: data?.color || "", 
-      discounted_price: data?.discounted_price || "", 
+      color: data?.color || "",
+      discounted_price: data?.discounted_price || "",
 
 
 
@@ -127,8 +132,8 @@ const page = () => {
       formData.append("discounted_price", values.discounted_price);
       formData.append('color', JSON.stringify(colorArray));
       // formData.append('image[]', values.image);
-      {values.image === "" && formData.append('image[]', values.image)}
-      {values.image !== "" && values.image.forEach(file => {formData.append('image[]', file);})}
+      { values.image === "" && formData.append('image[]', values.image) }
+      { values.image !== "" && values.image.forEach(file => { formData.append('image[]', file); }) }
 
       let response;
 
@@ -159,7 +164,8 @@ const page = () => {
     },
 
   });
-console.log(values)
+
+  console.log(values)
   return (
     <>
       <section className="container-fluid products_main_banner">
@@ -302,67 +308,69 @@ console.log(values)
                         <label htmlFor="main_cat_id" className="form-label">
                           Main Categories
                         </label>
-                        <select className="form-select" id="main_cat_id" name="main_cat_id" value={values.main_cat_id} onChange={handleChange}>
+                        <select
+                          className="form-select"
+                          id="main_cat_id"
+                          name="main_cat_id"
+                          value={values.main_cat_id}
+                          onChange={(event) => {
+                            handleChange(event);
+                            const selectedSubCategoryId = event.target.value;
+                            setFieldValue("main_cat_id", selectedSubCategoryId);
 
+                            // Yahan main category ka data fetch karein
+                            fetchSubCategory(selectedSubCategoryId);
+                          }}
+                        >
                           <option value={0}>select Categories</option>
-                          {mainCategories.map((val, index) => <option key={index} value={val.id}>{val.name}</option>)}
+                          {subCategories.map((val, index) => (
+                            <option key={index} value={val.id}>
+                              {val.name}
+                            </option>
+                          ))}
                         </select>
                       </div>
+
                       <div className="col-md-6 mb-2">
-                        <label htmlFor="main_cat_id" className="form-label">
-                          Mid Categories
+                        <label htmlFor="sub_cat_id" className="form-label">
+                          Sub Categories
                         </label>
-                        <select className="form-select" id="sub_cat_id" name="sub_cat_id" value={values.sub_cat_id} onChange={handleChange}>
-
+                        <select
+                          className="form-select"
+                          id="sub_cat_id"
+                          name="sub_cat_id"
+                          value={values.sub_cat_id}
+                          onChange={handleChange}
+                        >
                           <option value={0}>select Categories</option>
-                          {subCategories.map((val, index) => <option key={index} value={val.id}>{val.name}</option>)}
+                          {mainCategories.map((val, index) => (
+                            <option key={index} value={val.id}>
+                              {val.name}
+                            </option>
+                          ))}
                         </select>
                       </div>
-                      {/* <div className="col-md-4 mb-2">
-              <label htmlFor="cat_id" className="form-label">
-               Categories
-              </label>
-              <select className="form-select" id="cat_id"  name="cat_id" value={values.cat_id} onChange={handleChange}>
-              
-              <option  value={0} >select Categories</option>
-            {categories.map((val,index)=> <option key={index} value={val.id} >{val.name}</option>)}
-            </select>
-            {errors.cat_id && touched.cat_id ? <p>{errors.cat_id}</p> : null}
 
-            </div>
-            <div className="col-md-4 mb-2">
-              <label htmlFor="main_cat_id" className="form-label">
-                Main Categories
-              </label>
-              <select className="form-select" id="main_cat_id"  name="main_cat_id" value={mainCategory?.main_cat_id}  disabled>
-
-              {mainCategory === null ? <option value={0} >select main category</option>:
-              
-              <option value={mainCategory?.main_cat_id} >{mainCategory?.main_cat_name}</option>
-               }
-
-            </select>
-            </div> */}
-            <div className="col-md-6 mb-2">
-  <label htmlFor="color" className="form-label">
-    Color
-  </label>
-  <input
-    type="text"
-    className="form-control"
-    id="color"
-    autoComplete="off"
-    name="color"
-    onChange={(event) => {
-      const inputValue = event.target.value;
-      setFieldValue("color", inputValue);
-    }}
-    onBlur={handleBlur}
-    value={values.color}
-    placeholder="Red, Blue, Green" // Example placeholder
-  />
-  {errors.color && touched.color ? <p>{errors.color}</p> : null}
-</div>
+                      <div className="col-md-6 mb-2">
+                        <label htmlFor="color" className="form-label">
+                          Color
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="color"
+                          autoComplete="off"
+                          name="color"
+                          onChange={(event) => {
+                            const inputValue = event.target.value;
+                            setFieldValue("color", inputValue);
+                          }}
+                          onBlur={handleBlur}
+                          value={values.color}
+                          placeholder="Red, Blue, Green" // Example placeholder
+                        />
+                        {errors.color && touched.color ? <p>{errors.color}</p> : null}
+                      </div>
                       <div className="col-md-12 mb-2">
                         <label htmlFor="image" className="form-label">
                           Upload Image
