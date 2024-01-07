@@ -46,11 +46,11 @@ const page = () => {
     let data = {
       ...product,
       num,
-      size:selectedColor,
+      size:selectedSize,
       color:selectedColor
     };
     dispatch(addToCart(data));
-    dispatch(getTotals());
+    // dispatch(getTotals());
     setNum(1);
   };
 

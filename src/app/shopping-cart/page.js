@@ -12,9 +12,9 @@ const page = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getTotals());
-  }, [cart, dispatch]);
+  // useEffect(() => {
+  //   dispatch(getTotals());
+  // }, [cart, dispatch]);
 
   const handleincreaseCart = (product) => {
     dispatch(addToCart(product));

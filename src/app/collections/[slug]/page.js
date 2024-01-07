@@ -56,12 +56,6 @@ const page = () => {
               <div className="filter-widget">
                 <h4 className="fw-title">Categories</h4>
                 <ul className="filter-catagories">
-                  <li>
-                    <Link href="/">Men</Link>
-                      <ul>
-                        <li className='ms-3'>mens leather</li>
-                      </ul>
-                  </li>
                   {categories && categories.map(category => (
                   <li key={category.id}>
                     <Link

@@ -139,7 +139,7 @@ const ProductCard = ({ products }) => {
       ...product,
     };
     dispatch(addToCart(data));
-    dispatch(getTotals());
+    // dispatch(getTotals());
   };
  
   return (

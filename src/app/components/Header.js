@@ -4,7 +4,7 @@ import { getCategories } from '@/redux/features/categories/categoriesSlice';
 import { decreaseCart, getTotals, removeFromCart } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { baseURL, imageUrl } from '../config/apiUrl';
@@ -14,7 +14,9 @@ const Header = () => {
   const { cartItems, cartTotalQuantity, cartTotalAmount } = useSelector((state) => state.cart);
   const { token, name } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.category);
+  const cart = useSelector((state) => state.cart);
 
+  const pathname = usePathname()
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (product) => {
@@ -38,9 +40,14 @@ const Header = () => {
   };
   useEffect(() => {
     fetchCategories()
-    dispatch(getTotals())
+    // dispatch(getTotals())
 
   }, [])
+  useEffect(() => {
+    dispatch(getTotals());
+    console.log("first")
+  }, [cart, dispatch]);
+
   const [openCategory, setOpenCategory] = useState(null);
 
   const toggleDropdown = (categoryId) => {
@@ -152,7 +159,7 @@ const Header = () => {
                               {cartItems.map((value, index) => (
                                 <tr key={index}>
                                   <td className="si-pic">
-                                    <Image src={`${imageUrl}/${value.images[0].image}`}  alt="" width={70} height={70} />
+                                    <Image src={`${imageUrl}/${value.images[0].image}`} alt="" width={70} height={70} />
                                   </td>
                                   <td className="si-text">
                                     <div className="product-selected">
@@ -226,52 +233,24 @@ const Header = () => {
         </div>
         <div className="nav-item">
           <div className="container text-center">
-            <div className="nav-depart">
-              {/* <div className="depart-btn">
-            <i className="ti-menu" />
-            <span>All departments</span>
-            <ul className="depart-hover">
-              <li className="active">
-                <Link href="/">Women’s Clothing</Link>
-              </li>
-              <li>
-                <Link href="/">Men’s Clothing</Link>
-              </li>
-              <li>
-                <Link href="/">Underwear</Link>
-              </li>
-              <li>
-                <Link href="/">Kid's Clothing</Link>
-              </li>
-              <li>
-                <Link href="/">Brand Fashion</Link>
-              </li>
-              <li>
-                <Link href="/">Accessories/Shoes</Link>
-              </li>
-              <li>
-                <Link href="/">Luxury Brands</Link>
-              </li>
-              <li>
-                <Link href="/">Brand Outdoor Apparel</Link>
-              </li>
-            </ul>
-          </div> */}
-            </div>
             <nav className="nav-menu mobile-menu">
               <ul>
-                <li className="active">
+                <li
+                  className={`${pathname === '/' ? 'active' : ''}`}
+                >
                   <Link href="/">Home</Link>
                 </li>
                 {categories && categories.map(category => (
-                  <li key={category.id}>
-                    <Link
-                     href={`/collections/${category.slug}`}
-                    >{category.name}</Link>
+                  <li>
+                    <li className={`${pathname === `/collections/${category.slug}` ? 'active' : ''}`} key={category.id}>
+                      <Link
+                        href={`/collections/${category.slug}`}
+                      >{category.name}</Link>
+                    </li>
                     {category.sub_categories && category.sub_categories.length > 0 && (
                       <ul className="dropdown">
                         {category.sub_categories.map(subCategory => (
-                          <li key={subCategory.id}>
+                          <li className={`${pathname === `/collections/${subCategory.slug}` ? 'active' : ''}`} key={subCategory.id}>
                             <Link href={`/collections/${subCategory.slug}`}>{subCategory.name}</Link>
                           </li>
                         ))}
@@ -281,10 +260,14 @@ const Header = () => {
                 ))}
 
 
-                <li>
+                <li
+                  className={`${pathname === '/about-us' ? 'active' : ''}`}
+                >
                   <Link href="/about-us">About</Link>
                 </li>
-                <li>
+                <li
+                  className={`${pathname === '/contact-us' ? 'active' : ''}`}
+                >
                   <Link href="/contact-us">Contact</Link>
                 </li>
               </ul>
