@@ -21,10 +21,12 @@ const page = () => {
     phone_number: "",
     address: "",
     appartment: "",
-    total_price: "",
-    // status: "",
-    // order_items: "",
-
+    // total_price: "",
+    city: "",
+    country: "",
+    same_shipping: "",
+    zip_code: "",
+    state:""
     // country: "",
     // state: "",
   };

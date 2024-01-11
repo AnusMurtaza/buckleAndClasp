@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 const page = () => {
 
   const [loading, setLoading] = useState(false);
-  const [banner, setBanner] = useState([]);
+  const [users, setUsers] = useState([]);
   const { token } = useSelector((state) => state.auth);
   const [page, setPage] = useState(1);
 
@@ -20,16 +20,16 @@ const page = () => {
   //   setPage(p);
   // };
 
-  const fetchBanner = async () => {
+  const fetchAllUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(`${baseURL}/users`, {
+      const response = await axios.get(`${baseURL}/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const { data } = response.data;
-      setBanner(data.data);
+      setUsers(data.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -38,61 +38,10 @@ const page = () => {
   };
 
   useEffect(() => {
-    fetchBanner();
+    fetchAllUsers();
   }, [ ]);
 
-  // const [dialog, setDialog] = useState({
-  //   message: "",
-  //   isLoading: false,
-  //   nameProduct: "",
-  // });
-  // const idProductRef = useRef();
-  // const handleDialog = (message, isLoading, nameProduct) => {
-  //   setDialog({
-  //     message,
-  //     isLoading,
-  //     nameProduct,
-  //   });
-  // };
-
-  // const handleDelete = (id) => {
-  //   const index = banner.findIndex((p) => p.id === id);
-  //   handleDialog(
-  //     "Are you sure you want to delete?",
-  //     true,
-  //     banner[index].name
-  //   );
-  //   idProductRef.current = id;
-  // };
-
-  // const areUSureDelete = (choose) => {
-  //   if (choose) {
-  //     var config = {
-  //       method: "delete",
-  //       url: baseURL + `/banner/${idProductRef.current}`,
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     };
-
-  //     axios(config)
-  //       .then(function (response) {
-  //         const { message } = response.data;
-  //         toast.info(message);
-  //         setBanner(
-  //           banner.filter((p) => p.id !== idProductRef.current)
-  //         );
-  //         handleDialog("", false);
-
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   } else {
-  //     handleDialog("", false);
-  //   }
-  // };
-
+  
 
   return (
     <>
@@ -100,7 +49,7 @@ const page = () => {
         <section className="container-fluid products_main_banner">
           <div className="container">
             <div className="banner_content">
-              <h4>Dashboard - Banner</h4>
+              <h4>Dashboard - Users</h4>
             </div>
           </div>
         </section>
@@ -115,7 +64,7 @@ const page = () => {
                     <div className='card-body'>
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="position-relative">
-                          <h3>Banners</h3>
+                          <h3>Users</h3>
                           <div className="position-absolute heading__line"></div>
                         </div>
                         <Link href="/dashboard/banner/add">
@@ -126,13 +75,15 @@ const page = () => {
                       <table className="table no-wrap mt-3 align-middle" >
                         <thead>
                           <tr>
-                            <th>Banner Image</th>
-                            {/* <th>Banner Name</th> */}
-                            <th>Actions</th>
+                            {/* <th>ID</th> */}
+                            <th>Name</th>
+                            <th>email</th>
+                            <th>phone_number</th>
+                            <th>User Type</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {!loading && banner.length === 0 && <tr><td colSpan={2} className="text-center">No Data</td></tr>}
+                          {!loading && users.length === 0 && <tr><td colSpan={2} className="text-center">No Data</td></tr>}
                           {loading && (
                             <tr>
                               <td colSpan={2} className="text-center">
@@ -142,25 +93,13 @@ const page = () => {
                             </tr>
                           )}
                           {!loading &&
-                            banner.map((tdata, index) => (
+                            users.map((tdata, index) => (
                               <tr key={index} className="border-top">
-                                <td>
-                                  <div className="d-flex align-items-center p-2">
-                                    <Image
-                                      src={`${imageUrl}/uploads/${tdata.image}`}
-                                      alt="avatar"
-                                      width={45}
-                                      height={45}
-                                    />
-                                  </div>
-                                </td>
-                                {/* <td>
-                                  <h6 className="mb-0">{tdata.name}</h6>
-                                </td> */}
-                                <td>
-                                  <Link href={`/dashboard/banner/${tdata.id}`}><i className="fa-regular fa-pen-to-square text-success fs-4"></i></Link>
-                                  <i className="fa-regular fa-trash-can text-danger fs-4 ms-3" onClick={() => handleDelete(tdata.id)}></i>
-                                </td>
+                              {/* <td>{tdata.id}</td> */}
+                              <td>{tdata.name}</td>
+                              <td>{tdata.email}</td>
+                              <td>{tdata.phone_number}</td>
+                              <td>{tdata.user_type}</td>
                               </tr>
                             ))}
                         </tbody>
