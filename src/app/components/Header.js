@@ -148,7 +148,8 @@ const Header = () => {
               </li> */}
                   <li className="cart-icon">
                     {/* <Link href="/"> */}
-                    <i className="ti-shopping-cart" />
+              <i class="bi bi-bag cart-icon"></i>
+                    {/* <i className="ti-shopping-cart" /> */}
                     {cartTotalQuantity > 0 && <span className='cart_count'>{cartTotalQuantity}</span>}
                     {/* </Link> */}
                     <div className="cart-hover">
@@ -195,15 +196,15 @@ const Header = () => {
                               <div className="col-sm-12 empty-cart-cls text-center">
                                 <img
                                   src="https://i.imgur.com/dCdflKN.png"
-                                  width={130}
-                                  height={130}
+                                  width={100}
+                                  height={100}
                                   className="img-fluid mb-4 mr-3"
                                   alt="Empty Cart"
                                 />
-                                <h3>
+                                <h3 className='fs-5'>
                                   <strong>Your Cart is Empty</strong>
                                 </h3>
-                                <h4>Please add products before they run out of stock!</h4>
+                                <h4 className='fs-6'>Please add products before they run out of stock!</h4>
                               </div>
                             </div>
                           </div>
@@ -305,13 +306,13 @@ const Header = () => {
               <div>
                 <div className="categories__Main">
                   <ul className="ul_style">
-                    <a href="#">
-                      <li>
+                    <Link href="/">
+                      <li className={`${pathname === '/' ? 'active' : ''}`}>
                         <p className="d-flex justify-content-between mb-2 border-top mt-4 mob_naV_linK">
                           <span className="active_link">Home</span>
                         </p>
                       </li>
-                    </a>
+                    </Link>
 
 
                     {categories && categories.map((category, index) => {
@@ -357,7 +358,21 @@ const Header = () => {
                       );
                     })}
 
+<Link href="/about-us">
+                      <li className={`${pathname === '/about-us' ? 'active' : ''}`}>
+                        <p className="d-flex justify-content-between mb-2   mob_naV_linK">
+                          <span className="active_link">About</span>
+                        </p>
+                      </li>
+                    </Link>
 
+                    <Link href="/contact-us">
+                      <li className={`${pathname === '/contact-us' ? 'active' : ''}`}>
+                        <p className="d-flex justify-content-between mb-2   mob_naV_linK">
+                          <span className="active_link">Contact</span>
+                        </p>
+                      </li>
+                    </Link>
 
 
                   </ul>
