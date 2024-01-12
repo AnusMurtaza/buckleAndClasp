@@ -13,6 +13,7 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [useShippingAsBilling, setUseShippingAsBilling] = useState(false);
 
   const initialValues = {
     first_name: "",
@@ -53,9 +54,31 @@ const page = () => {
       formData.append("phone_number", values.phone_number);
       formData.append("address", values.address);
       formData.append("appartment", values.appartment);
+      formData.append("city", values.city);
+      formData.append("country", values.country);
+      formData.append("same_shipping", useShippingAsBilling?1:0);
+      formData.append("zip_code", values.zip_code);
+      formData.append("state", values.state);
+      
       formData.append("total_price", cartTotalAmount);
       formData.append("order_items", JSON.stringify(cart.cartItems));
       formData.append("status", "pending");
+
+
+      if (!useShippingAsBilling) {
+        formData.append("shipping_first_name", values.shipping_first_name);
+        formData.append("shipping_last_name", values.shipping_last_name);
+        formData.append("shipping_email", values.shipping_email);
+        formData.append("shipping_phone_number", values.shipping_phone_number);
+        formData.append("shipping_address", values.shipping_address);
+        formData.append("shipping_appartment", values.shipping_appartment);
+        formData.append("shipping_city", values.shipping_city);
+        formData.append("shipping_country", values.shipping_country);
+        formData.append("shipping_zip_code", values.shipping_zip_code);
+        formData.append("shipping_state", values.shipping_state);
+      }
+
+
 
 
       try {
@@ -81,7 +104,6 @@ const page = () => {
   });
 
 
-  const [useShippingAsBilling, setUseShippingAsBilling] = useState(false);
 
   const handleCheckboxChange = () => {
     setUseShippingAsBilling(!useShippingAsBilling);
@@ -162,7 +184,13 @@ const page = () => {
                     <label htmlFor="country" className="form-label">
                       Country/Region
                     </label>
-                    <select className="form-select" aria-label="Default select example">
+                    <select className="form-select" 
+                      id="country"
+                      name="country"
+                      value={values.country}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+>
                       <option selected>Select Country</option>
                       <option value="1">United State</option>
                     </select>
@@ -307,32 +335,32 @@ const page = () => {
                       <h3 className='py-3'>Billing Address</h3>
                       <div className="row">
                         <div className="col-md-6 mb-3">
-                          <label htmlFor="exampleInputEmail1" className="form-label">
+                          <label htmlFor="shipping_first_name" className="form-label">
                             First Name
                           </label>
                           <input
                             type="text"
                             className="form-control mt-3"
                             placeholder="John"
-                            id="email"
-                            name="email"
-                            value={values.email}
+                            id="shipping_first_name"
+                            name="shipping_first_name"
+                            value={values.shipping_first_name}
                             onChange={handleChange}
                             onBlur={handleBlur}
 
                           />
                         </div>
                         <div className="col-md-6 mb-3">
-                          <label htmlFor="exampleInputEmail1" className="form-label">
+                          <label htmlFor="shipping_last_name" className="form-label">
                             Last Name
                           </label>
                           <input
                             type="text"
                             className="form-control mt-3"
                             placeholder="Cena"
-                            id="email"
-                            name="email"
-                            value={values.email}
+                            id="shipping_last_name"
+                            name="shipping_last_name"
+                            value={values.shipping_last_name}
                             onChange={handleChange}
                             onBlur={handleBlur}
 
@@ -342,16 +370,16 @@ const page = () => {
                       </div>
 
                       <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">
+                        <label htmlFor="shipping_email" className="form-label">
                           Email
                         </label>
                         <input
                           type="email"
                           className="form-control"
                           placeholder="Email Address"
-                          id="email"
-                          name="email"
-                          value={values.email}
+                          id="shipping_email"
+                          name="shipping_email"
+                          value={values.shipping_email}
                           onChange={handleChange}
                           onBlur={handleBlur}
 
@@ -372,8 +400,8 @@ const page = () => {
 
                       <div className="row">
                         <div className="col-md-4 mb-3">
-                          <label htmlFor="exampleInputEmail1" className="form-label">
-                            Zip
+                          <label htmlFor="shipping_zip_code" className="form-label">
+                            Zip Code
                           </label>
                           <input
                             type="number"
@@ -388,32 +416,32 @@ const page = () => {
                           />
                         </div>
                         <div className="col-md-4 mb-3">
-                          <label htmlFor="exampleInputEmail1" className="form-label">
+                          <label htmlFor="shipping_state" className="form-label">
                             State
                           </label>
                           <input
                             type="text"
                             className="form-control mt-3"
-                            placeholder="State"
-                            id="state"
-                            name="state"
-                            value={values.state}
+                            placeholder="shipping_state"
+                            id="shipping_state"
+                            name="shipping_state"
+                            value={values.shipping_state}
                             onChange={handleChange}
                             onBlur={handleBlur}
 
                           />
                         </div>
                         <div className="col-md-4 mb-3">
-                          <label htmlFor="exampleInputEmail1" className="form-label">
+                          <label htmlFor="shipping_city" className="form-label">
                             City
                           </label>
                           <input
                             type="text"
                             className="form-control mt-3"
                             placeholder="City"
-                            id="email"
-                            name="email"
-                            value={values.email}
+                            id="shipping_city"
+                            name="shipping_city"
+                            value={values.shipping_city}
                             onChange={handleChange}
                             onBlur={handleBlur}
 
@@ -421,15 +449,15 @@ const page = () => {
                         </div>
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">
+                        <label htmlFor="shipping_address" className="form-label">
                           Address
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="email"
-                          name="email"
-                          value={values.email}
+                          id="shipping_address"
+                          name="shipping_address"
+                          value={values.shipping_address}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           placeholder="Address"
@@ -438,38 +466,38 @@ const page = () => {
 
 
                       <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">
+                        <label htmlFor="shipping_appartment" className="form-label">
                           Apartment, suite, etc. (optional)
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           placeholder="Apartment, suite, etc. (optional)"
-                          id="email"
-                          name="email"
-                          value={values.email}
+                          id="shipping_appartment"
+                          name="shipping_appartment"
+                          value={values.shipping_appartment}
                           onChange={handleChange}
                           onBlur={handleBlur}
 
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">
+                        <label htmlFor="shipping_phone_number" className="form-label">
                           Contact Number
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="email"
-                          name="email"
-                          value={values.email}
+                          id="shipping_phone_number"
+                          name="shipping_phone_number"
+                          value={values.shipping_phone_number}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           placeholder="Contact Number"
                         />
                       </div>
                     </div>
-                  )}
+                  )} 
                   <button type="submit" className="btn btn-primary">
                     Pay Now
                   </button>
