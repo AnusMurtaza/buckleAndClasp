@@ -62,6 +62,12 @@ export const updateProductSchema = Yup.object({
   // image: Yup.string(),
 });
 
+export const contactUsSchema = Yup.object({
+  name: Yup.string().required("Please Enter Your Name"),
+  email: Yup.string().email().required('Please Enter Your Email'),
+  message: Yup.string().required("Please Enter Your Message"),
+});
+
 // export const contactUsSchema = Yup.object({
 //   email: Yup.string().email().required("The field is required"),
 //   name: Yup.string().required('The field is required'),

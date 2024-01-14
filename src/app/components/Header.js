@@ -5,7 +5,7 @@ import { decreaseCart, getTotals, removeFromCart } from '@/redux/slices/cartSlic
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { baseURL, imageUrl } from '../config/apiUrl';
 import axios from 'axios';
@@ -15,6 +15,30 @@ const Header = () => {
   const { token, name } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.category);
   const cart = useSelector((state) => state.cart);
+  const [searchValue, setSearchValue] = useState();
+  const router = useRouter()
+
+  const handleClick = async () => {
+    // setLoading(true)
+    // try {
+    //   var FormData = require("form-data");
+    //   var value = new FormData();
+    //   value.append("keyword",searchValue);
+    //   const response = await axios.post(baseURL + `/search`,value);
+    //   // const { data } = response.data;
+      router.push(`/search?q=${searchValue}`);
+      // setProduct(data);
+      // navigate(`/product-category/search`, {
+      //   state: 
+      //    { data:data,
+      //      value:value
+      //     }})
+      //     searchhandle()
+      // setLoading(false)
+    // } catch (error) {
+    //   // setLoading(false)
+    // }
+  };
 
   const pathname = usePathname()
   const dispatch = useDispatch();
@@ -23,7 +47,6 @@ const Header = () => {
     dispatch(removeFromCart(product));
   };
 
-  const router = useRouter()
 
   const handleLogout = () => {
     dispatch(logout())
@@ -131,8 +154,8 @@ const Header = () => {
                 All Categories
               </button> */}
                   <div className="input-group">
-                    <input type="text" placeholder="What do you need?" />
-                    <button type="button">
+                    <input type="text" placeholder="What do you need?" onChange={(e)=>setSearchValue(e.target.value)}/>
+                    <button type="button" onClick={handleClick}>
                       <i className="ti-search" />
                     </button>
                   </div>

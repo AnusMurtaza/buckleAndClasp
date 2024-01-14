@@ -1,132 +1,165 @@
 "use client"
+import axios from 'axios';
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
+import { baseURL } from '../config/apiUrl';
+import { useFormik } from 'formik';
+import { contactUsSchema } from '../schemas';
+import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 
 const page = () => {
+  const [loading, setLoading] = useState(false)
+
+  const initialValues = {
+    name: "",
+    email: "",
+    message: ""
+  };
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: contactUsSchema,
+      onSubmit: async (values, action) => {
+        var userData = new FormData();
+        userData.append("name", values.name);
+        userData.append("email", values.email);
+        userData.append("message", values.message);
+
+        setLoading(true);
+        try {
+          const response = await axios.post(baseURL + "/post_contact_us", userData)
+          const { message, data } = response.data;
+          toast.success("Thank You for reaching out, We'll get back to you shortly");
+          // router.push("/")
+          action.resetForm()
+          setLoading(false);
+        } catch (error) {
+          toast.error("Oops! Something went wrong. Please try again later.");
+          setLoading(false);
+        }
+      },
+    });
   return (
     <>
-  {/* Breadcrumb Section Begin */}
-  <div className="breacrumb-section">
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="breadcrumb-text">
-            <Link href="/">
-              <i className="fa fa-home" /> Home
-            </Link>
-            <span>Contact</span>
+      {/* Breadcrumb Section Begin */}
+      <div className="breacrumb-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="breadcrumb-text">
+                <Link href="/">
+                  <i className="fa fa-home" /> Home
+                </Link>
+                <span>Contact</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  {/* Breadcrumb Section Begin */}
+      {/* Breadcrumb Section Begin */}
 
-  {/* Contact Section Begin */}
-  <section className="contact-section spad">
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-5">
-          <div className="contact-title">
-            <h4>Contacts Us</h4>
-            <p>
-              Contrary to popular belief, Lorem Ipsum is simply random text. It
-              has roots in a piece of classical Latin literature from 45 BC,
-              maki years old.
-            </p>
-          </div>
-          <div className="contact-widget">
-            <div className="cw-item">
-              <div className="ci-icon">
-                <i className="ti-location-pin" />
+      {/* Contact Section Begin */}
+      <section className="contact-section spad">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-5">
+              <div className="contact-title">
+                <h4>Contacts Us</h4>
+                <p>
+                  Contrary to popular belief, Lorem Ipsum is simply random text. It
+                  has roots in a piece of classical Latin literature from 45 BC,
+                  maki years old.
+                </p>
               </div>
-              <div className="ci-text">
-                <span>Address:</span>
-                <p>60-49 Road 11378 New York</p>
-              </div>
-            </div>
-            <div className="cw-item">
-              <div className="ci-icon">
-                <i className="ti-mobile" />
-              </div>
-              <div className="ci-text">
-                <span>Phone:</span>
-                <p>+65 11.188.888</p>
-              </div>
-            </div>
-            <div className="cw-item">
-              <div className="ci-icon">
-                <i className="ti-email" />
-              </div>
-              <div className="ci-text">
-                <span>Email:</span>
-                <p>hellocolorlib@gmail.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-6 offset-lg-1">
-          <div className="contact-form">
-            <div className="leave-comment">
-              <h4>Leave A Comment</h4>
-              <p>Our staff will call back later and answer your questions.</p>
-              <form action="#" className="comment-form">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <input type="text" placeholder="Your name" />
+              <div className="contact-widget">
+                <div className="cw-item">
+                  <div className="ci-icon">
+                    <i className="ti-location-pin" />
                   </div>
-                  <div className="col-lg-6">
-                    <input type="text" placeholder="Your email" />
-                  </div>
-                  <div className="col-lg-12">
-                    <textarea placeholder="Your message" defaultValue={""} />
-                    <button type="submit" className="site-btn">
-                      Send message
-                    </button>
+                  <div className="ci-text">
+                    <span>Address:</span>
+                    <p>60-49 Road 11378 New York</p>
                   </div>
                 </div>
-              </form>
+                <div className="cw-item">
+                  <div className="ci-icon">
+                    <i className="ti-mobile" />
+                  </div>
+                  <div className="ci-text">
+                    <span>Phone:</span>
+                    <p>+65 11.188.888</p>
+                  </div>
+                </div>
+                <div className="cw-item">
+                  <div className="ci-icon">
+                    <i className="ti-email" />
+                  </div>
+                  <div className="ci-text">
+                    <span>Email:</span>
+                    <p>hellocolorlib@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 offset-lg-1">
+              <div className="contact-form">
+                <div className="leave-comment">
+                  <h4>Leave A Comment</h4>
+                  <p>Our staff will call back later and answer your questions.</p>
+                  <form className="comment-form" onSubmit={handleSubmit}>
+                    <div className="row">
+                      <div className="col-lg-6 mb-3">
+                        <input type="text" placeholder="Your name"
+                          id="name"
+                          name="name"
+                          value={values.name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        {errors.name && touched.name ? (
+                          <p className="form-error">{errors.name}</p>
+                        ) : null}
+                      </div>
+                      <div className="col-lg-6 mb-3">
+                        <input type="email" placeholder="Your email"
+                          id="email"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        {errors.email && touched.email ? (
+                          <p className="form-error">{errors.email}</p>
+                        ) : null}
+                      </div>
+                      <div className="col-lg-12">
+                        <textarea placeholder="Your message"
+                          id="message"
+                          name="message"
+                          value={values.message}
+                          onChange={handleChange}
+                          onBlur={handleBlur} />
+
+                        {errors.message && touched.message ? (
+                          <p className="form-error">{errors.message}</p>
+                        ) : null}
+                        <button type="submit" className="site-btn mt-4" disabled={loading ? true : false}>
+                          {loading ? (<Spinner />) : "Send message"}
+
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  {/* Contact Section End */}
-  {/* Partner Logo Section Begin */}
-  <div className="partner-logo">
-    <div className="container">
-      <div className="logo-carousel owl-carousel">
-        <div className="logo-item">
-          <div className="tablecell-inner">
-            <img src="img/logo-carousel/logo-1.png" alt="" />
-          </div>
-        </div>
-        <div className="logo-item">
-          <div className="tablecell-inner">
-            <img src="img/logo-carousel/logo-2.png" alt="" />
-          </div>
-        </div>
-        <div className="logo-item">
-          <div className="tablecell-inner">
-            <img src="img/logo-carousel/logo-3.png" alt="" />
-          </div>
-        </div>
-        <div className="logo-item">
-          <div className="tablecell-inner">
-            <img src="img/logo-carousel/logo-4.png" alt="" />
-          </div>
-        </div>
-        <div className="logo-item">
-          <div className="tablecell-inner">
-            <img src="img/logo-carousel/logo-5.png" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  {/* Partner Logo Section End */}
-</>
+      </section>
+      {/* Contact Section End */}
+
+    </>
 
   )
 }
