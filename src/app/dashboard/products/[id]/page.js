@@ -114,7 +114,7 @@ const page = () => {
 
 
     },
-    // validationSchema: data ? updateProductSchema : ProductSchema,
+    validationSchema: data ? updateProductSchema : ProductSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
       console.log(values)
@@ -329,6 +329,9 @@ const page = () => {
                             </option>
                           ))}
                         </select>
+                        {errors.main_cat_id && touched.main_cat_id ? (
+                          <p>{errors.main_cat_id}</p>
+                        ) : null}
                       </div>
 
                       <div className="col-md-6 mb-2">
@@ -349,6 +352,9 @@ const page = () => {
                             </option>
                           ))}
                         </select>
+                        {errors.sub_cat_id && touched.sub_cat_id ? (
+                          <p>{errors.sub_cat_id}</p>
+                        ) : null}
                       </div>
 
                       <div className="col-md-6 mb-2">

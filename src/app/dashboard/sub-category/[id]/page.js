@@ -289,7 +289,7 @@ const {
                {mainCategories.map((val,index)=> <option key={index} value={val.id}>{val.name}</option>)}
             </select>
             </div>
-            <div className="col-md-6 mb-2">
+            {/* <div className="col-md-6 mb-2">
             <label htmlFor="image" className="form-label">
                   Upload Image
                 </label>
@@ -303,7 +303,7 @@ const {
                   id="image"
                 />
                 {errors.image && touched.image ? <p>{errors.image}</p> : null}
-            </div>
+            </div> */}
 
             <div className="mt-2 text-center">
             <button type="submit" className="btn check_out_btn" disabled={loading?true:false}>{loading?<Spinner/>:"Save"}</button>

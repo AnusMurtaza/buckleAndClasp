@@ -5,6 +5,7 @@ import { baseURL, imageUrl } from '../config/apiUrl';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { checkoutSchema } from '../schemas';
 
 const page = () => {
   const { cartItems, cartTotalAmount } = useSelector((state) => state.cart);
@@ -13,7 +14,7 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [useShippingAsBilling, setUseShippingAsBilling] = useState(false);
+  const [useShippingAsBilling, setUseShippingAsBilling] = useState(true);
 
   const initialValues = {
     first_name: "",
@@ -22,14 +23,22 @@ const page = () => {
     phone_number: "",
     address: "",
     appartment: "",
-    // total_price: "",
     city: "",
     country: "",
-    same_shipping: "",
     zip_code: "",
-    state:""
-    // country: "",
-    // state: "",
+    state: "",
+    same_shipping: true,
+    shipping_first_name: "",  // New shipping-related fields
+    shipping_last_name: "",
+    shipping_email: "",
+    shipping_phone_number: "",
+    shipping_address: "",
+    shipping_appartment: "",
+    shipping_city: "",
+    shipping_country: "",
+    shipping_zip_code: "",
+    shipping_state: "",
+    // ... other fields
   };
 
 
@@ -43,7 +52,7 @@ const page = () => {
     setFieldValue,
   } = useFormik({
     initialValues: initialValues,
-    // validationSchema: data ? updateProductSchema : ProductSchema,
+    validationSchema: checkoutSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
       setLoading(true);
@@ -56,7 +65,7 @@ const page = () => {
       formData.append("appartment", values.appartment);
       formData.append("city", values.city);
       formData.append("country", values.country);
-      formData.append("same_shipping", useShippingAsBilling?1:0);
+      formData.append("same_shipping", values.same_shipping?1:0);
       formData.append("zip_code", values.zip_code);
       formData.append("state", values.state);
       
@@ -77,8 +86,6 @@ const page = () => {
         formData.append("shipping_zip_code", values.shipping_zip_code);
         formData.append("shipping_state", values.shipping_state);
       }
-
-
 
 
       try {
@@ -104,9 +111,11 @@ const page = () => {
   });
 
 
-
+  console.log('Form Values:', values);
+  console.log('Form Errors:', errors);
   const handleCheckboxChange = () => {
     setUseShippingAsBilling(!useShippingAsBilling);
+    setFieldValue('same_shipping', !useShippingAsBilling);
   };
   return (
     <section>
@@ -318,13 +327,13 @@ const page = () => {
                   </div>
 
                   <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value={useShippingAsBilling}
-                      id="useShippingAsBilling"
-                      onChange={handleCheckboxChange}
-                    />
+                  <input
+  className="form-check-input"
+  type="checkbox"
+  checked={values.same_shipping?true:false}
+  id="useShippingAsBilling"
+  onChange={handleCheckboxChange}
+/>
                     <label className="form-check-label" htmlFor="useShippingAsBilling">
                       Use shipping address as billing address
                     </label>
@@ -349,6 +358,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
+                           {errors.shipping_first_name && touched.shipping_first_name ? (
+                        <p className="form-error">{errors.shipping_first_name}</p>
+                      ) : null}
                         </div>
                         <div className="col-md-6 mb-3">
                           <label htmlFor="shipping_last_name" className="form-label">
@@ -365,6 +377,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
+                           {errors.shipping_last_name && touched.shipping_last_name ? (
+                        <p className="form-error">{errors.shipping_last_name}</p>
+                      ) : null}
                         </div>
 
                       </div>
@@ -384,17 +399,29 @@ const page = () => {
                           onBlur={handleBlur}
 
                         />
+                            {errors.shipping_email && touched.shipping_email ? (
+                        <p className="form-error">{errors.shipping_email}</p>
+                      ) : null}
                       </div>
 
 
                       <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">
+                        <label htmlFor="shipping_country" className="form-label">
                           Country/Region
                         </label>
-                        <select className="form-select" aria-label="Default select example">
-                          <option selected>Select Country</option>
-                          <option value="1">United State</option>
-                        </select>
+                        <select className="form-select" 
+                      id="shipping_country"
+                      name="shipping_country"
+                      value={values.shipping_country}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+>
+                      <option selected>Select shipping_Country</option>
+                      <option value="1">United State</option>
+                    </select>
+                    {errors.shipping_country && touched.shipping_country ? (
+                        <p className="form-error">{errors.shipping_country}</p>
+                      ) : null}
                       </div>
 
 
@@ -407,13 +434,16 @@ const page = () => {
                             type="number"
                             className="form-control mt-3"
                             placeholder="Zip Code"
-                            id="email"
-                            name="email"
-                            value={values.email}
+                            id="shipping_zip_code"
+                            name="shipping_zip_code"
+                            value={values.shipping_zip_code}
                             onChange={handleChange}
                             onBlur={handleBlur}
 
                           />
+                              {errors.shipping_zip_code && touched.shipping_zip_code ? (
+                        <p className="form-error">{errors.shipping_zip_code}</p>
+                      ) : null}
                         </div>
                         <div className="col-md-4 mb-3">
                           <label htmlFor="shipping_state" className="form-label">
@@ -430,6 +460,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
+                              {errors.shipping_state && touched.shipping_state ? (
+                        <p className="form-error">{errors.shipping_state}</p>
+                      ) : null}
                         </div>
                         <div className="col-md-4 mb-3">
                           <label htmlFor="shipping_city" className="form-label">
@@ -446,6 +479,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
+                          {errors.shipping_city && touched.shipping_city ? (
+                        <p className="form-error">{errors.shipping_city}</p>
+                      ) : null}
                         </div>
                       </div>
                       <div className="mb-3">
@@ -462,6 +498,9 @@ const page = () => {
                           onBlur={handleBlur}
                           placeholder="Address"
                         />
+                          {errors.shipping_city && touched.shipping_city ? (
+                        <p className="form-error">{errors.shipping_city}</p>
+                      ) : null}
                       </div>
 
 
@@ -480,6 +519,9 @@ const page = () => {
                           onBlur={handleBlur}
 
                         />
+                          {errors.shipping_appartment && touched.shipping_appartment ? (
+                        <p className="form-error">{errors.shipping_appartment}</p>
+                      ) : null}
                       </div>
                       <div className="mb-3">
                         <label htmlFor="shipping_phone_number" className="form-label">
@@ -495,6 +537,9 @@ const page = () => {
                           onBlur={handleBlur}
                           placeholder="Contact Number"
                         />
+                          {errors.shipping_phone_number && touched.shipping_phone_number ? (
+                        <p className="form-error">{errors.shipping_phone_number}</p>
+                      ) : null}
                       </div>
                     </div>
                   )} 

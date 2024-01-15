@@ -189,6 +189,9 @@ const Header = () => {
                                     <div className="product-selected">
                                       <p>${value.sale > 0 ? value.discounted_price : value.price} x {value.cartQuantity}</p>
                                       <h6>{value.name}</h6>
+                                        <h6>Size :<span>{value.size}</span></h6>
+                                        <div className='d-flex'> <h6>Color :</h6><div style={{width:"15px",height:"15px",backgroundColor:value.color}}></div></div>
+
                                     </div>
                                   </td>
                                   <td className="si-close">

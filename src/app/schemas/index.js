@@ -40,26 +40,35 @@ export const updateMainCategorySchema = Yup.object({
 export const SubCategorySchema = Yup.object({
   name: Yup.string().required("Please enter name"),
   main_cat_id: Yup.string().required("Please select main category"),
-  image: Yup.string().required("Please Upload image"),
+  // image: Yup.string().required("Please Upload image"),
 });
 export const updateSubCategorySchema = Yup.object({
   name: Yup.string().required("Please enter name"),
   main_cat_id: Yup.string().required("Please select main category"),
-  image: Yup.string(),
+  // image: Yup.string(),
 });
-
 
 
 
 export const ProductSchema = Yup.object({
-  name: Yup.string().required("Please enter name"),
-  main_cat_id: Yup.string().required("Please select main category"),
-  // image: Yup.string().required("Please Upload image"),
+  title: Yup.string().required("The field is required"),
+  name: Yup.string().required("The field is required"),
+  description: Yup.string().required("The field is required"),
+  price: Yup.string().required("The field is required"),
+  main_cat_id: Yup.string().required("The field is required"),
+  sub_cat_id: Yup.string().required("The field is required"),
+  color: Yup.string().required("Please select main category"),
+  image: Yup.string().required("Please Upload image"),
 });
 export const updateProductSchema = Yup.object({
-  name: Yup.string().required("Please enter name"),
-  main_cat_id: Yup.string().required("Please select main category"),
-  // image: Yup.string(),
+  title: Yup.string().required("The field is required"),
+  name: Yup.string().required("The field is required"),
+  description: Yup.string().required("The field is required"),
+  price: Yup.string().required("The field is required"),
+  main_cat_id: Yup.string().required("The field is required"),
+  sub_cat_id: Yup.string().required("The field is required"),
+  // color: Yup.string().required("Please select main category"),
+  // image: Yup.string().required("Please Upload image"),
 });
 
 export const contactUsSchema = Yup.object({
@@ -113,18 +122,20 @@ export const contactUsSchema = Yup.object({
 //   state_id: Yup.string().required('The field is required'),
 // });
 
-// export const editShippingSchema = Yup.object({
-//   firstname: Yup.string().required('The field is required'),
-//   lastname: Yup.string().required('The field is required'),
-//   // email: Yup.string().email().required("The field is required"),
-//   phone: Yup.string().required('The field is required'),
-//   country_id: Yup.string().required('The field is required'),
-//   street_address: Yup.string().required('The field is required'),
-//   apartment: Yup.string(),
-//   state_id: Yup.string().required('The field is required'),
-//   city: Yup.string().required('The field is required'),
-//   zipcode: Yup.string().required('The field is required'),
-// });
+export const checkoutSchema = Yup.object({
+  first_name: Yup.string().required('First name is required'),
+  last_name: Yup.string().required('Last name is required'),
+  email: Yup.string().email('Invalid email format').required('Email is required'),
+  phone_number: Yup.string().required('Phone number is required'),
+  address: Yup.string().required('Address is required'),
+  appartment: Yup.string(),
+  city: Yup.string().required('City is required'),
+  country: Yup.string().required('Country is required'),
+  zip_code: Yup.string().required('ZIP code is required'),
+  state: Yup.string().required('State is required'),
+  same_shipping: Yup.boolean(),
+
+});
 // export const contactus = Yup.object({
 //   name: Yup.string().min(2).max(25).required("Please Enter Your Name"),
 //   email: Yup.string().email().required("Please Enter Your Email"),

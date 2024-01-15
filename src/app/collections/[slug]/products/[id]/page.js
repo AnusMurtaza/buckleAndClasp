@@ -15,6 +15,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addToCart, getTotals } from '@/redux/slices/cartSlice';
 import ProductCard from '@/app/components/ProductCard';
+import { toast } from 'react-toastify';
 // import $ from 'jquery';
 const page = () => {
   const params = useParams();
@@ -43,17 +44,23 @@ const page = () => {
     setNum(e.target.value);
   };
   let handleAddToCart = (product, num) => {
-    let data = {
-      ...product,
-      num,
-      size:selectedSize,
-      color:selectedColor
-    };
-    dispatch(addToCart(data));
-    // dispatch(getTotals());
-    setNum(1);
-  };
+    if (selectedColor === null || selectedSize === null) {
+        toast.error("PLease choose color and size")
+    } else {
+      let data = {
+        ...product,
+        num,
+        size:selectedSize,
+        color:selectedColor
+      };
+      dispatch(addToCart(data));
+      // dispatch(getTotals());
+      setNum(1);
+    }
 
+  };
+console.log(selectedSize,"selectedSize")
+console.log(selectedColor,"selectedSize")
 
 
   const fetchProduct = async () => {
