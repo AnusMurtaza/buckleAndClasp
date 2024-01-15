@@ -129,7 +129,7 @@ const page = () => {
                   console.log(value)
                   return (
                     <div className="col-lg-4 col-sm-6">
-                      {/* <Link href={`/collections/${params.slug}/products/${value.slug}`}> */}
+                      <Link href={`/collections/${value.sub_category.slug}/products/${value.slug}`}>
                         <div className="product-item" key={index}>
                           <div className="pi-pic">
                             <Image src={`${imageUrl}/${value.images[0].image}`} alt="" width={244} height={298} />
@@ -163,7 +163,7 @@ const page = () => {
                            }
                           </div>
                         </div>
-                      {/* </Link> */}
+                      </Link>
                     </div>
                   )
                 })}
