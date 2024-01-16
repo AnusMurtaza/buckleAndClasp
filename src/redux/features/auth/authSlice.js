@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import Cookies from 'js-cookie';
 
 const initialStateValue = {
   token:"",
@@ -14,6 +15,8 @@ export const authSlice = createSlice({
           state.token = action.payload.token;
           state.name = action.payload.name;
           state.user_type = action.payload.user_type;
+          Cookies.set('token', action.payload.token, { expires: 7 });
+
           // state.address = action.payload.address;
       },
 
@@ -21,6 +24,7 @@ export const authSlice = createSlice({
         state.token = "";
         state.name = "";
         state.user_type = "";
+        Cookies.remove('token');
         // state.address = "";
       },
     //   isAdminn: (state, action) => {
