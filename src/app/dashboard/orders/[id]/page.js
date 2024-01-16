@@ -81,6 +81,11 @@ const page = ({params}) => {
                         <th>
                           <p className="order__item_pad">
                            {value.name} × {value.cartQuantity}
+                           <div>
+                           Size : {value.size}
+                          <div className='d-flex'> <h6>Color : </h6><div style={{width:"15px",height:"15px",backgroundColor:value.color}}></div></div>
+
+                           </div>
                           </p>
                         </th>
                         <th>

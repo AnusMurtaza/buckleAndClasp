@@ -307,7 +307,7 @@ const page = () => {
                   Delivered
                 </button>
               </div>
-              <div>
+              <div className='orders-accordian'>
                 <div className='card'>
                   <div className='card-body'>
                     <div className="d-flex justify-content-between align-items-center">

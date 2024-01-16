@@ -75,6 +75,11 @@ const page = () => {
                 </td>
                 <td className="cart-title first-row">
                   <h5>{value.name}</h5>
+                  <div className='d-flex'>
+
+                  <h6>Size :<span>{value.size}</span></h6>
+                  <div className='d-flex ms-3'> <h6>Color : </h6><div style={{width:"15px",height:"15px",backgroundColor:value.color}}></div></div>
+                  </div>
                 </td>
                 <td className="p-price first-row">${amount}</td>
                 <td className="qua-col first-row">

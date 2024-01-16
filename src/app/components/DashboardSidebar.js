@@ -1,11 +1,15 @@
+"use client"
 import Link from 'next/link'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const DashboardSidebar = () => {
+  const { name } = useSelector((state) => state.auth);
+
   return (
     <div className="col-md-3 mb-2">
         <div className="userName_Log_div">
-          <p className="fw-bold text-uppercase">anas</p>
+          <p className="fw-bold text-uppercase">{name}</p>
           {/* <p className="fw-bold text-uppercase">{name}anas</p> */}
           <p className="logout___ orderNo" >LOGOUT</p>
           {/* <p className="logout___ orderNo" onClick={handleLogout}>LOGOUT</p> */}

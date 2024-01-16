@@ -65,10 +65,10 @@ const page = () => {
       formData.append("appartment", values.appartment);
       formData.append("city", values.city);
       formData.append("country", values.country);
-      formData.append("same_shipping", values.same_shipping?1:0);
+      formData.append("same_shipping", values.same_shipping ? 1 : 0);
       formData.append("zip_code", values.zip_code);
       formData.append("state", values.state);
-      
+
       formData.append("total_price", cartTotalAmount);
       formData.append("order_items", JSON.stringify(cart.cartItems));
       formData.append("status", "pending");
@@ -161,7 +161,7 @@ const page = () => {
                         onBlur={handleBlur}
 
                       />
-                       {errors.last_name && touched.last_name ? (
+                      {errors.last_name && touched.last_name ? (
                         <p className="form-error">{errors.last_name}</p>
                       ) : null}
                     </div>
@@ -183,9 +183,9 @@ const page = () => {
                       onBlur={handleBlur}
 
                     />
-                     {errors.email && touched.email ? (
-                        <p className="form-error">{errors.email}</p>
-                      ) : null}
+                    {errors.email && touched.email ? (
+                      <p className="form-error">{errors.email}</p>
+                    ) : null}
                   </div>
 
 
@@ -193,19 +193,19 @@ const page = () => {
                     <label htmlFor="country" className="form-label">
                       Country/Region
                     </label>
-                    <select className="form-select" 
+                    <select className="form-select"
                       id="country"
                       name="country"
                       value={values.country}
                       onChange={handleChange}
                       onBlur={handleBlur}
->
+                    >
                       <option selected>Select Country</option>
                       <option value="1">United State</option>
                     </select>
                     {errors.country && touched.country ? (
-                        <p className="form-error">{errors.country}</p>
-                      ) : null}
+                      <p className="form-error">{errors.country}</p>
+                    ) : null}
                   </div>
 
 
@@ -225,7 +225,7 @@ const page = () => {
                         onBlur={handleBlur}
 
                       />
-                       {errors.zip_code && touched.zip_code ? (
+                      {errors.zip_code && touched.zip_code ? (
                         <p className="form-error">{errors.zip_code}</p>
                       ) : null}
                     </div>
@@ -244,7 +244,7 @@ const page = () => {
                         onBlur={handleBlur}
 
                       />
-                       {errors.state && touched.state ? (
+                      {errors.state && touched.state ? (
                         <p className="form-error">{errors.state}</p>
                       ) : null}
                     </div>
@@ -263,7 +263,7 @@ const page = () => {
                         onBlur={handleBlur}
 
                       />
-                       {errors.city && touched.city ? (
+                      {errors.city && touched.city ? (
                         <p className="form-error">{errors.city}</p>
                       ) : null}
                     </div>
@@ -282,9 +282,9 @@ const page = () => {
                       onBlur={handleBlur}
                       placeholder="Address"
                     />
-                     {errors.address && touched.address ? (
-                        <p className="form-error">{errors.address}</p>
-                      ) : null}
+                    {errors.address && touched.address ? (
+                      <p className="form-error">{errors.address}</p>
+                    ) : null}
                   </div>
 
 
@@ -303,9 +303,9 @@ const page = () => {
                       onBlur={handleBlur}
 
                     />
-                     {errors.appartment && touched.appartment ? (
-                        <p className="form-error">{errors.appartment}</p>
-                      ) : null}
+                    {errors.appartment && touched.appartment ? (
+                      <p className="form-error">{errors.appartment}</p>
+                    ) : null}
                   </div>
                   <div className="mb-3">
                     <label htmlFor="phone_number" className="form-label">
@@ -321,19 +321,19 @@ const page = () => {
                       onBlur={handleBlur}
                       placeholder="Contact Number"
                     />
-                     {errors.phone_number && touched.phone_number ? (
-                        <p className="form-error">{errors.phone_number}</p>
-                      ) : null}
+                    {errors.phone_number && touched.phone_number ? (
+                      <p className="form-error">{errors.phone_number}</p>
+                    ) : null}
                   </div>
 
                   <div className="form-check">
-                  <input
-  className="form-check-input"
-  type="checkbox"
-  checked={values.same_shipping?true:false}
-  id="useShippingAsBilling"
-  onChange={handleCheckboxChange}
-/>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      checked={values.same_shipping ? true : false}
+                      id="useShippingAsBilling"
+                      onChange={handleCheckboxChange}
+                    />
                     <label className="form-check-label" htmlFor="useShippingAsBilling">
                       Use shipping address as billing address
                     </label>
@@ -358,9 +358,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
-                           {errors.shipping_first_name && touched.shipping_first_name ? (
-                        <p className="form-error">{errors.shipping_first_name}</p>
-                      ) : null}
+                          {errors.shipping_first_name && touched.shipping_first_name ? (
+                            <p className="form-error">{errors.shipping_first_name}</p>
+                          ) : null}
                         </div>
                         <div className="col-md-6 mb-3">
                           <label htmlFor="shipping_last_name" className="form-label">
@@ -377,9 +377,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
-                           {errors.shipping_last_name && touched.shipping_last_name ? (
-                        <p className="form-error">{errors.shipping_last_name}</p>
-                      ) : null}
+                          {errors.shipping_last_name && touched.shipping_last_name ? (
+                            <p className="form-error">{errors.shipping_last_name}</p>
+                          ) : null}
                         </div>
 
                       </div>
@@ -399,9 +399,9 @@ const page = () => {
                           onBlur={handleBlur}
 
                         />
-                            {errors.shipping_email && touched.shipping_email ? (
-                        <p className="form-error">{errors.shipping_email}</p>
-                      ) : null}
+                        {errors.shipping_email && touched.shipping_email ? (
+                          <p className="form-error">{errors.shipping_email}</p>
+                        ) : null}
                       </div>
 
 
@@ -409,19 +409,19 @@ const page = () => {
                         <label htmlFor="shipping_country" className="form-label">
                           Country/Region
                         </label>
-                        <select className="form-select" 
-                      id="shipping_country"
-                      name="shipping_country"
-                      value={values.shipping_country}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
->
-                      <option selected>Select shipping_Country</option>
-                      <option value="1">United State</option>
-                    </select>
-                    {errors.shipping_country && touched.shipping_country ? (
-                        <p className="form-error">{errors.shipping_country}</p>
-                      ) : null}
+                        <select className="form-select"
+                          id="shipping_country"
+                          name="shipping_country"
+                          value={values.shipping_country}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        >
+                          <option selected>Select shipping_Country</option>
+                          <option value="1">United State</option>
+                        </select>
+                        {errors.shipping_country && touched.shipping_country ? (
+                          <p className="form-error">{errors.shipping_country}</p>
+                        ) : null}
                       </div>
 
 
@@ -441,9 +441,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
-                              {errors.shipping_zip_code && touched.shipping_zip_code ? (
-                        <p className="form-error">{errors.shipping_zip_code}</p>
-                      ) : null}
+                          {errors.shipping_zip_code && touched.shipping_zip_code ? (
+                            <p className="form-error">{errors.shipping_zip_code}</p>
+                          ) : null}
                         </div>
                         <div className="col-md-4 mb-3">
                           <label htmlFor="shipping_state" className="form-label">
@@ -460,9 +460,9 @@ const page = () => {
                             onBlur={handleBlur}
 
                           />
-                              {errors.shipping_state && touched.shipping_state ? (
-                        <p className="form-error">{errors.shipping_state}</p>
-                      ) : null}
+                          {errors.shipping_state && touched.shipping_state ? (
+                            <p className="form-error">{errors.shipping_state}</p>
+                          ) : null}
                         </div>
                         <div className="col-md-4 mb-3">
                           <label htmlFor="shipping_city" className="form-label">
@@ -480,8 +480,8 @@ const page = () => {
 
                           />
                           {errors.shipping_city && touched.shipping_city ? (
-                        <p className="form-error">{errors.shipping_city}</p>
-                      ) : null}
+                            <p className="form-error">{errors.shipping_city}</p>
+                          ) : null}
                         </div>
                       </div>
                       <div className="mb-3">
@@ -498,9 +498,9 @@ const page = () => {
                           onBlur={handleBlur}
                           placeholder="Address"
                         />
-                          {errors.shipping_city && touched.shipping_city ? (
-                        <p className="form-error">{errors.shipping_city}</p>
-                      ) : null}
+                        {errors.shipping_city && touched.shipping_city ? (
+                          <p className="form-error">{errors.shipping_city}</p>
+                        ) : null}
                       </div>
 
 
@@ -519,9 +519,9 @@ const page = () => {
                           onBlur={handleBlur}
 
                         />
-                          {errors.shipping_appartment && touched.shipping_appartment ? (
-                        <p className="form-error">{errors.shipping_appartment}</p>
-                      ) : null}
+                        {errors.shipping_appartment && touched.shipping_appartment ? (
+                          <p className="form-error">{errors.shipping_appartment}</p>
+                        ) : null}
                       </div>
                       <div className="mb-3">
                         <label htmlFor="shipping_phone_number" className="form-label">
@@ -537,12 +537,12 @@ const page = () => {
                           onBlur={handleBlur}
                           placeholder="Contact Number"
                         />
-                          {errors.shipping_phone_number && touched.shipping_phone_number ? (
-                        <p className="form-error">{errors.shipping_phone_number}</p>
-                      ) : null}
+                        {errors.shipping_phone_number && touched.shipping_phone_number ? (
+                          <p className="form-error">{errors.shipping_phone_number}</p>
+                        ) : null}
                       </div>
                     </div>
-                  )} 
+                  )}
                   <button type="submit" className="btn btn-primary">
                     Pay Now
                   </button>
@@ -612,14 +612,22 @@ const page = () => {
                                       {value.image}
                                     </h5>
                                     <p className="card-text">
+                                      {value.name}
+                                      <span className="float-end pe-3">
+                                      <div className='d-flex'>
+
+<h6>Size :<span>{value.size}</span></h6>
+<div className='d-flex ms-3'> <h6>Color : </h6><div style={{width:"15px",height:"15px",backgroundColor:value.color}}></div></div>
+</div>
+                                      </span>
+                                    </p>
+                                    <p className="card-text">
                                       Qty:{value.cartQuantity}
                                       <span className="float-end pe-3">
                                         <b> Price: ${Finalamount}</b>
                                       </span>
                                     </p>
-                                    <p className="card-text">
-                                      {value.name}
-                                    </p>
+                               
                                   </div>
                                 </div>
                               </div>
