@@ -6,13 +6,14 @@ import { baseURL } from '../config/apiUrl';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
+import Pagination from '../components/Pagination';
 
 const page = () => {
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   const fetchOrder = async () => {
     try {
@@ -27,22 +28,21 @@ const page = () => {
       const response = await axios(config);
       const { data } = response.data;
       setOrders(data.data);
-      setCurrentPage(data.current_page);
-      setTotalPages(data.last_page);
+      setLastPage(data.last_page);
     } catch (error) {
       console.error('Error fetching orders:', error);
     } finally {
       setLoading(false);
     }
   };
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   useEffect(() => {
     fetchOrder();
   }, [currentPage]);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
   return (
     <section>
     <section className="container-fluid products_main_banner">
@@ -110,13 +110,13 @@ const page = () => {
           </p>
         )}
       </div>
-      {/* {orders.length > 0 && (
-        <CustomPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      )} */}
+      {orders.length > 0 && (
+             <Pagination
+             currentPage={currentPage}
+             handlePageChange={handlePageChange}
+             lastPage={lastPage}
+             />
+      )}
     </div>
         </div>
       </div>

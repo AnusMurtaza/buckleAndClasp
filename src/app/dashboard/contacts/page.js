@@ -1,5 +1,6 @@
 "use client"
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
+import Pagination from '@/app/components/Pagination'
 import { baseURL } from '@/app/config/apiUrl'
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
@@ -10,32 +11,33 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const { token } = useSelector((state) => state.auth);
-  const [page, setPage] = useState(1);
-
-  const handleChange = (e, p) => {
-    setPage(p);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   const fetchContactUs = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${baseURL}/all_contact_us?page=${page}`, {
+      const response = await axios.get(`${baseURL}/all_contact_us?page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const { data } = response.data;
       setData(data.data);
+      setLastPage(data.last_page);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error(error);
     }
   };
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   useEffect(() => {
     fetchContactUs();
-  }, [page, token]);
+  }, [currentPage, token]);
 
 
 
@@ -100,12 +102,11 @@ const page = () => {
                       </table>
                     </div>
                   </div>
-                  {/* <Pagination
-        count={count}
-        page={page}
-        onChange={handleChange}
-        color="primary"
-      /> */}
+                  <Pagination
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+              lastPage={lastPage}
+              />
 
                 </div>
 

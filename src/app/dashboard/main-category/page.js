@@ -1,6 +1,7 @@
 "use client"
 
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
+import Pagination from '@/app/components/Pagination'
 import DeleteModal from '@/app/components/modals/DeleteModal'
 import { baseURL, imageUrl } from '@/app/config/apiUrl'
 import axios from 'axios'
@@ -16,31 +17,32 @@ const page = () => {
   const [mainCategory, setMainCategory] = useState([]);
   const { token } = useSelector((state) => state.auth);
   const [page, setPage] = useState(1);
-
-  const handleChange = (e, p) => {
-    setPage(p);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   const fetchMainCategory = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${baseURL}/main_category?page=${page}`, {
+      const response = await axios.get(`${baseURL}/main_category?page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const { data } = response.data;
       setMainCategory(data.data);
+      setLastPage(data.last_page);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error(error);
     }
   };
-
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
   useEffect(() => {
     fetchMainCategory();
-  }, [page, token]);
+  }, [currentPage, token]);
   
     const [dialog, setDialog] = useState({
       message: "",
@@ -168,12 +170,11 @@ const page = () => {
           </table>
         </div>
       </div>
-      {/* <Pagination
-        count={count}
-        page={page}
-        onChange={handleChange}
-        color="primary"
-      /> */}
+      <Pagination
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+              lastPage={lastPage}
+              />
 
       {dialog.isLoading && (
         <DeleteModal

@@ -58,7 +58,8 @@ export const ProductSchema = Yup.object({
   main_cat_id: Yup.string().required("The field is required"),
   sub_cat_id: Yup.string().required("The field is required"),
   color: Yup.string().required("Please select main category"),
-  image: Yup.string().required("Please Upload image"),
+  // image: Yup.string().required("Please Upload image"),
+  image:Yup.array().required("Image is required"),
 });
 export const updateProductSchema = Yup.object({
   title: Yup.string().required("The field is required"),

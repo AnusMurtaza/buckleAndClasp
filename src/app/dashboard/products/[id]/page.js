@@ -104,14 +104,12 @@ const page = () => {
       name: data?.name || "",
       description: data?.description || "",
       price: data?.price || "",
-      sale: data?.sale === "1" && true || "",
+      sale: data?.sale === 1 && true || "",
       main_cat_id: data?.main_cat_id || "",
       sub_cat_id: data?.sub_cat_id || "",
       image: "",
       color: data?.color || "",
       discounted_price: data?.discounted_price || "",
-
-
 
     },
     validationSchema: data ? updateProductSchema : ProductSchema,

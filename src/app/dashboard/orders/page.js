@@ -1,5 +1,6 @@
 "use client"
 import AdminDashboardSidebar from '@/app/components/AdminDashboardSidebar'
+import Pagination from '@/app/components/Pagination';
 import Spinner from '@/app/components/Spinner';
 import { baseURL } from '@/app/config/apiUrl';
 import axios from 'axios';
@@ -335,27 +336,11 @@ const page = () => {
                   </div>
                 </div>
 
-                <nav aria-label="Page navigation example">
-        <ul className="pagination">
-          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-            <button className="page-link" href="#" onClick={() => handlePageChange(currentPage - 1)}>
-              Previous
-            </button>
-          </li>
-          {Array.from({ length: lastPage }, (_, index) => (
-            <li className={`page-item ${currentPage === index + 1 ? 'active' : ''}`} key={index}>
-              <button className="page-link" href="#" onClick={() => handlePageChange(index + 1)}>
-                {index + 1}
-              </button>
-            </li>
-          ))}
-          <li className={`page-item ${currentPage === lastPage ? 'disabled' : ''}`}>
-            <button className="page-link" href="#" onClick={() => handlePageChange(currentPage + 1)}>
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav>
+              <Pagination
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+              lastPage={lastPage}
+              />
                 {/* <Pagination
         count={count}
         page={page}

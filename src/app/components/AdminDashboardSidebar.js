@@ -1,7 +1,7 @@
 "use client"
 import { logout } from '@/redux/features/auth/authSlice';
 import Link from 'next/link'
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,6 +15,7 @@ const AdminDashboardSidebar = () => {
     dispatch(logout())
     router.push("/")
   }
+  const pathname = usePathname()
 
   return (
     <div className="col-md-3 mb-2">
@@ -28,56 +29,56 @@ const AdminDashboardSidebar = () => {
           <nav className="MyAccount_navigation">
             <ul>
               <li>
-                <Link href="/dashboard" className="naV__link__item naV__tOp">
+                <Link href="/dashboard" className={`naV__link__item naV__tOp ${pathname === `/dashboard` ? 'active' : ''}`} >
                 <p >
                   <i className="fa-regular fa-id-card f__light"></i> Dashboard
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/banner" className="naV__link__item">
+                <Link href="/dashboard/banner" className={`naV__link__item ${pathname === `/dashboard/banner` ? 'active' : ''}`}>
                 <p >
                   <i className="fa-solid fa-clipboard-list f__light"></i> Banners
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/main-category" className="naV__link__item">
+                <Link href="/dashboard/main-category" className={`naV__link__item ${pathname === `/dashboard/main-category` ? 'active' : ''}`}>
                 <p>
                   <i className="fa-solid fa-download f__light"></i> Main Category
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/sub-category" className="naV__link__item">
+                <Link href="/dashboard/sub-category" className={`naV__link__item ${pathname === `/dashboard/sub-category` ? 'active' : ''}`}>
                 <p>
                   <i className="fa-solid fa-location-dot f__light"></i> Sub Category
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/products" className="naV__link__item">
+                <Link href="/dashboard/products" className={`naV__link__item ${pathname === `/dashboard/products` ? 'active' : ''}`}>
                 <p>
                   <i className="fa-solid fa-circle-user f__light"></i> Products
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/orders" className="naV__link__item">
+                <Link href="/dashboard/orders" className={`naV__link__item ${pathname === `/dashboard/orders` ? 'active' : ''}`}>
                 <p>
                   <i className="fa-solid fa-circle-user f__light"></i> Orders
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/users" className="naV__link__item">
+                <Link href="/dashboard/users" className={`naV__link__item ${pathname === `/dashboard/users` ? 'active' : ''}`}>
                 <p>
                   <i className="fa-solid fa-circle-user f__light"></i> Users
                 </p>
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/contacts" className="naV__link__item">
+                <Link href="/dashboard/contacts" className={`naV__link__item ${pathname === `/dashboard/contacts` ? 'active' : ''}`}>
                 <p>
                   <i className="fa-solid fa-circle-user f__light"></i> Contact Us
                 </p>
