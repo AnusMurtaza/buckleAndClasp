@@ -1,39 +1,23 @@
-"use client"
-import Image from 'next/image'
-import styles from './page.module.css'
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, getTotals } from '@/redux/slices/cartSlice';
-import HeroSection from './components/HeroSection';
-import ProductCard from './components/ProductCard';
-import Link from 'next/link';
-import axios from 'axios';
-import { baseURL, imageUrl } from './config/apiUrl';
-
-// import asasa from '../../public/img'
+"use client";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import {  useSelector } from "react-redux";
+import HeroSection from "./components/HeroSection";
+import ProductCard from "./components/ProductCard";
+import Link from "next/link";
+import axios from "axios";
+import { baseURL, imageUrl } from "./config/apiUrl";
 
 
 export default function Home() {
-
   const [loading, setLoading] = useState(false);
   const { categories } = useSelector((state) => state.category);
-
-  const dispatch = useDispatch()
-
-
-
-
-
-  // useEffect(() => {
-  //   fetchMain_cat()
-  //   dispatch(getTotals())
-  // }, [])
-
   const [mensproducts, setMensProducts] = useState([]);
   const [womenproducts, setWomenProducts] = useState([]);
+  const [time, setTime] = useState(calculateTimeRemaining());
 
   const fetchMensProducts = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await axios.get(baseURL + `/products_by_mens`);
       const { data } = response.data;
@@ -44,7 +28,7 @@ export default function Home() {
     }
   };
   const fetchWomenProducts = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await axios.get(baseURL + `/products_by_womens`);
       const { data } = response.data;
@@ -55,11 +39,9 @@ export default function Home() {
     }
   };
   useEffect(() => {
-    fetchWomenProducts()
-    fetchMensProducts()
-  }, [])
-
-  const [time, setTime] = useState(calculateTimeRemaining());
+    fetchWomenProducts();
+    fetchMensProducts();
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -82,10 +64,26 @@ export default function Home() {
     let endOfSunday;
     if (currentDay === 0) {
       // If today is Sunday, set endOfSunday to 11:59 PM today
-      endOfSunday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+      endOfSunday = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        23,
+        59,
+        59,
+        999
+      );
     } else {
       // If today is not Sunday, set endOfSunday to 11:59 PM next Sunday
-      endOfSunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (7 - currentDay), 23, 59, 59, 999);
+      endOfSunday = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + (7 - currentDay),
+        23,
+        59,
+        59,
+        999
+      );
     }
 
     const remainingTime = Math.max(endOfSunday - now, 0);
@@ -95,7 +93,9 @@ export default function Home() {
 
     // Calculate days, hours, minutes, and seconds
     const remainingDays = Math.floor(remainingSeconds / (24 * 60 * 60));
-    const remainingHours = Math.floor((remainingSeconds % (24 * 60 * 60)) / 3600);
+    const remainingHours = Math.floor(
+      (remainingSeconds % (24 * 60 * 60)) / 3600
+    );
     const remainingMinutes = Math.floor((remainingSeconds % 3600) / 60);
     const remainingSecs = remainingSeconds % 60;
 
@@ -108,7 +108,6 @@ export default function Home() {
     };
   }
 
-
   return (
     <>
       <main>
@@ -120,26 +119,26 @@ export default function Home() {
             <div className="row">
               {categories.map((item, index) => (
                 <div className="col-lg-3" key={index}>
-                  <Link
-                     href={`/collections/${item.slug}`}
-                    >
-                  <div className="single-banner">
-                    <Image src={`${imageUrl}/uploads/${item.image}`} style={{ objectFit: "cover" }} alt="" width={386}
-                      height={217} />
-                    <div className="inner-text">
-                      <h4>{item.name}</h4>
+                  <Link href={`/collections/${item.slug}`}>
+                    <div className="single-banner">
+                      <Image
+                        src={`${imageUrl}/uploads/${item.image}`}
+                        style={{ objectFit: "cover" }}
+                        alt=""
+                        width={386}
+                        height={217}
+                      />
+                      <div className="inner-text">
+                        <h4>{item.name}</h4>
+                      </div>
                     </div>
-                  </div>
                   </Link>
                 </div>
-
               ))}
-
             </div>
           </div>
         </div>
         {/* Banner Section End */}
-
 
         {/* Man Banner Section Begin */}
         <section className="man-banner spad">
@@ -147,13 +146,15 @@ export default function Home() {
             <div className="row">
               <div className="col-lg-8">
                 <div className="">
-                  <ProductCard products={mensproducts}/>
+                  <ProductCard products={mensproducts} />
                 </div>
               </div>
               <div className="col-lg-3 offset-lg-1">
                 <div
                   className="product-large set-bg m-large"
-                  style={{ backgroundImage: `url("/img/products/man-large.jpg")` }}
+                  style={{
+                    backgroundImage: `url("/img/products/man-large.jpg")`,
+                  }}
                 >
                   <h2>Men’s</h2>
                   <Link href="/collections/mens">Discover More</Link>
@@ -165,8 +166,10 @@ export default function Home() {
         {/* Man Banner Section End */}
 
         {/* Deal Of The Week Section Begin*/}
-        <section className="deal-of-week set-bg spad" style={{ backgroundImage: `url("/img/2.png")` }}>
-
+        <section
+          className="deal-of-week set-bg spad"
+          style={{ backgroundImage: `url("/img/2.png")` }}
+        >
           <div className="container">
             <div className="col-lg-6 text-center">
               <div className="section-title">
@@ -181,23 +184,23 @@ export default function Home() {
                 </div>
               </div>
               <div className="countdown-timer">
-      <div className="cd-item">
-        <span>{time.days}</span>
-        <p>Days</p>
-      </div>
-      <div className="cd-item">
-        <span>{time.hours}</span>
-        <p>Hrs</p>
-      </div>
-      <div className="cd-item">
-        <span>{time.minutes}</span>
-        <p>Mins</p>
-      </div>
-      <div className="cd-item">
-        <span>{time.seconds}</span>
-        <p>Secs</p>
-      </div>
-    </div>
+                <div className="cd-item">
+                  <span>{time.days}</span>
+                  <p>Days</p>
+                </div>
+                <div className="cd-item">
+                  <span>{time.hours}</span>
+                  <p>Hrs</p>
+                </div>
+                <div className="cd-item">
+                  <span>{time.minutes}</span>
+                  <p>Mins</p>
+                </div>
+                <div className="cd-item">
+                  <span>{time.seconds}</span>
+                  <p>Secs</p>
+                </div>
+              </div>
               {/* <div className="countdown-timer" id="countdown">
                 <div className="cd-item">
                   <span>56</span>
@@ -225,7 +228,6 @@ export default function Home() {
         </section>
         {/* Deal Of The Week Section End */}
 
-
         {/* Women Banner Section Begin */}
         <section className="women-banner spad">
           <div className="container-fluid">
@@ -233,20 +235,18 @@ export default function Home() {
               <div className="col-lg-3">
                 <div
                   className="product-large set-bg"
-                  style={{ backgroundImage: `url("/img/products/women-large.jpg")` }}
+                  style={{
+                    backgroundImage: `url("/img/products/women-large.jpg")`,
+                  }}
                 >
                   <h2>Women’s</h2>
                   <Link href="/collections/womens">Discover More</Link>
                 </div>
               </div>
               <div className="col-lg-8 offset-lg-1">
-                <div className="filter-control">
-
-                </div>
+                <div className="filter-control"></div>
                 <div className="">
-                  <ProductCard products={womenproducts}/>
-    
-
+                  <ProductCard products={womenproducts} />
                 </div>
               </div>
             </div>
@@ -254,11 +254,12 @@ export default function Home() {
         </section>
         {/* Women Banner Section End */}
 
-
-
         {/* Instagram Section Begin */}
         <div className="instagram-photo">
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-1.jpg")` }}>
+          <div
+            className="insta-item set-bg"
+            style={{ backgroundImage: `url("/img/insta-1.jpg")` }}
+          >
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -266,7 +267,10 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-2.jpg")` }}>
+          <div
+            className="insta-item set-bg"
+            style={{ backgroundImage: `url("/img/insta-2.jpg")` }}
+          >
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -274,7 +278,10 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-3.jpg")` }}>
+          <div
+            className="insta-item set-bg"
+            style={{ backgroundImage: `url("/img/insta-3.jpg")` }}
+          >
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -282,7 +289,10 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-4.jpg")` }}>
+          <div
+            className="insta-item set-bg"
+            style={{ backgroundImage: `url("/img/insta-4.jpg")` }}
+          >
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -290,7 +300,10 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-5.jpg")` }}>
+          <div
+            className="insta-item set-bg"
+            style={{ backgroundImage: `url("/img/insta-5.jpg")` }}
+          >
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -298,7 +311,10 @@ export default function Home() {
               </h5>
             </div>
           </div>
-          <div className="insta-item set-bg" style={{ backgroundImage: `url("/img/insta-6.jpg")` }}>
+          <div
+            className="insta-item set-bg"
+            style={{ backgroundImage: `url("/img/insta-6.jpg")` }}
+          >
             <div className="inside-text">
               <i className="ti-instagram" />
               <h5>
@@ -309,7 +325,6 @@ export default function Home() {
         </div>
         {/* Instagram Section End */}
 
-
         <>
           {/* Latest Blog Section Begin */}
           <section className="latest-blog spad">
@@ -319,7 +334,12 @@ export default function Home() {
                   <div className="col-lg-4">
                     <div className="single-benefit">
                       <div className="sb-icon">
-                        <Image src="/img/icon-1.png" alt="" width={47} height={34} />
+                        <Image
+                          src="/img/icon-1.png"
+                          alt=""
+                          width={47}
+                          height={34}
+                        />
                       </div>
                       <div className="sb-text">
                         <h6>Free Shipping</h6>
@@ -330,7 +350,12 @@ export default function Home() {
                   <div className="col-lg-4">
                     <div className="single-benefit">
                       <div className="sb-icon">
-                        <Image src="/img/icon-2.png" alt="" width={38} height={38} />
+                        <Image
+                          src="/img/icon-2.png"
+                          alt=""
+                          width={38}
+                          height={38}
+                        />
                       </div>
                       <div className="sb-text">
                         <h6>Delivery On Time</h6>
@@ -341,7 +366,12 @@ export default function Home() {
                   <div className="col-lg-4">
                     <div className="single-benefit">
                       <div className="sb-icon">
-                        <Image src="/img/icon-1.png" alt="" width={47} height={34} />
+                        <Image
+                          src="/img/icon-1.png"
+                          alt=""
+                          width={47}
+                          height={34}
+                        />
                       </div>
                       <div className="sb-text">
                         <h6>Secure Payment</h6>
@@ -355,96 +385,7 @@ export default function Home() {
           </section>
           {/* Latest Blog Section End */}
         </>
-
       </main>
     </>
-
-  )
+  );
 }
-
-{/* <div className={styles.description}>
-<p>
-  Get started by editing&nbsp;
-  <code className={styles.code}>src/app/page.js</code>
-</p>
-<div>
-  <Link
-    href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    By{' '}
-    <Image
-      src="/vercel.svg"
-      alt="Vercel Logo"
-      className={styles.vercelLogo}
-      width={100}
-      height={24}
-      priority
-    />
-  </Link>
-</div>
-</div>
-
-<div className={styles.center}>
-<Image
-  className={styles.logo}
-  src="/next.svg"
-  alt="Next.js Logo"
-  width={180}
-  height={37}
-  priority
-/>
-</div>
-
-<div className={styles.grid}>
-<Link
-  href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-  className={styles.card}
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <h2>
-    Docs <span>-&gt;</span>
-  </h2>
-  <p>Find in-depth information about Next.js features and API.</p>
-</Link>
-
-<Link
-  href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-  className={styles.card}
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <h2>
-    Learn <span>-&gt;</span>
-  </h2>
-  <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-</Link>
-
-<Link
-  href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-  className={styles.card}
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <h2>
-    Templates <span>-&gt;</span>
-  </h2>
-  <p>Explore starter templates for Next.js.</p>
-</Link>
-
-<Link
-  href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-  className={styles.card}
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <h2>
-    Deploy <span>-&gt;</span>
-  </h2>
-  <p>
-    Instantly deploy your Next.js site to a shareable URL with Vercel.
-  </p>
-</Link>
-</div> */}

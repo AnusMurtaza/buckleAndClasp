@@ -30,14 +30,6 @@ const page = () => {
                                         <p>
                                             Welcome to Buckle and clasps, your ultimate destination for premium leather jackets in the USA. We are passionate about crafting high-quality, stylish, and timeless leather outerwear that embodies sophistication, durability, and unparalleled craftsmanship.
                                         </p>
-                                        {/* <p>
-                  Doctors are ready to help you get the care you need, anywhere
-                  in the United States. Access to doctors, psychiatrists,
-                  psychologists, therapists and other medical experts, care is
-                  available from 07:00 AM to 08:00 PM. Select and see your
-                  favorite providers again and again, right from your
-                  smartphone, tablet or computer.
-                </p> */}
                                     </div>
                                 </div>
                             </div>
