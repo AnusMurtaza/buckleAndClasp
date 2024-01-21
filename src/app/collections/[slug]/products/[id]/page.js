@@ -25,8 +25,8 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-
   let [num, setNum] = useState(1);
+
   const dispatch = useDispatch();
 
   const handleIncrement = () => {
@@ -45,13 +45,13 @@ const page = () => {
   };
   let handleAddToCart = (product, num) => {
     if (selectedColor === null || selectedSize === null) {
-        toast.error("PLease choose color and size")
+      toast.error("PLease choose color and size")
     } else {
       let data = {
         ...product,
         num,
-        size:selectedSize,
-        color:selectedColor
+        size: selectedSize,
+        color: selectedColor
       };
       dispatch(addToCart(data));
       // dispatch(getTotals());
@@ -59,8 +59,7 @@ const page = () => {
     }
 
   };
-console.log(selectedSize,"selectedSize")
-console.log(selectedColor,"selectedSize")
+
 
 
   const fetchProduct = async () => {
@@ -87,18 +86,18 @@ console.log(selectedColor,"selectedSize")
   };
   useEffect(() => {
     fetchProduct()
-    if(product?.id){
+    if (product?.id) {
 
       fetchRelatedProduct()
     }
   }, [])
   useEffect(() => {
-    if(product?.id){
+    if (product?.id) {
 
       fetchRelatedProduct()
     }
   }, [product?.id])
-  
+
   const handleColorChange = (color) => {
     setSelectedColor(color);
   };
@@ -107,8 +106,6 @@ console.log(selectedColor,"selectedSize")
     setSelectedSize(size);
   };
 
-  console.log(selectedColor)
-  console.log(selectedSize)
   return (
     <>
       {/* Breadcrumb Section Begin */}
@@ -121,7 +118,7 @@ console.log(selectedColor,"selectedSize")
                   <i className="fa fa-home" /> Home
                 </Link>
                 <Link href="/">Shop</Link>
-                <span>Detail</span>
+                <span>{product?.name}</span>
               </div>
             </div>
           </div>
@@ -148,14 +145,14 @@ console.log(selectedColor,"selectedSize")
                         <i className="icon_heart_alt" />
                       </Link>
                     </div>
-                    <div className="pd-rating">
+                    {/* <div className="pd-rating">
                       <i className="fa fa-star" />
                       <i className="fa fa-star" />
                       <i className="fa fa-star" />
                       <i className="fa fa-star" />
                       <i className="fa fa-star-o" />
-                      <span>(5)</span>
-                    </div>
+                      <span> (5)</span>
+                    </div> */}
                     <div className="pd-desc">
                       {/* <p>
                   {product?.description}
@@ -172,38 +169,38 @@ console.log(selectedColor,"selectedSize")
                         </h4>
                       }
                     </div>
-                    <div className="pd-color">
+                    <div className="pd-color d-flex align-items-center">
                       <h6>Color</h6>
                       <div className="pd-color-choose">
-          {product &&
-            product.colors?.map((value, index) => (
-              <div className="cc-item" key={index}>
-                <input
-                  type="radio"
-                  id={`cc-${value.color}`}
-                  name="color"
-                  checked={selectedColor === value.color}
-                  onChange={() => handleColorChange(value.color)}
-                />
-                <label className={selectedColor === value.color ? 'active' : ''} htmlFor={`cc-${value.color}`} style={{ background: value.color }} />
-              </div>
-            ))}
-        </div>
+                        {product &&
+                          product.colors?.map((value, index) => (
+                            <div className="cc-item" key={index}>
+                              <input
+                                type="radio"
+                                id={`cc-${value.color}`}
+                                name="color"
+                                checked={selectedColor === value.color}
+                                onChange={() => handleColorChange(value.color)}
+                              />
+                              <label className={selectedColor === value.color ? 'active' : ''} htmlFor={`cc-${value.color}`} style={{ background: value.color }} />
+                            </div>
+                          ))}
+                      </div>
                     </div>
-                    <div className="pd-size-choose">
-        {['S', 'M', 'L', 'XL'].map((size) => (
-          <div className="sc-item" key={size}>
-            <input
-              type="radio"
-              id={`size-${size}`}
-              name="size"
-              checked={selectedSize === size}
-              onChange={() => handleSizeChange(size)}
-            />
-            <label className={selectedSize === size ? 'active' : ''} htmlFor={`size-${size}`}>{size}</label>
-          </div>
-        ))}
-      </div>
+                    <div className="pd-size-choose ">
+                      {['S', 'M', 'L', 'XL'].map((size) => (
+                        <div className="sc-item" key={size}>
+                          <input
+                            type="radio"
+                            id={`size-${size}`}
+                            name="size"
+                            checked={selectedSize === size}
+                            onChange={() => handleSizeChange(size)}
+                          />
+                          <label className={selectedSize === size ? 'active' : ''} htmlFor={`size-${size}`}>{size}</label>
+                        </div>
+                      ))}
+                    </div>
                     <div className="quantity">
                       <div className="pro-qty">
                         <span className="dec qtybtn" onClick={handleDecrement}>-</span>
@@ -261,28 +258,28 @@ console.log(selectedColor,"selectedSize")
               </div>
               <div className="product-tab-wrap my-5">
 
-                <ul class="nav tab-item justify-content-center nav-pills mb-3" id="pills-tab" role="tablist">
-                  <li class="nav-item me-3" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">DESCRIPTION</button>
+                <ul className="nav tab-item justify-content-center nav-pills mb-3" id="pills-tab" role="tablist">
+                  <li className="nav-item me-3" role="presentation">
+                    <button className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">DESCRIPTION</button>
                   </li>
-                  <li class="nav-item me-3" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOR DISCLAIMER</button>
+                  <li className="nav-item me-3" role="presentation">
+                    <button className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOR DISCLAIMER</button>
                   </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">SHIPPING INFORMATION'</button>
+                  <li className="nav-item" role="presentation">
+                    <button className="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">SHIPPING INFORMATION'</button>
                   </li>
                 </ul>
-                <div class="tab-content my-5" id="pills-tabContent">
-                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div className="tab-content my-5" id="pills-tabContent">
+                  <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     {product?.description}
                   </div>
-                  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="alert alert-warning" role="alert">
+                  <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div className="alert alert-warning" role="alert">
                       The colors of the actual product may slightly differ from the image due to photographic lighting and varying screen calibrations.
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <div class="alert alert-secondary">
+                  <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <div className="alert alert-secondary">
                       <h3>DELIVERY TIME:</h3>
                       <p>It takes one working day to process your order. All orders received before 4:30 PM on a working day are processed and dispatched the same day. Orders received after 4:30 PM are processed and dispatched the next day.</p>
                       <p>In case an order is placed on Sunday or on a holiday; the order will be processed on the next working day.</p>
@@ -306,205 +303,7 @@ console.log(selectedColor,"selectedSize")
                   </div>
                 </div>
               </div>
-              {/* <div className="product-tab">
-            <div className="tab-item">
-              <ul className="nav" role="tablist">
-                <li>
-                  <Link
-                    className="active"
-                    data-toggle="tab"
-                    href="#tab-1"
-                    role="tab"
-                  >
-                    DESCRIPTION
-                  </Link>
-                </li>
-                <li>
-                  <span data-toggle="tab" href="#tab-2" role="tab">
-                    SPECIFICATIONS
-                  </span>
-                </li>
-                <li>
-                  <span data-toggle="tab" href="#tab-3" role="tab">
-                    Customer Reviews (02)
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div className="tab-item-content">
-              <div className="tab-content">
-                <div
-                  className="tab-pane fade-in active"
-                  id="tab-1"
-                  role="tabpanel"
-                >
-                  <div className="product-content">
-                    <div className="row">
-                      <div className="col-lg-7">
-                        <h5>Introduction</h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat. Duis aute irure dolor in{" "}
-                        </p>
-                        <h5>Features</h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat. Duis aute irure dolor in{" "}
-                        </p>
-                      </div>
-                      <div className="col-lg-5">
-                        <img src="img/product-single/tab-desc.jpg" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="tab-pane fade" id="tab-2" role="tabpanel">
-                  <div className="specification-table">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td className="p-catagory">Customer Rating</td>
-                          <td>
-                            <div className="pd-rating">
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star-o" />
-                              <span>(5)</span>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-catagory">Price</td>
-                          <td>
-                            <div className="p-price">$495.00</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-catagory">Add To Cart</td>
-                          <td>
-                            <div className="cart-add">+ add to cart</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-catagory">Availability</td>
-                          <td>
-                            <div className="p-stock">22 in stock</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-catagory">Weight</td>
-                          <td>
-                            <div className="p-weight">1,3kg</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-catagory">Size</td>
-                          <td>
-                            <div className="p-size">Xxl</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-catagory">Color</td>
-                          <td>
-                            <span className="cs-color" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-catagory">Sku</td>
-                          <td>
-                            <div className="p-code">00012</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div className="tab-pane fade" id="tab-3" role="tabpanel">
-                  <div className="customer-review-option">
-                    <h4>2 Comments</h4>
-                    <div className="comment-option">
-                      <div className="co-item">
-                        <div className="avatar-pic">
-                          <img src="img/product-single/avatar-1.png" alt="" />
-                        </div>
-                        <div className="avatar-text">
-                          <div className="at-rating">
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star-o" />
-                          </div>
-                          <h5>
-                            Brandon Kelley <span>27 Aug 2019</span>
-                          </h5>
-                          <div className="at-reply">Nice !</div>
-                        </div>
-                      </div>
-                      <div className="co-item">
-                        <div className="avatar-pic">
-                          <img src="img/product-single/avatar-2.png" alt="" />
-                        </div>
-                        <div className="avatar-text">
-                          <div className="at-rating">
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star-o" />
-                          </div>
-                          <h5>
-                            Roy Banks <span>27 Aug 2019</span>
-                          </h5>
-                          <div className="at-reply">Nice !</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="personal-rating">
-                      <h6>Your Ratind</h6>
-                      <div className="rating">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-o" />
-                      </div>
-                    </div>
-                    <div className="leave-comment">
-                      <h4>Leave A Comment</h4>
-                      <form action="/" className="comment-form">
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <input type="text" placeholder="Name" />
-                          </div>
-                          <div className="col-lg-6">
-                            <input type="text" placeholder="Email" />
-                          </div>
-                          <div className="col-lg-12">
-                            <textarea
-                              placeholder="Messages"
-                              defaultValue={""}
-                            />
-                            <button type="submit" className="site-btn">
-                              Send message
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+
             </div>
           </div>
         </div>
@@ -520,142 +319,9 @@ console.log(selectedColor,"selectedSize")
               </div>
             </div>
           </div>
-          <ProductCard products={relatedProduct}/>
+          <ProductCard products={relatedProduct} />
 
-          {/* <div className="row">
-            <div className="col-lg-3 col-sm-6">
-              <div className="product-item">
-                <div className="pi-pic">
-                  <img src="img/products/women-1.jpg" alt="" />
-                  <div className="sale">Sale</div>
-                  <div className="icon">
-                    <i className="icon_heart_alt" />
-                  </div>
-                  <ul>
-                    <li className="w-icon active">
-                      <Link href="/">
-                        <i className="icon_bag_alt" />
-                      </Link>
-                    </li>
-                    <li className="quick-view">
-                      <Link href="/">+ Quick View</Link>
-                    </li>
-                    <li className="w-icon">
-                      <Link href="/">
-                        <i className="fa fa-random" />
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="pi-text">
-                  <div className="catagory-name">Coat</div>
-                  <Link href="/">
-                    <h5>Pure Pineapple</h5>
-                  </Link>
-                  <div className="product-price">
-                    $14.00
-                    <span>$35.00</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
-              <div className="product-item">
-                <div className="pi-pic">
-                  <img src="img/products/women-2.jpg" alt="" />
-                  <div className="icon">
-                    <i className="icon_heart_alt" />
-                  </div>
-                  <ul>
-                    <li className="w-icon active">
-                      <Link href="/">
-                        <i className="icon_bag_alt" />
-                      </Link>
-                    </li>
-                    <li className="quick-view">
-                      <Link href="/">+ Quick View</Link>
-                    </li>
-                    <li className="w-icon">
-                      <Link href="/">
-                        <i className="fa fa-random" />
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="pi-text">
-                  <div className="catagory-name">Shoes</div>
-                  <Link href="/">
-                    <h5>Guangzhou sweater</h5>
-                  </Link>
-                  <div className="product-price">$13.00</div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
-              <div className="product-item">
-                <div className="pi-pic">
-                  <img src="img/products/women-3.jpg" alt="" />
-                  <div className="icon">
-                    <i className="icon_heart_alt" />
-                  </div>
-                  <ul>
-                    <li className="w-icon active">
-                      <Link href="/">
-                        <i className="icon_bag_alt" />
-                      </Link>
-                    </li>
-                    <li className="quick-view">
-                      <Link href="/">+ Quick View</Link>
-                    </li>
-                    <li className="w-icon">
-                      <Link href="/">
-                        <i className="fa fa-random" />
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="pi-text">
-                  <div className="catagory-name">Towel</div>
-                  <Link href="/">
-                    <h5>Pure Pineapple</h5>
-                  </Link>
-                  <div className="product-price">$34.00</div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
-              <div className="product-item">
-                <div className="pi-pic">
-                  <img src="img/products/women-4.jpg" alt="" />
-                  <div className="icon">
-                    <i className="icon_heart_alt" />
-                  </div>
-                  <ul>
-                    <li className="w-icon active">
-                      <Link href="/">
-                        <i className="icon_bag_alt" />
-                      </Link>
-                    </li>
-                    <li className="quick-view">
-                      <Link href="/">+ Quick View</Link>
-                    </li>
-                    <li className="w-icon">
-                      <Link href="/">
-                        <i className="fa fa-random" />
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="pi-text">
-                  <div className="catagory-name">Towel</div>
-                  <Link href="/">
-                    <h5>Converse Shoes</h5>
-                  </Link>
-                  <div className="product-price">$34.00</div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+
         </div>
       </div>
       {/* -------Size-Guide-Modal-Start------------ */}

@@ -5,6 +5,16 @@ export const signInSchema = Yup.object({
   password: Yup.string().required('Password is required'),
 });
 
+export const forgotPasswordSchema = Yup.object({
+  email: Yup.string().email().required("Please Enter Your Email"),
+});
+export const resetPasswordSchema = Yup.object({
+  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  c_password: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Password is required'),
+});
+
 
 export const signUpSchema = Yup.object({
   first_name: Yup.string().required('The field is required'),

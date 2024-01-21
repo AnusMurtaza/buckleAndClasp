@@ -171,7 +171,7 @@ const Header = () => {
               </li> */}
                   <li className="cart-icon">
                     {/* <Link href="/"> */}
-              <i class="bi bi-bag cart-icon"></i>
+              <i className="bi bi-bag cart-icon"></i>
                     {/* <i className="ti-shopping-cart" /> */}
                     {cartTotalQuantity > 0 && <span className='cart_count'>{cartTotalQuantity}</span>}
                     {/* </Link> */}

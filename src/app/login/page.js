@@ -34,9 +34,9 @@ const page = () => {
           const { message, data } = response.data;
           toast.success(message);
           dispatch(login(data));
-          if(data.user_type === "admin"){
+          if (data.user_type === "admin") {
             router.push("/dashboard")
-          }else{
+          } else {
             router.push("/")
           }
           setLoading(false);
@@ -51,10 +51,10 @@ const page = () => {
     });
   return (
     <>
-    {/* Breadcrumb Section Begin */}
-    <div className="breacrumb-section">
-      <div className="container">
-        {/* <div className="row">
+      {/* Breadcrumb Section Begin */}
+      <div className="breacrumb-section">
+        <div className="container">
+          {/* <div className="row">
           <div className="col-lg-12">
             <div className="breadcrumb-text">
               <Link href="/">
@@ -64,73 +64,73 @@ const page = () => {
             </div>
           </div>
         </div> */}
+        </div>
       </div>
-    </div>
-    {/* Breadcrumb Form Section Begin */}
-    {/* Register Section Begin */}
-    <div className="register-login-section spad">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-6 offset-lg-3">
-            <div className="login-form">
-              <h2>Login</h2>
-              <form onSubmit={handleSubmit}>
-                <div className="group-input">
-                  <label htmlFor="email">Email Address *</label>
-                  <input type="text"
-                                            id="email" 
-                                            name="email"
-                                            value={values.email}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                   />
-                                   {errors.email && touched.email ? (
-                                     <p className="form-error">{errors.email}</p>
-                                   ) : null}
-                </div>
-                <div className="group-input">
-                  <label htmlFor="pass">Password *</label>
-                  <input type="password"
-                                     id="password" 
-                                     name="password"
-                                     value={values.password}
-                                     onChange={handleChange}
-                                     onBlur={handleBlur}
-                                     />
-                 
-                                     {errors.password && touched.password ? (
-                                       <p className="form-error">{errors.password}</p>
-                                     ) : null}
-                </div>
-                <div className="group-input gi-check">
-                  <div className="gi-more">
-                    <label htmlFor="save-pass">
-                      Save Password
-                      <input type="checkbox" id="save-pass" />
-                      <span className="checkmark" />
-                    </label>
-                    <Link href="/reset-password" className="forget-pass">
-                      Forget your Password
-                    </Link>
+      {/* Breadcrumb Form Section Begin */}
+      {/* Register Section Begin */}
+      <div className="register-login-section spad">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 offset-lg-3">
+              <div className="login-form">
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="group-input">
+                    <label htmlFor="email">Email Address *</label>
+                    <input type="text"
+                      id="email"
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.email && touched.email ? (
+                      <p className="form-error">{errors.email}</p>
+                    ) : null}
                   </div>
+                  <div className="group-input">
+                    <label htmlFor="pass">Password *</label>
+                    <input type="password"
+                      id="password"
+                      name="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+
+                    {errors.password && touched.password ? (
+                      <p className="form-error">{errors.password}</p>
+                    ) : null}
+                  </div>
+                  <div className="group-input gi-check">
+                    <div className="gi-more">
+                      <label htmlFor="save-pass">
+                        Remember me
+                        <input type="checkbox" id="save-pass" />
+                        <span className="checkmark" />
+                      </label>
+                      <Link href="/forgot-password" className="forget-pass">
+                        Forget your Password
+                      </Link>
+                    </div>
+                  </div>
+                  <button type="submit" className="site-btn login-btn" disabled={loading ? true : false}>
+                    {loading ? (<div className="spinner-grow text-secondary" role="status"></div>) : "Sign In"}
+                  </button>
+                </form>
+                <div className="switch-login">
+                  <Link href="/sign-up" className="or-login">
+                    Or Create An Account
+                  </Link>
                 </div>
-                <button type="submit" className="site-btn login-btn" disabled={loading?true:false}>
-                {loading? (<div className="spinner-grow text-secondary" role="status"></div>): "Sign In"}  
-                </button>
-              </form>
-              <div className="switch-login">
-                <Link href="/sign-up" className="or-login">
-                  Or Create An Account
-                </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    {/* Register Form Section End */}
-  </>
-  
+      {/* Register Form Section End */}
+    </>
+
   )
 }
 

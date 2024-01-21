@@ -3,7 +3,7 @@ import { baseURL, imageUrl } from '@/app/config/apiUrl';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link'
-import { useParams, } from 'next/navigation';
+import { useParams, usePathname, } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
@@ -16,6 +16,8 @@ const page = () => {
   const { categories } = useSelector((state) => state.category);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
+  const pathname = usePathname()
+
   const fetchProducts = async () => {
     setLoading(true);
     try {
@@ -66,12 +68,16 @@ const page = () => {
                   <li key={category.id}>
                     <Link
                      href={`/collections/${category.slug}`}
+                     className={`${pathname === `/collections/${category.slug}` ? 'active' : ''}`}
                     >{category.name}</Link>
                     {category.sub_categories && category.sub_categories.length > 0 && (
                       <ul className="ms-3">
                         {category.sub_categories.map(subCategory => (
                           <li key={subCategory.id}>
-                            <Link href={`/collections/${subCategory.slug}`}>{subCategory.name}</Link>
+                            <Link href={`/collections/${subCategory.slug}`}
+                     className={`${pathname === `/collections/${subCategory.slug}` ? 'active' : ''}`}
+                            
+                            >{subCategory.name}</Link>
                           </li>
                         ))}
                       </ul>
@@ -134,8 +140,8 @@ const page = () => {
                                 }
                               {value.sale > 0 &&
                               <div className="product-price">
-                                ${(value.discounted_price)}
-                                {value.sale > 0 && <span>${value.price}</span>}
+                                ${(value.discounted_price)} 
+                                {value.sale > 0 && <span> ${value.price}</span>}
                               </div>
                              }
                             </div>
