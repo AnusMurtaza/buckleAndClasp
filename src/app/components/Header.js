@@ -18,26 +18,14 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState();
   const router = useRouter()
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
+
   const handleClick = async () => {
-    // setLoading(true)
-    // try {
-    //   var FormData = require("form-data");
-    //   var value = new FormData();
-    //   value.append("keyword",searchValue);
-    //   const response = await axios.post(baseURL + `/search`,value);
-    //   // const { data } = response.data;
-      router.push(`/search?q=${searchValue}`);
-      // setProduct(data);
-      // navigate(`/product-category/search`, {
-      //   state: 
-      //    { data:data,
-      //      value:value
-      //     }})
-      //     searchhandle()
-      // setLoading(false)
-    // } catch (error) {
-    //   // setLoading(false)
-    // }
+    router.push(`/search?q=${searchValue}`);
   };
 
   const pathname = usePathname()
@@ -76,6 +64,13 @@ const Header = () => {
   const toggleDropdown = (categoryId) => {
     setOpenCategory(openCategory === categoryId ? null : categoryId);
   };
+  useEffect(() => {
+    if (pathname !== `/search`) {
+      setSearchValue("")
+    }
+    console.log(pathname,"pathname")
+  }, [pathname])
+  
 
   return (
     <>
@@ -154,7 +149,7 @@ const Header = () => {
                 All Categories
               </button> */}
                   <div className="input-group">
-                    <input type="text" placeholder="What do you need?" onChange={(e)=>setSearchValue(e.target.value)}/>
+                    <input type="text" placeholder="What do you need?" value={searchValue}  onKeyPress={handleKeyPress} onChange={(e)=>setSearchValue(e.target.value)}/>
                     <button type="button" onClick={handleClick}>
                       <i className="ti-search" />
                     </button>

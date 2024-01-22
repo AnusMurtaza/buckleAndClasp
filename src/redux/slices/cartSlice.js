@@ -12,70 +12,68 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action) {
-      const existingIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
+      const { id, color, size ,num } = action.payload;
+      console.log(num,"ss")
+      const quantityToAdd = typeof num === 'number' ? num : 1;
+      const existingItem = state.cartItems.find(
+        (item) => item.id === id && item.color === color && item.size === size
       );
-
-      if (existingIndex >= 0) {
-        state.cartItems[existingIndex] = {
-          ...state.cartItems[existingIndex],
-          cartQuantity: state.cartItems[existingIndex].cartQuantity  + 1,
-          // topping: state.cartItems[existingIndex].toppingsArray,
-        };
+    
+      if (existingItem) {
+        // If the same product with the same color and size exists, increase quantity
+        const updatedCartItems = state.cartItems.map((item) =>
+        item.id === id && item.color === color && item.size === size
+          ? { ...item, cartQuantity: action.payload.num? item.cartQuantity + num :  item.cartQuantity + 1}
+          : item
+      );
+    
+        state.cartItems = updatedCartItems;
         toast.info("Increased product quantity", {
           position: "bottom-right",
         });
       } else {
-        let tempProductItem = { ...action.payload, cartQuantity: action.payload.num || + 1};
-        state.cartItems.push(tempProductItem);
+        // If the product with the same color and size doesn't exist, add a new item
+        const newItem = { ...action.payload, cartQuantity: quantityToAdd  };
+         state.cartItems.push(newItem);
         toast.success("Product added to cart", {
           position: "bottom-right",
         });
       }
+    
       // localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-    decreaseCart(state, action) {
+    decreaseCart: (state, action) => {
+      const { id, color, size } = action.payload;
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.id === id && item.color === color && item.size === size
       );
-
-      if (state.cartItems[itemIndex].cartQuantity > 1) {
-        state.cartItems[itemIndex].cartQuantity -= 1;
-
-        toast.info("Decreased product quantity", {
-          position: "bottom-right",
-        });
-      } else if (state.cartItems[itemIndex].cartQuantity === 1) {
-        const nextCartItems = state.cartItems.filter(
-          (item) => item.id !== action.payload.id
-        );
-
-        state.cartItems = nextCartItems;
-
-        toast.error("Product removed from cart", {
-          position: "bottom-right",
-        });
-      }
-
-      // localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    },
-    removeFromCart(state, action) {
-      state.cartItems.map((cartItem) => {
-        if (cartItem.id === action.payload.id) {
-          const nextCartItems = state.cartItems.filter(
-            (item) => item.id !== cartItem.id
-          );
-
+    
+      if (itemIndex !== -1) {
+        if (state.cartItems[itemIndex].cartQuantity > 1) {
+          state.cartItems[itemIndex].cartQuantity -= 1;
+          toast.info("Decreased product quantity", {
+            position: "bottom-right",
+          });
+        } else {
+          const nextCartItems = state.cartItems.filter((item) => item.id !== id || item.color !== color || item.size !== size);
           state.cartItems = nextCartItems;
-
           toast.error("Product removed from cart", {
             position: "bottom-right",
           });
         }
-        // localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-        return state;
+      }
+    },
+    removeFromCart: (state, action) => {
+      const { id, color, size } = action.payload;
+      const nextCartItems = state.cartItems.filter(
+        (item) => !(item.id === id && item.color === color && item.size === size)
+      );
+      state.cartItems = nextCartItems;
+      toast.error("Product removed from cart", {
+        position: "bottom-right",
       });
     },
+
     getTotals(state, action) {
 
         let { total, quantity } = state.cartItems.reduce(

@@ -16,8 +16,12 @@ const page = () => {
   //   dispatch(getTotals());
   // }, [cart, dispatch]);
 
-  const handleincreaseCart = (product) => {
-    dispatch(addToCart(product));
+  const handleincreaseCart = (product,num) => {
+    let data ={
+      ...product,
+      num
+    }
+    dispatch(addToCart(data));
   };
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
@@ -87,59 +91,18 @@ const page = () => {
                     <div className="pro-qty">
                     <span className="dec qtybtn" onClick={() => handleDecreaseCart(value)}>-</span>
                       <input type="text" disabled  value={value.cartQuantity} />
-                      <span className="inc qtybtn" onClick={() => handleincreaseCart(value)}>+</span>
+                      <span className="inc qtybtn" onClick={() => handleincreaseCart(value,1)}>+</span>
                     </div>
                   </div>
                 </td>
                 <td className="total-price first-row">${(amount * value.cartQuantity).toFixed(2)}</td>
                 <td className="close-td first-row">
-                  <i className="ti-close" />
+                  <i className="ti-close" onClick={() => handleRemoveFromCart(value)}/>
                 </td>
               </tr>
 
                 )})}
 
-
-                {/* <tr>
-                  <td className="cart-pic">
-                    <img src="img/cart-page/product-2.jpg" alt="" />
-                  </td>
-                  <td className="cart-title">
-                    <h5>American lobster</h5>
-                  </td>
-                  <td className="p-price">$60.00</td>
-                  <td className="qua-col">
-                    <div className="quantity">
-                      <div className="pro-qty">
-                        <input type="text" defaultValue={1} />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="total-price">$60.00</td>
-                  <td className="close-td">
-                    <i className="ti-close" />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="cart-pic">
-                    <img src="img/cart-page/product-3.jpg" alt="" />
-                  </td>
-                  <td className="cart-title">
-                    <h5>Guangzhou sweater</h5>
-                  </td>
-                  <td className="p-price">$60.00</td>
-                  <td className="qua-col">
-                    <div className="quantity">
-                      <div className="pro-qty">
-                        <input type="text" defaultValue={1} />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="total-price">$60.00</td>
-                  <td className="close-td">
-                    <i className="ti-close" />
-                  </td>
-                </tr> */}
               </tbody>
             </table>
   
@@ -192,7 +155,7 @@ const page = () => {
 
 
   {cartItems.length === 0 && (
-        <div className="text-center mt-5 mb-4">
+        <div className="text-center my-5 py-5">
           <i className="fa-solid fa-bag-shopping no_cart_bag" />
           <p className="no_pro__pp my-3">Your cart is currently empty.</p>
           <p className="my-2">
