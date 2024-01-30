@@ -118,7 +118,7 @@ export default function Home() {
           <div className="container-fluid">
             <div className="row">
               {categories.map((item, index) => (
-                <div className="col-lg-3" key={index}>
+                <div className="col-12 col-sm-6 col-lg-3" key={index}>
                   <Link href={`/collections/${item.slug}`}>
                     <div className="single-banner">
                       <Image
@@ -127,6 +127,7 @@ export default function Home() {
                         alt=""
                         width={386}
                         height={217}
+                        // layout="responsive"
                       />
                       <div className="inner-text">
                         <h4>{item.name}</h4>

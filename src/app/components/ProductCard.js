@@ -128,7 +128,7 @@ import 'swiper/css/pagination';
 
 
 // import required modules
-import { Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 const ProductCard = ({ products }) => {
 
   const dispatch = useDispatch();
@@ -146,11 +146,30 @@ const ProductCard = ({ products }) => {
     <>
     <Swiper
         slidesPerView={3}
-        spaceBetween={30}
+        spaceBetween={20}
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
+        modules={[Pagination,Autoplay]}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        breakpoints={{
+          280: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          992: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+
+        }}
         className="mySwiper"
       >
              {products && products.map((value, index) => (
@@ -159,7 +178,7 @@ const ProductCard = ({ products }) => {
 <Link href={`/collections/mens/products/${value.slug}`}>
   <div className="product-item" key={index}>
     <div className="pi-pic">
-      <Image src={`${imageUrl}/${value.images[0].image}`} alt="" width={244} height={298} />
+      <Image src={`${imageUrl}/${value.images[0].image}`} alt="" width={300} height={500} layout="responsive" />
       {value.sale > 0 && <div className="sale">Sale</div>}
       <div className="icon">
         <i className="icon_heart_alt" />

@@ -88,8 +88,9 @@ const HeroSection = () => {
                  <Image
                     src={`${imageUrl}/uploads/${item.image}`}
                     alt="Banner"
-                    width={2000}
-                    height={600}
+                    width={500}
+                    height={500}
+                    layout="responsive"
                     // fill
                   />
                 {/* <img src={item.imageUrl} className="d-block w-100" alt="Banner" /> */}
