@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { checkoutSchema } from '../schemas';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
   const { cartItems, cartTotalAmount } = useSelector((state) => state.cart);
@@ -15,6 +16,7 @@ const page = () => {
   const { token } = useSelector((state) => state.auth);
   const [selectedOption, setSelectedOption] = useState(null);
   const [useShippingAsBilling, setUseShippingAsBilling] = useState(true);
+  const router = useRouter()
 
   const initialValues = {
     first_name: "",
@@ -97,8 +99,13 @@ const page = () => {
         });
 
 
-        const { message } = response.data;
-        toast.success(message);
+        const { links} = response.data;
+        console.log(response)
+        const approvedUrl = links.find(link => link.rel === "approval_url").href;
+
+console.log(approvedUrl);
+router.push(approvedUrl);
+        // toast.success(message);
         // router.push('/dashboard/products');
       } catch (error) {
         console.error(error);
@@ -543,9 +550,39 @@ const page = () => {
                       </div>
                     </div>
                   )}
-                  <button type="submit" className="btn btn-primary">
-                    Pay Now
-                  </button>
+                  {/* <button type="submit" className="btn btn-primary" disabled={loading}>
+                    {loading? (    <span>
+        <b></b>
+        <b></b>
+        <b></b>
+    </span>):"Pay Now"}
+                    
+                  </button> */}
+
+<button
+      type="submit"
+      className={`btn-loader ${loading ? 'btn--loading' : ''}`}
+      disabled={loading}
+    >
+      {loading ? (
+        <span>
+          <b></b>
+          <b></b>
+          <b></b>
+        </span>
+      ) : (
+        'Pay Now'
+      )}
+    </button>
+                  {/* <button type="submit" className="btn btn-primary btn--loading" disabled={loading}>
+                    <span>
+        <b></b>
+        <b></b>
+        <b></b>
+    </span>
+                    
+                  </button> */}
+
                 </form>
               </div>
             </div>

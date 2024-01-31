@@ -5510,3 +5510,63 @@ fieldset legend {
   .size__del span{
     cursor: pointer;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  @keyframes stretch {
+    0% {
+      transform: scale(0.5);
+      background-color: #ffffff;
+    }
+    50% {
+      background-color: #ffffff;
+    }
+    100% {
+      transform: scale(1);
+      background-color: #ffffff;
+    }
+  }
+  
+  .btn-loader {
+
+    display: inline-flex;
+    justify-content: center;
+  }
+  
+  .btn--loading {
+    font-size: 0;
+  }
+  
+  .btn--loading span {
+    display: flex;
+  }
+  
+  .btn--loading b {
+    animation: stretch 0.5s ease-out infinite alternate;
+    border-radius: 100%;
+    display: block;
+    height: 10px;
+    margin: 0 1px;
+    width: 10px;
+  }
+  
+  .btn--loading b:first-child {
+    animation-delay: 0s;
+  }
+  
+  .btn--loading b:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .btn--loading b:last-child {
+    animation-delay: 0.2s;
+  }
