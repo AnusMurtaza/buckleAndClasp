@@ -2,44 +2,66 @@
 import { clearCartAll } from '@/redux/slices/cartSlice';
 import moment from 'moment';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { baseURL } from '../config/apiUrl';
+import axios from 'axios';
 
 const page = () => {
     const cart = useSelector((state) => state.cart);
     const searchParams = useSearchParams()
-    const paymentId = searchParams.getAll()
-    console.log(paymentId,"paymentId")
+    const payment_id = searchParams.get("paymentId")
+    const payer_id = searchParams.get("PayerID")
     // const {currency_name } = useSelector((state) => state.currency);
-//   const {state} =useLocation()
-//   const navigate = useNavigate();
-  const dispatch = useDispatch()
-
-//   const backHome = () => {
-//     dispatch(clearCartAll());
-//     // navigate("/");
-//   };
-
+    //   const {state} =useLocation()
+    //   const navigate = useNavigate();
+    const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false);
+    
+    //   const backHome = () => {
+      //     dispatch(clearCartAll());
+      //     // navigate("/");
+      //   };
+      
+      console.log(payment_id,"paymentId")
+      console.log(payer_id,"PayerID")
  
+
+      const fetchResponse = async () => {
+        setLoading(true)
+        try {
+          const response = await axios.get(baseURL + `/status/${payment_id}/${payer_id}`);
+          const { data } = response.data;
+          setBanner(data);
+          setLoading(false)
+        } catch (error) {
+          setLoading(false)
+        }
+      };
+      useEffect(() => {
+        if(payment_id !== null && payer_id !== null)
+        fetchResponse()
+      }, [payer_id,payment_id])
+
+  // useEffect(() => {
+  //   const handleDisableBackButton = () => {
+  //     window.history.pushState(null, "", window.location.href);
+  //     backHome();
+  //   };
+
+  //   window.history.pushState(null, "", window.location.href);
+  //   window.addEventListener("popstate", handleDisableBackButton);
+
+  //   return () => {
+  //     window.removeEventListener("popstate", handleDisableBackButton);
+  //   };
+  //   // eslint-disable-next-line
+  // }, []);
+
+
   useEffect(() => {
-    const handleDisableBackButton = () => {
-      window.history.pushState(null, "", window.location.href);
-      backHome();
-    };
-
-    window.history.pushState(null, "", window.location.href);
-    window.addEventListener("popstate", handleDisableBackButton);
-
-    return () => {
-      window.removeEventListener("popstate", handleDisableBackButton);
-    };
-    // eslint-disable-next-line
-  }, []);
-
-
-//   useEffect(() => {
-//     dispatch(clearCartAll())
-//   }, [])
+    dispatch(clearCartAll())
+  }, [])
   return (
     <section>
     <section className="container-fluid products_main_banner">
