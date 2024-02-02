@@ -175,14 +175,14 @@ export default function Home() {
             <div className="col-lg-6 text-center">
               <div className="section-title">
                 <h2>Deal Of The Week</h2>
-                <p>
+                {/* <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                   <br /> do ipsum dolor sit amet, consectetur adipisicing elit{" "}
-                </p>
-                <div className="product-price">
+                </p> */}
+                {/* <div className="product-price">
                   $35.00
                   <span>/ HanBag</span>
-                </div>
+                </div> */}
               </div>
               <div className="countdown-timer">
                 <div className="cd-item">
