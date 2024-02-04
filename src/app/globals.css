@@ -54,9 +54,9 @@ h6 {
   margin-bottom: 0;
 }
 
-h1 {
+/* h1 {
   font-size: 70px;
-}
+} */
 
 h2 {
   font-size: 36px;
@@ -581,7 +581,11 @@ a {
 .inner-header .nav-right li.cart-icon .cart-hover .select-items table {
   width: 100%;
 }
-
+.cart-hover .select-items{
+  height: 50vh;
+  overflow: auto;
+  padding-right: 14px;
+}
 .inner-header .nav-right li.cart-icon .cart-hover .select-items table tr td {
   padding-bottom: 20px;
 }
@@ -1567,9 +1571,9 @@ a {
   line-height: 30px;
 }
 
-.footer-left .footer-social {
+/* .footer-left .footer-social {
   padding-top: 25px;
-}
+} */
 
 .footer-left .footer-social a {
   display: inline-block;
@@ -1693,7 +1697,7 @@ a {
 }
 
 .copyright-reserved .copyright-text {
-  float: left;
+  /* float: left; */
   font-size: 16px;
   color: #b2b2b2;
 }
@@ -4251,7 +4255,7 @@ a {
     color: #fff;
   }
   .inner-header .nav-right li.cart-icon .cart-hover {
-    left: -50px;
+    left: 0;
   }
   .product-show-option p {
     text-align: left;
@@ -4336,7 +4340,7 @@ a {
     max-width: 100%;
   }
   .inner-header .nav-right li.cart-icon .cart-hover {
-    width: 270px;
+    width: 280px;
     padding: 20px;
   }
   .countdown-timer .cd-item {
@@ -5636,3 +5640,45 @@ fieldset legend {
     color: white;
     border: none;
 }
+
+
+.product-item .pi-text .catagory-name h5{
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.terms-container li{
+  list-style: inside;
+}
+
+
+
+
+
+
+
+/*
+ *  STYLE 2
+ */
+
+ .cart-hover .select-items::-webkit-scrollbar-track
+ {
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+   border-radius: 10px;
+   background-color: #F5F5F5;
+ }
+ 
+ .cart-hover .select-items::-webkit-scrollbar
+ {
+   width: 6px;
+   background-color: #F5F5F5;
+ }
+ 
+ .cart-hover .select-items::-webkit-scrollbar-thumb
+ {
+   border-radius: 10px;
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+   background-color: var(--main-color);
+ }

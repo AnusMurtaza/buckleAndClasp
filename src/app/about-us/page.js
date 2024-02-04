@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const page = () => {
@@ -9,6 +10,14 @@ const page = () => {
                     <div className="row">
                         <div>
                             <h1>ABOUT US</h1>
+                        </div>
+                        <div className="breacrumb-section">
+                            <div className="breadcrumb-text border-0">
+                                <Link href="/" className='text-white'>
+                                    <i className="fa fa-home" /> Home
+                                </Link>
+                                <span className='text-white fw-bold'>About us</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +73,7 @@ const page = () => {
             <section className="counter-sec-wrapper">
                 <div className="container">
                     <div className="row justify-content-around">
-                        <div className="col-md-6 about_us_quality text-center p-5"> 
+                        <div className="col-md-6 about_us_quality text-center p-5">
                             <h3>Quality is Our Signature</h3>
                             <p>
                                 Our commitment to excellence extends beyond our products; it encompasses our dedication to customer satisfaction. We strive to provide a seamless shopping experience, ensuring every customer finds their perfect leather piece tailored to their individual style.

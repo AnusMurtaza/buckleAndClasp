@@ -1,77 +1,94 @@
 import React from 'react'
 
 const page = () => {
-  return (
-    <div className='container my-5'>
-    <main className="header-offset content-wrapper about-wrapper">
-        <div className="terms-container">
-            <div className="row">
-                <div className="col-sm-11 m-auto ">
-                    <section className="terms-title">
-                        <h1>Privacy Policy</h1>
-                        <p>This privacy policy outlines the practices of Buckle and clasps concerning the collection and utilization of information provided by users of this website. 
-We prioritize safeguarding your privacy and ensuring that any information shared is used in accordance with this policy. Buckle and clasps reserves the right to update this policy periodically. Visitors are advised to review this page to stay informed about any changes.</p>
-                        <hr />
-                    </section>
-                    <div className="terms-body">
-                        <h2>Information Collection</h2>
-                        <hr />
-                        <h3 className='mb-3'>Our website address is: 
-                        </h3>
-                        <p>
-                        RV Wala is a brand located in Canada to provide you with a whole new experience. We offer well-maintained rental services at a pretty affordable price to our customers. RV Wala has its focus fixed on providing the best holidays and vacations.
-                        </p>
-                        <hr />
-                        <h2>Comments</h2>
-                        <hr />
-                        <p>When visitors leave comments on the site we collect the data shown in the comments form, and also the visitor’s IP address and browser user agent string to help spam detection.</p>
-                        <p className='mt-3'>An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: https://automattic.com/privacy/. After approval of your comment, your profile picture is visible to the public in the context of your comment.</p>
-                        <hr />
-                        <h2>Media</h2>
-                        <hr />
+    return (
+        <div className='container my-5'>
+            <main className="header-offset content-wrapper about-wrapper">
+                <div className="terms-container">
+                    <div className="row">
+                        <div className="col-sm-11 m-auto ">
+                            <section className="terms-title">
+                                <h1>Privacy Policy</h1>
+                                <p>Thank you for visiting Livin Leathers website. This Privacy Policy is designed to help you understand how we collect, use, and safeguard your personal information. By accessing or using our website, you consent to the practices described in this Privacy Policy.</p>
+                                <hr />
+                            </section>
+                            <div className="terms-body">
+                                <h2>Information We Collect:</h2>
+                                <hr />
+                                <h3 className='mb-3'>Personal Information:</h3>
+                                <ul>
+                                    <li>Contact Information (Name, Email, Phone Number)</li>
+                                    <li>Shipping and Billing Address</li>
+                                    <li>Payment Information</li>
+                                </ul>
 
-                        <p>If you upload images to the website, you should avoid uploading images with embedded location data (EXIF GPS) included. Visitors to the website can download and extract any location data from images on the website. </p>
-                        <hr />
-                        <h2>Cookies</h2>
-                        <hr />
-                        
-                        <p>If you leave a comment on our site you may opt-in to saving your name, email address and website in cookies. These are for your convenience so that you do not have to fill in your details again when you leave another comment. These cookies will last for one year.</p>
-                        <p className='mt-3'>If you visit our login page, we will set a temporary cookie to determine if your browser accepts cookies. This cookie contains no personal data and is discarded when you close your browser.</p>
-                        <p className='mt-3'>When you log in, we will also set up several cookies to save your login information and your screen display choices. Login cookies last for two days, and screen options cookies last for a year. If you select “Remember Me”, your login will persist for two weeks. If you log out of your account, the login cookies will be removed.</p>
-                        <p className='mt-3'>If you edit or publish an article, an additional cookie will be saved in your browser. This cookie includes no personal data and simply indicates the post ID of the article you just edited. It expires after 1 day.</p>
-                        <hr />
-                        <h2>Embedded content from other websites</h2>
-                        <hr />
-                        <p>Articles on this site may include embedded content (e.g. videos, images, articles, etc.). Embedded content from other websites behaves in the exact same way as if the visitor has visited the other website.</p>
-                        <p className='mt-3'>These websites may collect data about you, use cookies, embed additional third-party tracking, and monitor your interaction with that embedded content, including tracking your interaction with the embedded content if you have an account and are logged in to that website.</p>
-                        <hr />
-                        <h2>Who we share your data with</h2>
-                        <hr />
-                        <p>If you request a password reset, your IP address will be included in the reset email.</p>
-                        <hr />
-                        <h2>How long we retain your data</h2>
-                        <hr />
-                        <p>If you leave a comment, the comment and its metadata are retained indefinitely. This is so we can recognize and approve any follow-up comments automatically instead of holding them in a moderation queue.</p>
-                        <p className='mt-3'>For users that register on our website (if any), we also store the personal information they provide in their user profile. All users can see, edit, or delete their personal information at any time (except they cannot change their username). Website administrators can also see and edit that information.</p>
-                        <hr />
-                        <h2>What rights you have over your data</h2>
-                        <hr />
-                        <p>If you have an account on this site, or have left comments, you can request to receive an exported file of the personal data we hold about you, including any data you have provided to us. You can also request that we erase any personal data we hold about you. This does not include any data we are obliged to keep for administrative, legal, or security purposes.</p>
-                        <hr />
-                        <h2>Where your data is sent</h2>
-                        <hr />
-                        <p>Visitor comments may be checked through an automated spam detection service.</p>
+                                <h3 className='my-3'>Non-Personal Information:</h3>
+                                <ul>
+                                    <li>Log Data (IP Address, Browser Type, Pages Visited)</li>
+                                    <li>Cookies and Similar Technologies</li>
+                                </ul>
+                                <hr />
+                                <h2>How We Use Your Information:</h2>
+                                <hr />
+                                <h3 className='mb-3'>We use the collected information for the following purposes:</h3>
+                                <ul>
+                                    <li>Order Processing and Fulfillment</li>
+                                    <li>Communication with You (Order Updates, Promotions)</li>
+                                    <li>Customizing Your Shopping Experience</li>
+                                    <li>Improving Our Website and Services</li>
+                                </ul>
+                                <hr />
+                                <h2>Sharing Your Information:</h2>
+                                <hr />
+                                <p>We do not sell, trade, or otherwise transfer your personal information to outside parties. Your information is shared only with trusted third parties involved in fulfilling your order, such as shipping carriers and payment processors.</p>
+
+                                <hr />
+                                <h2>Data Security:</h2>
+                                <hr />
+
+                                <p>Livin Leathers takes appropriate measures to protect your information from unauthorized access, alteration, disclosure, or destruction. We use industry-standard security technologies and procedures to safeguard your data.</p>
+
+                                <hr />
+                                <h2>Cookies:</h2>
+                                <hr />
+                                <p>Our website uses cookies to enhance your browsing experience. You can choose to disable cookies through your browser settings, but this may affect the functionality of certain features on our website.
+                                </p>
+
+                                <hr />
+                                <h2>Your Rights:</h2>
+                                <hr />
+                                <h3 className='mb-3'>You have the right to:</h3>
+                                <ul>
+                                    <li>Access, correct, or delete your personal information.</li>
+                                    <li>Opt-out of marketing communications.</li>
+                                    <li>Request a copy of the data we have collected about you.</li>
+                                </ul>
+
+                                <hr />
+                                <h2>Changes to Privacy Policy:</h2>
+                                <hr />
+                                <p>Livin Leathers reserves the right to modify this Privacy Policy at any time. Any changes will be effective immediately upon posting on our website.</p>
+
+                                <hr />
+                                <h2>Contact Us:</h2>
+                                <hr />
+                                <p>If you have any questions or concerns regarding our Privacy Policy, please contact us at [contact@livinleathers.com](mailto:contact@livinleathers.com).
+                                </p>
+
+                                <hr />
+
+                                <p className='mt-3'>Thank you for trusting Livin Leathers with your information. We are committed to ensuring the privacy and security of your data.</p>
 
 
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                {/* /.row */}
+                {/* /.container */}
+            </main>
         </div>
-        {/* /.row */}
-        {/* /.container */}
-    </main>
-</div>
-  )
+    )
 }
 
 export default page

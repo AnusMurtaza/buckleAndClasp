@@ -60,7 +60,7 @@ const page = () => {
       <section className="product-shop spad">
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+            <div className="col-md-3 d-none d-md-block produts-sidebar-filter">
               <div className="filter-widget">
                 <h4 className="fw-title">Categories</h4>
                 <ul className="filter-catagories">
@@ -95,7 +95,7 @@ const page = () => {
 
 
             </div>
-            <div className="col-lg-9 order-1 order-lg-2">
+            <div className="col-md-9">
 
               <div className="product-list">
                 <div className="row">
@@ -111,11 +111,11 @@ const page = () => {
                   {products && products.map((value, index) => {
                     console.log(value)
                     return (
-                      <div className="col-lg-4 col-sm-6">
+                      <div className="col-lg-4 col-6">
                         <Link href={`/collections/${params.slug}/products/${value.slug}`}>
                           <div className="product-item" key={index}>
                             <div className="pi-pic">
-                              <Image src={`${imageUrl}/${value.images[0].image}`} alt="" width={244} height={298} />
+                              <Image src={`${imageUrl}/${value.images[0].image}`} layout='responsive' alt="" width={244} height={298} />
                               {value.sale > 0 && <div className="sale">Sale</div>}
                               <div className="icon">
                                 <i className="icon_heart_alt" />

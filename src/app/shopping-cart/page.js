@@ -40,7 +40,7 @@ const page = () => {
             <Link href="/">
               <i className="fa fa-home" /> Home
             </Link>
-            <Link href="/">Shop</Link>
+            {/* <Link href="/">Shop</Link> */}
             <span>Shopping Cart</span>
           </div>
         </div>
@@ -75,14 +75,14 @@ const page = () => {
                   return(
                 <tr key={index}>
                 <td className="cart-pic first-row">
-                  <Image src={`${imageUrl}/${value.images[0]?.image}`} alt="" width={170} height={170} />
+                  <Image src={`${imageUrl}/${value.images[0]?.image}`} alt="" width={170} height={170} style={{objectFit: "contain"}} />
                 </td>
                 <td className="cart-title first-row">
-                  <h5>{value.name}</h5>
+                  <h5 className='fw-bold'>{value.name}</h5>
                   <div className='d-flex'>
 
-                  <h6>Size :<span>{value.size}</span></h6>
-                  <div className='d-flex ms-3'> <h6>Color : </h6><div style={{width:"15px",height:"15px",backgroundColor:value.color}}></div></div>
+                  <h6>Size :<span className='ms-3 fw-bold'>{value.size}</span></h6>
+                  <div className='d-flex align-items-center ms-3'> <h6 className='me-3'>Color : </h6><div style={{width:"15px",height:"15px",borderRadius:"50%",backgroundColor:value.color}}></div></div>
                   </div>
                 </td>
                 <td className="p-price first-row">${amount}</td>

@@ -42,21 +42,25 @@ const page = () => {
     });
   return (
     <>
-      {/* Breadcrumb Section Begin */}
-      <div className="breacrumb-section">
+      <section className="about-bg">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12">
-              <div className="breadcrumb-text">
-                <Link href="/">
+            <div>
+              <h1>CONTACT US</h1>
+            </div>
+            <div className="breacrumb-section">
+              <div className="breadcrumb-text border-0">
+                <Link href="/" className='text-white'>
                   <i className="fa fa-home" /> Home
                 </Link>
-                <span>Contact</span>
+                <span className='text-white fw-bold'>Contact us</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+      {/* Breadcrumb Section Begin */}
+
       {/* Breadcrumb Section Begin */}
 
       {/* Contact Section Begin */}

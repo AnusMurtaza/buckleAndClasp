@@ -68,9 +68,9 @@ const Header = () => {
     if (pathname !== `/search`) {
       setSearchValue("")
     }
-    console.log(pathname,"pathname")
+    console.log(pathname, "pathname")
   }, [pathname])
-  
+
 
   return (
     <>
@@ -149,7 +149,7 @@ const Header = () => {
                 All Categories
               </button> */}
                   <div className="input-group">
-                    <input type="text" placeholder="What do you need?" value={searchValue}  onKeyPress={handleKeyPress} onChange={(e)=>setSearchValue(e.target.value)}/>
+                    <input type="text" placeholder="What do you need?" value={searchValue} onKeyPress={handleKeyPress} onChange={(e) => setSearchValue(e.target.value)} />
                     <button type="button" onClick={handleClick}>
                       <i className="ti-search" />
                     </button>
@@ -166,7 +166,7 @@ const Header = () => {
               </li> */}
                   <li className="cart-icon">
                     {/* <Link href="/"> */}
-              <i className="bi bi-bag cart-icon"></i>
+                    <i className="bi bi-bag cart-icon"></i>
                     {/* <i className="ti-shopping-cart" /> */}
                     {cartTotalQuantity > 0 && <span className='cart_count'>{cartTotalQuantity}</span>}
                     {/* </Link> */}
@@ -178,15 +178,16 @@ const Header = () => {
                               {cartItems.map((value, index) => (
                                 <tr key={index}>
                                   <td className="si-pic">
-                                    <Image src={`${imageUrl}/${value.images[0].image}`} alt="" width={70} height={70} />
+                                    <Image src={`${imageUrl}/${value.images[0].image}`}  alt="" width={70} height={70} style={{objectFit: "contain"}} />
                                   </td>
                                   <td className="si-text">
                                     <div className="product-selected">
                                       <p>${value.sale > 0 ? value.discounted_price : value.price} x {value.cartQuantity}</p>
                                       <h6>{value.name}</h6>
-                                        <h6>Size :<span>{value.size}</span></h6>
-                                        <div className='d-flex'> <h6>Color :</h6><div style={{width:"15px",height:"15px",backgroundColor:value.color}}></div></div>
-
+                                      <div className='d-flex mt-2'>
+                                      <h6>Size :<span className='ms-2 fw-bold'>{value.size}</span></h6>
+                                      <div className='d-flex align-items-center ms-3'> <h6 className='me-2'>Color : </h6><div style={{ width: "15px", height: "15px",borderRadius:"50%" ,backgroundColor: value.color }}></div></div>
+                                      </div>
                                     </div>
                                   </td>
                                   <td className="si-close">
@@ -357,30 +358,24 @@ const Header = () => {
                           </p>
                           <div id={`category-${category.id}`} className="accordion-collapse collapse">
                             {hasSubcategories && (
-                              <ul>
+                              <ul data-bs-dismiss="offcanvas"
+                              aria-label="Close">
                                 {category.sub_categories.map(subcategory => (
                                   <Link href={`/collections/${subcategory.slug}`} key={subcategory.id}>
-                                    <li>{subcategory.name}</li>
+                                    <li className={`${pathname === `/collections/${subcategory.slug}` ? 'active' : ''}`}>{subcategory.name}</li>
                                   </Link>
                                 ))}
                               </ul>
                             )}
-                            {!hasSubcategories && (
-                              <a href="#">
-                                <li>
-                                  <p className="d-flex justify-content-between mb-2 border-top mt-4 mob_naV_linK">
-                                    <span className="active_link">Home</span>
-                                  </p>
-                                </li>
-                              </a>
-                            )}
+
                           </div>
                         </li>
                       );
                     })}
 
-<Link href="/about-us">
-                      <li className={`${pathname === '/about-us' ? 'active' : ''}`}>
+                    <Link href="/about-us" >
+                      <li className={`${pathname === '/about-us' ? 'active' : ''}`} data-bs-dismiss="offcanvas"
+              aria-label="Close">
                         <p className="d-flex justify-content-between mb-2   mob_naV_linK">
                           <span className="active_link">About</span>
                         </p>
@@ -388,7 +383,8 @@ const Header = () => {
                     </Link>
 
                     <Link href="/contact-us">
-                      <li className={`${pathname === '/contact-us' ? 'active' : ''}`}>
+                      <li className={`${pathname === '/contact-us' ? 'active' : ''}`} data-bs-dismiss="offcanvas"
+              aria-label="Close">
                         <p className="d-flex justify-content-between mb-2   mob_naV_linK">
                           <span className="active_link">Contact</span>
                         </p>
