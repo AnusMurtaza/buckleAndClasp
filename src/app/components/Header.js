@@ -80,7 +80,7 @@ const Header = () => {
           <div className="container d-flex justify-content-between align-items-center">
             <div className="ht-left">
               <div className="mail-service">
-                <i className=" fa fa-envelope" />
+              <i className="bi bi-envelope"></i>
                 hello.colorlib@gmail.com
               </div>
             </div>
@@ -94,14 +94,14 @@ const Header = () => {
               {!token && (
 
                 <Link href="/login" className="login-panel">
-                  <i className="fa fa-user" />
+                 <i className="bi bi-person"></i>
                   Login
                 </Link>
               )}
 
               {token && (
                 <div className="position-relative login-panel login__Regs">
-                  <i className="fa-regular fa-circle-user" />
+                  <i className="bi bi-person-circle"></i>
                   <span>&nbsp;Hi, {name}!</span>
                   <div className="login_content">
                     <div>
@@ -120,7 +120,7 @@ const Header = () => {
                         </li>
                         <li className="py-2">
                           <span onClick={handleLogout}>
-                            <i className="fa-solid fa-right-from-bracket"></i>{" "}
+                          <i className="bi bi-box-arrow-right"></i>{" "}
                             Logout
                           </span>
                         </li>
@@ -151,7 +151,7 @@ const Header = () => {
                   <div className="input-group">
                     <input type="text" placeholder="What do you need?" value={searchValue} onKeyPress={handleKeyPress} onChange={(e) => setSearchValue(e.target.value)} />
                     <button type="button" onClick={handleClick}>
-                      <i className="ti-search" />
+                    <i className="bi bi-search"></i>
                     </button>
                   </div>
                 </div>
@@ -247,7 +247,7 @@ const Header = () => {
                     aria-controls="offcanvasExample"
                   >
 
-                    <i className="fa-solid fa-bars"></i>
+                   <i className="bi bi-list text-dark fs-1"></i>
                   </span>
                 </span>
               </div>
@@ -264,8 +264,8 @@ const Header = () => {
                   <Link href="/">Home</Link>
                 </li>
                 {categories && categories.map(category => (
-                  <li>
-                    <li className={`${pathname === `/collections/${category.slug}` ? 'active' : ''}`} key={category.id}>
+                  <li key={category.id}>
+                    <li className={`${pathname === `/collections/${category.slug}` ? 'active' : ''}`}>
                       <Link
                         href={`/collections/${category.slug}`}
                       >{category.name}</Link>
@@ -328,7 +328,8 @@ const Header = () => {
               <div>
                 <div className="categories__Main">
                   <ul className="ul_style">
-                    <Link href="/">
+                    <Link href="/"  data-bs-dismiss="offcanvas"
+                              aria-label="Close">
                       <li className={`${pathname === '/' ? 'active' : ''}`}>
                         <p className="d-flex justify-content-between mb-2 border-top mt-4 mob_naV_linK">
                           <span className="active_link">Home</span>

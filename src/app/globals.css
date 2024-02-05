@@ -81,9 +81,9 @@ h6 {
 p {
   font-size: 16px;
   font-family: "Muli", sans-serif;
-  color: #636363;
+  /* color: #636363; */
   font-weight: 400;
-  line-height: 26px;
+  /* line-height: 26px; */
   margin: 0 0 0 0;
 }
 
@@ -4642,7 +4642,7 @@ a {
 .payment-form-wrap .form-text {
   margin: 0;
 }
-.payment-form-wrap .form-control {
+.payment-form-wrap .form-control,.payment-form-wrap .form-select {
   background-color: #c0d1dc38;
   line-height: 2;
 }
@@ -4655,6 +4655,7 @@ a {
   padding: 15px 0;
   width: 100%;
   color: white;
+  margin-top: 20px;
 }
 .payment-form-wrap button:disabled {
   cursor: no-drop;
@@ -4704,8 +4705,9 @@ a {
   height: 100%;
 }
 .payment-your-order-wrap .image-wrap-inner img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 .payment-form-wrap {
   text-align: left;

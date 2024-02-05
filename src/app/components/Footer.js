@@ -48,13 +48,13 @@ const Footer = () => {
           <h5>FOLLOW US</h5>
           <div className="footer-social">
             <Link href="/">
-            <i class="bi bi-instagram"></i>
+            <i className="bi bi-instagram"></i>
             </Link>
             <Link href="/">
-            <i class="bi bi-facebook"></i>
+            <i className="bi bi-facebook"></i>
             </Link>
             <Link href="/">
-            <i class="bi bi-twitter"></i>
+            <i className="bi bi-twitter"></i>
             </Link>
             {/* <Link href="/">
               <i className="fa fa-pinterest" />

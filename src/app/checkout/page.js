@@ -30,7 +30,7 @@ const page = () => {
     zip_code: "",
     state: "",
     same_shipping: true,
-    shipping_first_name: "",  // New shipping-related fields
+    shipping_first_name: "", 
     shipping_last_name: "",
     shipping_email: "",
     shipping_phone_number: "",
@@ -40,7 +40,6 @@ const page = () => {
     shipping_country: "",
     shipping_zip_code: "",
     shipping_state: "",
-    // ... other fields
   };
 
 
@@ -99,17 +98,13 @@ const page = () => {
         });
 
 
-        const { links} = response.data;
+        const { links } = response.data;
         console.log(response)
         const approvedUrl = links.find(link => link.rel === "approval_url").href;
 
-console.log(approvedUrl);
-router.push(approvedUrl);
-        // toast.success(message);
-        // router.push('/dashboard/products');
+        router.push(approvedUrl);
       } catch (error) {
         console.error(error);
-        // toast.error('Error creating/updating banner');
       } finally {
         setLoading(false);
       }
@@ -126,9 +121,9 @@ router.push(approvedUrl);
   };
   return (
     <section>
-      <div className="container">
+      <div className="container py-5">
         <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-7 order-1 order-md-0">
             <div className="payment-form-wrap">
               <div className="card">
                 <div className="card-title mx-auto">PAYMENT</div>
@@ -208,7 +203,7 @@ router.push(approvedUrl);
                       onBlur={handleBlur}
                     >
                       <option selected>Select Country</option>
-                      <option value="1">United State</option>
+                      <option value="United State">United State</option>
                     </select>
                     {errors.country && touched.country ? (
                       <p className="form-error">{errors.country}</p>
@@ -240,17 +235,79 @@ router.push(approvedUrl);
                       <label htmlFor="state" className="form-label">
                         State
                       </label>
-                      <input
-                        type="text"
-                        className="form-control mt-3"
-                        placeholder="State"
+                      <select
+                        className="form-select mt-3"
                         id="state"
                         name="state"
                         value={values.state}
                         onChange={handleChange}
                         onBlur={handleBlur}
 
-                      />
+                      >
+                        <option value={0}>Select State</option>
+                        <option value="Alabama">Alabama</option>
+                        <option value="Alaska">Alaska</option>
+                        <option value="American Samoa">American Samoa</option>
+                        <option value="Arizona">Arizona</option>
+                        <option value="Arkansas">Arkansas</option>
+                        <option value="California">California</option>
+                        <option value="Colorado">Colorado</option>
+                        <option value="Connecticut">Connecticut</option>
+                        <option value="Delaware">Delaware</option>
+                        <option value="Micronesia">Micronesia</option>
+                        <option value="Florida">Florida</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Guam">Guam</option>
+                        <option value="Hawaii">Hawaii</option>
+                        <option value="Idaho">Idaho</option>
+                        <option value="Illinois">Illinois</option>
+                        <option value="Indiana">Indiana</option>
+                        <option value="Iowa">Iowa</option>
+                        <option value="Kansas">Kansas</option>
+                        <option value="Kentucky">Kentucky</option>
+                        <option value="Louisiana">Louisiana</option>
+                        <option value="Maine">Maine</option>
+                        <option value="Marshall Islands">Marshall Islands</option>
+                        <option value="Maryland">Maryland</option>
+                        <option value="Massachusetts">Massachusetts</option>
+                        <option value="Michigan">Michigan</option>
+                        <option value="Minnesota">Minnesota</option>
+                        <option value="Mississippi">Mississippi</option>
+                        <option value="Missouri">Missouri</option>
+                        <option value="Montana">Montana</option>
+                        <option value="Nebraska">Nebraska</option>
+                        <option value="Nevada">Nevada</option>
+                        <option value="New Hampshire<">New Hampshire</option>
+                        <option value="New Jersey">New Jersey</option>
+                        <option value="New Mexico">New Mexico</option>
+                        <option value="New York">New York</option>
+                        <option value="North Carolina">North Carolina</option>
+                        <option value="North Dakota">North Dakota</option>
+                        <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                        <option value="Ohio">Ohio</option>
+                        <option value="Oklahoma">Oklahoma</option>
+                        <option value="Oregon">Oregon</option>
+                        <option value="Palau">Palau</option>
+                        <option value="Pennsylvania">Pennsylvania</option>
+                        <option value="Puerto Rico">Puerto Rico</option>
+                        <option value="Rhode Island">Rhode Island</option>
+                        <option value="South Carolina">South Carolina</option>
+                        <option value="South Dakota">South Dakota</option>
+                        <option value="Tennessee">Tennessee</option>
+                        <option value="Texas">Texas</option>
+                        <option value="Utah">Utah</option>
+                        <option value="Vermont">Vermont</option>
+                        <option value="Virginia">Virginia</option>
+                        <option value="Washington">Washington</option>
+                        <option value="Washington DC">Washington DC</option>
+                        <option value="West Virginia">West Virginia</option>
+                        <option value="Wisconsin">Wisconsin</option>
+                        <option value="Wyoming">Wyoming</option>
+                        <option value="U.S. Virgin Islands">U.S. Virgin Islands</option>
+                        <option value="Armed Forces Americas">Armed Forces Americas</option>
+                        <option value="Armed Forces Europe">Armed Forces Europe</option>
+                        <option value="Armed Forces Pacific">Armed Forces Pacific</option>
+                      </select>
                       {errors.state && touched.state ? (
                         <p className="form-error">{errors.state}</p>
                       ) : null}
@@ -423,8 +480,8 @@ router.push(approvedUrl);
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
-                          <option selected>Select shipping_Country</option>
-                          <option value="1">United State</option>
+                          <option selected>Select Country</option>
+                          <option value="United State">United State</option>
                         </select>
                         {errors.shipping_country && touched.shipping_country ? (
                           <p className="form-error">{errors.shipping_country}</p>
@@ -456,17 +513,80 @@ router.push(approvedUrl);
                           <label htmlFor="shipping_state" className="form-label">
                             State
                           </label>
-                          <input
-                            type="text"
-                            className="form-control mt-3"
-                            placeholder="shipping_state"
+                          <select
+                            className="form-select mt-3"
                             id="shipping_state"
                             name="shipping_state"
                             value={values.shipping_state}
                             onChange={handleChange}
                             onBlur={handleBlur}
 
-                          />
+                          >
+                            <option value={0}>Select State</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="American Samoa">American Samoa</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
+                            <option value="California">California</option>
+                            <option value="Colorado">Colorado</option>
+                            <option value="Connecticut">Connecticut</option>
+                            <option value="Delaware">Delaware</option>
+                            <option value="Micronesia">Micronesia</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Guam">Guam</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Iowa">Iowa</option>
+                            <option value="Kansas">Kansas</option>
+                            <option value="Kentucky">Kentucky</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Maine">Maine</option>
+                            <option value="Marshall Islands">Marshall Islands</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Massachusetts">Massachusetts</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="Mississippi">Mississippi</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Montana">Montana</option>
+                            <option value="Nebraska">Nebraska</option>
+                            <option value="Nevada">Nevada</option>
+                            <option value="New Hampshire<">New Hampshire</option>
+                            <option value="New Jersey">New Jersey</option>
+                            <option value="New Mexico">New Mexico</option>
+                            <option value="New York">New York</option>
+                            <option value="North Carolina">North Carolina</option>
+                            <option value="North Dakota">North Dakota</option>
+                            <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Oklahoma">Oklahoma</option>
+                            <option value="Oregon">Oregon</option>
+                            <option value="Palau">Palau</option>
+                            <option value="Pennsylvania">Pennsylvania</option>
+                            <option value="Puerto Rico">Puerto Rico</option>
+                            <option value="Rhode Island">Rhode Island</option>
+                            <option value="South Carolina">South Carolina</option>
+                            <option value="South Dakota">South Dakota</option>
+                            <option value="Tennessee">Tennessee</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Utah">Utah</option>
+                            <option value="Vermont">Vermont</option>
+                            <option value="Virginia">Virginia</option>
+                            <option value="Washington">Washington</option>
+                            <option value="Washington DC">Washington DC</option>
+                            <option value="West Virginia">West Virginia</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Wyoming">Wyoming</option>
+                            <option value="U.S. Virgin Islands">U.S. Virgin Islands</option>
+                            <option value="Armed Forces Americas">Armed Forces Americas</option>
+                            <option value="Armed Forces Europe">Armed Forces Europe</option>
+                            <option value="Armed Forces Pacific">Armed Forces Pacific</option>
+                          </select>
+
                           {errors.shipping_state && touched.shipping_state ? (
                             <p className="form-error">{errors.shipping_state}</p>
                           ) : null}
@@ -550,46 +670,31 @@ router.push(approvedUrl);
                       </div>
                     </div>
                   )}
-                  {/* <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading? (    <span>
-        <b></b>
-        <b></b>
-        <b></b>
-    </span>):"Pay Now"}
-                    
-                  </button> */}
 
-<button
-      type="submit"
-      className={`btn-loader ${loading ? 'btn--loading' : ''}`}
-      disabled={loading}
-    >
-      {loading ? (
-        <span>
-          <b></b>
-          <b></b>
-          <b></b>
-        </span>
-      ) : (
-        'Pay Now'
-      )}
-    </button>
-                  {/* <button type="submit" className="btn btn-primary btn--loading" disabled={loading}>
-                    <span>
-        <b></b>
-        <b></b>
-        <b></b>
-    </span>
-                    
-                  </button> */}
+
+                  <button
+                    type="submit"
+                    className={`btn-loader ${loading ? 'btn--loading' : ''}`}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <span>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                      </span>
+                    ) : (
+                      'Pay with PayPal'
+                    )}
+                  </button>
 
                 </form>
               </div>
             </div>
           </div>
-          <div className="col-md-5">
+          <div className="col-md-5 order-0 order-md-1">
             <div>
-              <div className="row payment-order-summary-wrap">
+              <div className="payment-order-summary-wrap">
                 <div className="card">
                   <div className="card-header">Order Summary</div>
                   <ul className="list-group list-group-flush">
@@ -605,7 +710,7 @@ router.push(approvedUrl);
                   </ul>
                 </div>
               </div>
-              <div className="row mt-4 payment-your-order-wrap">
+              <div className="mt-4 mb-3 payment-your-order-wrap">
                 <div
                   className="accordion accordion-flush p-0"
                   id="accordionFlushExample"
@@ -648,14 +753,14 @@ router.push(approvedUrl);
                                     <h5 className="card-title">
                                       {value.image}
                                     </h5>
-                                    <p className="card-text">
+                                    <p className="card-text fw-bold">
                                       {value.name}
                                       <span className="float-end pe-3">
-                                      <div className='d-flex'>
+                                        <div className='d-flex'>
 
-<h6>Size :<span>{value.size}</span></h6>
-<div className='d-flex ms-3'> <h6>Color : </h6><div style={{width:"15px",height:"15px",backgroundColor:value.color}}></div></div>
-</div>
+                                          <h6>Size :<span className='fw-bold'>{value.size}</span></h6>
+                                          <div className='d-flex ms-3'> <h6 className='me-2'>Color : </h6><div style={{ width: "15px", height: "15px", borderRadius: "50%", backgroundColor: value.color }}></div></div>
+                                        </div>
                                       </span>
                                     </p>
                                     <p className="card-text">
@@ -664,7 +769,7 @@ router.push(approvedUrl);
                                         <b> Price: ${Finalamount}</b>
                                       </span>
                                     </p>
-                               
+
                                   </div>
                                 </div>
                               </div>
@@ -677,36 +782,6 @@ router.push(approvedUrl);
                           </div>
                         }
                       </div>
-
-                      {/* <div>
-                        <div className="card mb-3">
-                          <div className="row g-0">
-                            <div className="d-flex">
-                              <div className="image-wrap-inner">
-                                <img
-                                  src="https://umbrellamd-video.com/assets/images/others-icon.png"
-                                  className="img-fluid rounded-start"
-                                  alt="..."
-                                />
-                              </div>
-                              <div className="card-body">
-                                <h5 className="card-title">
-                                  ACARUS SIRO (D70) IGE
-                                </h5>
-                                <p className="card-text">
-                                  Qty:2{" "}
-                                  <span className="float-end pe-3">
-                                    <b> Price: $200</b>
-                                  </span>
-                                </p>
-                                <p className="card-text">
-                                  Priscribed by Dr.Anas Murtaza
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -722,3 +797,11 @@ router.push(approvedUrl);
 }
 
 export default page
+
+
+
+
+
+
+
+

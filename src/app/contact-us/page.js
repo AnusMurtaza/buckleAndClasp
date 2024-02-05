@@ -79,7 +79,7 @@ const page = () => {
               <div className="contact-widget">
                 <div className="cw-item">
                   <div className="ci-icon">
-                    <i className="ti-location-pin" />
+                  <i className="bi bi-geo-alt"></i>
                   </div>
                   <div className="ci-text">
                     <span>Address:</span>
@@ -88,7 +88,7 @@ const page = () => {
                 </div>
                 <div className="cw-item">
                   <div className="ci-icon">
-                    <i className="ti-mobile" />
+                  <i className="bi bi-phone"></i>
                   </div>
                   <div className="ci-text">
                     <span>Phone:</span>
@@ -97,7 +97,7 @@ const page = () => {
                 </div>
                 <div className="cw-item">
                   <div className="ci-icon">
-                    <i className="ti-email" />
+                  <i className="bi bi-envelope"></i>
                   </div>
                   <div className="ci-text">
                     <span>Email:</span>
