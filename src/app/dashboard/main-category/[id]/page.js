@@ -30,7 +30,6 @@ const page = () => {
         });
         const {data}= response.data
         setData(data);
-        console.log(data)
       } catch (error) {
         console.error(error);
       }

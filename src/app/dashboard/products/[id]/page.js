@@ -31,8 +31,6 @@ const page = () => {
         });
         const { data } = response.data
         setData(data);
-
-        console.log(data)
       } catch (error) {
         console.error(error);
       }
@@ -115,9 +113,7 @@ const page = () => {
     validationSchema: data ? updateProductSchema : ProductSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      console.log(values)
       const colorArray = values.color.split(',').map(color => color.trim());
-      console.log(colorArray)
       setLoading(true);
       const formData = new FormData();
       formData.append('title', values.title);
@@ -163,7 +159,6 @@ const page = () => {
 
   });
 
-  console.log(values)
   return (
     <>
       <section className="container-fluid products_main_banner">

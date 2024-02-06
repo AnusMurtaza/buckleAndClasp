@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
 const page = ({params}) => {
-  console.log(params)
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState(null);
@@ -38,8 +37,6 @@ const page = ({params}) => {
   }, []);
   const orderItems = order?.order_items ? JSON.parse(order.order_items) : null;
 
-
-  console.log(order)
   return (
     <section>
     <section className="container-fluid products_main_banner">

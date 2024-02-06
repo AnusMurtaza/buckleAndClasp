@@ -42,6 +42,7 @@ const page = () => {
     });
   return (
     <>
+      {/* Breadcrumb Section Begin */}
       <section className="about-bg">
         <div className="container">
           <div className="row">
@@ -59,8 +60,6 @@ const page = () => {
           </div>
         </div>
       </section>
-      {/* Breadcrumb Section Begin */}
-
       {/* Breadcrumb Section Begin */}
 
       {/* Contact Section Begin */}

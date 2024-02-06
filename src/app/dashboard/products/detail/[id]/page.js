@@ -15,7 +15,6 @@ const ProductDetail = () => {
     const { token } = useSelector((state) => state.auth);
 
    const params = useParams()
-   console.log(params)
   
     const sendRequest = () => {
         setloading(true)

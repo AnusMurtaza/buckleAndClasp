@@ -99,9 +99,7 @@ const page = () => {
 
 
         const { links } = response.data;
-        console.log(response)
         const approvedUrl = links.find(link => link.rel === "approval_url").href;
-
         router.push(approvedUrl);
       } catch (error) {
         console.error(error);
@@ -114,7 +112,7 @@ const page = () => {
 
 
   console.log('Form Values:', values);
-  console.log('Form Errors:', errors);
+
   const handleCheckboxChange = () => {
     setUseShippingAsBilling(!useShippingAsBilling);
     setFieldValue('same_shipping', !useShippingAsBilling);

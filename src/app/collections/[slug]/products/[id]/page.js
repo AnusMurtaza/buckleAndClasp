@@ -19,7 +19,6 @@ import { toast } from 'react-toastify';
 // import $ from 'jquery';
 const page = () => {
   const params = useParams();
-  console.log(params)
   const [product, setProduct] = useState([]);
   const [relatedProduct, setRelatedProduct] = useState([]);
   const [loading, setLoading] = useState(false);

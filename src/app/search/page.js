@@ -42,20 +42,22 @@ const page = () => {
   return (
     <>
       {/* Breadcrumb Section Begin */}
-      <div className="breacrumb-section">
+      <section className="about-bg search-banner">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12">
-              <div className="breadcrumb-text">
-                <Link href="/">
+            <div>
+              <h1 className="text-uppercase">SEARCH - {search}</h1>
+            </div>
+            <div className="breacrumb-section">
+              <div className="mt-2 border-0">
+                <Link href="/" className='text-white'>
                   <i className="fa fa-home" /> Home
                 </Link>
-                <span>Shop</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
       {/* Breadcrumb Section Begin */}
       {/* Product Shop Section Begin */}
       <section className="product-shop spad">
@@ -87,13 +89,6 @@ const page = () => {
                           )}
                       </li>
                     ))}
-
-                  {/* <li>
-                  <Link href="/">Women</Link>
-                </li>
-                <li>
-                  <Link href="/">Kids</Link>
-                </li> */}
                 </ul>
               </div>
             </div>
@@ -110,13 +105,12 @@ const page = () => {
                   )}
                   {products &&
                     products.map((value, index) => {
-                      console.log(value);
                       return (
-                        <div className="col-lg-4 col-sm-6">
+                        <div className="col-lg-4 col-sm-6" key={index}>
                           <Link
                             href={`/collections/${value.sub_category.slug}/products/${value.slug}`}
                           >
-                            <div className="product-item" key={index}>
+                            <div className="product-item">
                               <div className="pi-pic">
                                 <Image
                                   src={`${imageUrl}/${value.images[0].image}`}

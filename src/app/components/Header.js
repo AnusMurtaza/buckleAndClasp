@@ -56,14 +56,8 @@ const Header = () => {
   }, [])
   useEffect(() => {
     dispatch(getTotals());
-    console.log("first")
   }, [cart, dispatch]);
 
-  const [openCategory, setOpenCategory] = useState(null);
-
-  const toggleDropdown = (categoryId) => {
-    setOpenCategory(openCategory === categoryId ? null : categoryId);
-  };
   useEffect(() => {
     if (pathname !== `/search`) {
       setSearchValue("")
@@ -106,9 +100,6 @@ const Header = () => {
                   <div className="login_content">
                     <div>
                       <ul>
-                        {/* <li>
-                        <h6>Hello, {name}!</h6>
-                      </li> */}
                         <li>
                           <Link href="/my-account">My Account</Link>
                         </li>
@@ -158,18 +149,9 @@ const Header = () => {
               </div>
               <div className="col-lg-3 text-end col-md-3 d-flex justify-content-between align-items-center d-md-block">
                 <ul className="nav-right">
-                  {/* <li className="heart-icon">
-                <Link href="/">
-                  <i className="ti-heart" />
-                  <span>1</span>
-                </Link>
-              </li> */}
                   <li className="cart-icon">
-                    {/* <Link href="/"> */}
                     <i className="bi bi-bag cart-icon"></i>
-                    {/* <i className="ti-shopping-cart" /> */}
                     {cartTotalQuantity > 0 && <span className='cart_count'>{cartTotalQuantity}</span>}
-                    {/* </Link> */}
                     <div className="cart-hover">
                       {cartItems.length > 0 && (
                         <div className="select-items">
@@ -257,7 +239,7 @@ const Header = () => {
         <div className="nav-item">
           <div className="container text-center">
             <nav className="nav-menu mobile-menu">
-              <ul>
+              {/* <ul>
                 <li
                   className={`${pathname === '/' ? 'active' : ''}`}
                 >
@@ -293,7 +275,56 @@ const Header = () => {
                 >
                   <Link href="/contact-us">Contact</Link>
                 </li>
-              </ul>
+              </ul> */}
+
+
+
+
+
+
+
+
+              <ul>
+  <li className={`${pathname === '/' ? 'active' : ''}`}>
+    <Link href="/">Home</Link>
+  </li>
+  {categories && categories.map(category => (
+    <li key={category.id} >
+      <Link
+        href={`/collections/${category.slug}`}
+        className={`${pathname === `/collections/${category.slug}` ? 'active' : ''}`}
+      >{category.name}</Link>
+      {category.sub_categories && category.sub_categories.length > 0 && (
+        <ul className="dropdown">
+          {category.sub_categories.map(subCategory => (
+            <li className={`${pathname === `/collections/${subCategory.slug}` ? 'active' : ''}`} key={subCategory.id}>
+              <Link href={`/collections/${subCategory.slug}`}>{subCategory.name}</Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  ))}
+  <li className={`${pathname === '/about-us' ? 'active' : ''}`}>
+    <Link href="/about-us">About</Link>
+  </li>
+  <li className={`${pathname === '/contact-us' ? 'active' : ''}`}>
+    <Link href="/contact-us">Contact</Link>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
             </nav>
             {/* <div id="mobile-menu-wrap" /> */}
           </div>

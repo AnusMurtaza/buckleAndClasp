@@ -38,7 +38,6 @@ const page = () => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    console.log(newPage,"newPage")
   };
 
   useEffect(() => {

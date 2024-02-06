@@ -63,18 +63,15 @@ const page = () => {
 
   const handleStatusChange = (value) => {
     setActiveButton(value);
-    setCurrentPage(1); // Reset current page when changing status
+    setCurrentPage(1); 
     fetchOrders(1, value);
   };
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    console.log(newPage,"newPage")
   };
 
   useEffect(() => {
-    console.log('Fetching orders...', currentPage, activeButton);
-
     fetchOrders(currentPage, activeButton);
   }, [currentPage, activeButton]);
   const handleStatusComplete = async (id) => {
@@ -255,7 +252,6 @@ const page = () => {
       </div>
     )
   });
-  console.log('Rendering Page component...');
 
   return (
     <section>
