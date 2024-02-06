@@ -103,6 +103,8 @@ const page = () => {
       description: data?.description || "",
       price: data?.price || "",
       sale: data?.sale === 1 && true || "",
+      is_deal: data?.is_deal === 1 && true || "",
+      new_arrival: data?.new_arrival === 1 && true || "",
       main_cat_id: data?.main_cat_id || "",
       sub_cat_id: data?.sub_cat_id || "",
       image: "",
@@ -121,6 +123,8 @@ const page = () => {
       formData.append('description', values.description);
       formData.append('price', values.price);
       formData.append("sale", values.sale ? 1 : 0);
+      formData.append("is_deal", values.is_deal ? 1 : 0);
+      formData.append("new_arrival", values.new_arrival ? 1 : 0);
       formData.append("main_cat_id", values.main_cat_id);
       formData.append("sub_cat_id", values.sub_cat_id);
       formData.append("discounted_price", values.discounted_price);
@@ -295,6 +299,46 @@ const page = () => {
                         </div>
                         {errors.sale && touched.sale ? (
                           <p>{errors.sale}</p>
+                        ) : null}
+                      </div>
+
+                      <div className="col-12 my-3">
+                        <div className="form-check form-switch">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="is_deal"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.is_deal}
+                            checked={values.is_deal}
+                          />
+                          <label className="form-check-label" htmlFor="is_deal">
+                            Deal of the week
+                          </label>
+                        </div>
+                        {errors.is_deal && touched.is_deal ? (
+                          <p>{errors.is_deal}</p>
+                        ) : null}
+                      </div>
+
+                      <div className="col-12 my-3">
+                        <div className="form-check form-switch">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="new_arrival"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.new_arrival}
+                            checked={values.new_arrival}
+                          />
+                          <label className="form-check-label" htmlFor="new_arrival">
+                            New Arrival
+                          </label>
+                        </div>
+                        {errors.new_arrival && touched.new_arrival ? (
+                          <p>{errors.new_arrival}</p>
                         ) : null}
                       </div>
                       <div className="col-md-6 mb-2">

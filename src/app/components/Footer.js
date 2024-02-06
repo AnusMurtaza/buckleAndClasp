@@ -1,8 +1,35 @@
 'use client';
+import axios from 'axios';
 import Link from 'next/link';
 import React from 'react'
+import { baseURL } from '../config/apiUrl';
+import { toast } from 'react-toastify';
 
 const Footer = () => {
+
+  const initialValues = {
+    email: "",
+  };
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: signInSchema,
+      onSubmit: async (values, action) => {
+        var userData = new FormData();
+        userData.append("email", values.email);
+
+        setLoading(true);
+        try {
+          const response = await axios.post(baseURL + "/subscribe_to_newsletter", userData)
+          const { message, data } = response.data;
+          toast.success(message);
+          setLoading(false);
+        } catch (error) {
+          toast.error(error.response.data.message);
+          setLoading(false);
+        }
+      },
+    });
   return (
     <footer className="footer-section">
   <div className="container">
@@ -66,9 +93,9 @@ const Footer = () => {
         <div className="newslatter-item">
           <h5>Join Our Newsletter Now</h5>
           <p>Get E-mail updates about our latest shop and special offers.</p>
-          <form action="/" className="subscribe-form">
+          <form onSubmit={handleSubmit} className="subscribe-form">
             <input type="text" placeholder="Enter Your Mail" />
-            <button type="button">Subscribe</button>
+            <button type="submit">Subscribe</button>
           </form>
         </div>
       </div>
