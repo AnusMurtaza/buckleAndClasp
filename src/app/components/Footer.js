@@ -1,11 +1,14 @@
 'use client';
 import axios from 'axios';
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 import { baseURL } from '../config/apiUrl';
 import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import { newsletterSchema } from '../schemas';
 
 const Footer = () => {
+  const [loading, setLoading] = useState(false)
 
   const initialValues = {
     email: "",
@@ -13,7 +16,7 @@ const Footer = () => {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
-      validationSchema: signInSchema,
+      validationSchema: newsletterSchema,
       onSubmit: async (values, action) => {
         var userData = new FormData();
         userData.append("email", values.email);
@@ -24,8 +27,9 @@ const Footer = () => {
           const { message, data } = response.data;
           toast.success(message);
           setLoading(false);
+          action.resetForm()
         } catch (error) {
-          toast.error(error.response.data.message);
+          toast.error("Oops, something went wrong");
           setLoading(false);
         }
       },
@@ -94,7 +98,18 @@ const Footer = () => {
           <h5>Join Our Newsletter Now</h5>
           <p>Get E-mail updates about our latest shop and special offers.</p>
           <form onSubmit={handleSubmit} className="subscribe-form">
-            <input type="text" placeholder="Enter Your Mail" />
+            <input 
+            type="text"
+             placeholder="Enter Your Mail"
+             id="email"
+             name="email"
+             value={values.email}
+             onChange={handleChange}
+             onBlur={handleBlur}
+              />
+                 {errors.email && touched.email ? (
+                      <p className="form-error text-danger">{errors.email}</p>
+                    ) : null}
             <button type="submit">Subscribe</button>
           </form>
         </div>

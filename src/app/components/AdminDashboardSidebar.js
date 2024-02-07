@@ -85,6 +85,13 @@ const AdminDashboardSidebar = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/dashboard/newsletter" className={`naV__link__item ${pathname === `/dashboard/newsletter` ? 'active' : ''}`}>
+                <p>
+                  <i className="fa-solid fa-circle-user f__light"></i> Newsletter
+                </p>
+                </Link>
+              </li>
+              <li>
                 <p className="naV__link__item" onClick={handleLogout}>
                 <p >
                   <i className="fa-solid fa-reply f__light"></i> Logout

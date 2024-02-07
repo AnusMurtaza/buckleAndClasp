@@ -16,7 +16,7 @@ const page = () => {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
   const pathname = usePathname();
-
+console.log(params,"params")
   const fetchProducts = async () => {
     setLoading(true);
     try {
@@ -37,8 +37,55 @@ const page = () => {
     }
   };
 
+  const fetchNewArrivals = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${baseURL}/get_new_arrival_products?page=${page}`
+      );
+      const { data } = response.data;
+
+      // If it's the first page, set products directly; otherwise, append to existing products
+      setProducts((prevProducts) =>
+        page === 1 ? data.data : [...prevProducts, ...data.data]
+      );
+      setLastPage(data.last_page === page);
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  const fetchDeals = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${baseURL}/get_deal_products?page=${page}`
+      );
+      const { data } = response.data;
+
+      // If it's the first page, set products directly; otherwise, append to existing products
+      setProducts((prevProducts) =>
+        page === 1 ? data.data : [...prevProducts, ...data.data]
+      );
+      setLastPage(data.last_page === page);
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    fetchProducts();
+    if(params.slug === "new-arrivals"){
+      fetchNewArrivals()
+    }
+    else if (params.slug === "deals-of-the-week"){
+      fetchDeals()
+    }else{
+
+      fetchProducts();
+    }
   }, [page]);
 
   return (

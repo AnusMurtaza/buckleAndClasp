@@ -143,7 +143,7 @@ const HeroSection = () => {
                         <div className="carousel-caption d-none d-md-block">
         <h5>SEE WHO JUST SAUNTERED IN.</h5>
         <p>Discover our latest collection of leather jackets, bags, and outerwear.</p>
-        <button>NEW ARRIVALS</button>
+       <Link href="/collections/new-arrivals"> <button>NEW ARRIVALS</button></Link>
       </div>
               </div>
             ))}

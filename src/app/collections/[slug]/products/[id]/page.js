@@ -90,12 +90,7 @@ const page = () => {
       fetchRelatedProduct()
     }
   }, [])
-  useEffect(() => {
-    if (product?.id) {
 
-      fetchRelatedProduct()
-    }
-  }, [product?.id])
 
   const handleColorChange = (color) => {
     setSelectedColor(color);

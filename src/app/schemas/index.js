@@ -89,6 +89,10 @@ export const contactUsSchema = Yup.object({
   message: Yup.string().required("Please Enter Your Message"),
 });
 
+export const newsletterSchema = Yup.object({
+  email: Yup.string().email().required("Please Enter Your Email"),
+});
+
 export const updateAccountSchema = Yup.object({
   email: Yup.string().email().required("The field is required"),
   first_name: Yup.string().required("The field is required"),

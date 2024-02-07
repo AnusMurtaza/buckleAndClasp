@@ -221,7 +221,7 @@ export default function Home() {
                   <p>Secs</p>
                 </div>
               </div> */}
-              <Link href="/" className="primary-btn">
+              <Link href="/collections/deals-of-the-week" className="primary-btn">
                 Shop Now
               </Link>
             </div>
