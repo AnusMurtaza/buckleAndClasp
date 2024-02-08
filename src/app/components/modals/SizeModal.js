@@ -43,7 +43,7 @@ const SizeModal = () => {
                             aria-selected="true"
                           
                           >
-                            DRESSES
+                            MEN
                           </span>
                         </li>
                         <li role="presentation">
@@ -58,7 +58,7 @@ const SizeModal = () => {
                             aria-selected="false"
                      
                           >
-                            T-SHIRT
+                            WOMEN
                           </span>
                         </li>
                         <li role="presentation">
@@ -74,7 +74,7 @@ const SizeModal = () => {
                         
 
                           >
-                            BOTTOMS
+                            KIDS
                           </span>
                         </li>
                       </ul>

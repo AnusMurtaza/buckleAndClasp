@@ -85,11 +85,13 @@ const page = () => {
   };
   useEffect(() => {
     fetchProduct()
+  }, [])
+  useEffect(() => {
     if (product?.id) {
 
       fetchRelatedProduct()
     }
-  }, [])
+  }, [product?.id])
 
 
   const handleColorChange = (color) => {
@@ -182,7 +184,8 @@ const page = () => {
                       </div>
                     </div>
                     <div className="pd-size-choose ">
-                      {['S', 'M', 'L', 'XL'].map((size) => (
+                      {product?.main_category?.name === "Kids" &&
+                      ['3-4', '4-5', '5-6', '7-8','9-10','11-12','13-14'].map((size) => (
                         <div className="sc-item" key={size}>
                           <input
                             type="radio"
@@ -193,7 +196,23 @@ const page = () => {
                           />
                           <label className={selectedSize === size ? 'active' : ''} htmlFor={`size-${size}`}>{size}</label>
                         </div>
-                      ))}
+                      ))
+                    }
+
+{product?.main_category?.name !== "Kids" &&
+                      ['S', 'M', 'L', 'XL','2XL'].map((size) => (
+                        <div className="sc-item" key={size}>
+                          <input
+                            type="radio"
+                            id={`size-${size}`}
+                            name="size"
+                            checked={selectedSize === size}
+                            onChange={() => handleSizeChange(size)}
+                          />
+                          <label className={selectedSize === size ? 'active' : ''} htmlFor={`size-${size}`}>{size}</label>
+                        </div>
+                      ))
+                    }
                     </div>
                     <div className="quantity">
                       <div className="pro-qty">
@@ -274,22 +293,22 @@ const page = () => {
                   </div>
                   <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div className="alert alert-secondary">
-                      <h3>DELIVERY TIME:</h3>
+                      <h4 className='fw-bold my-3'>DELIVERY TIME:</h4>
                       <p>It takes one working day to process your order. All orders received before 4:30 PM on a working day are processed and dispatched the same day. Orders received after 4:30 PM are processed and dispatched the next day.</p>
                       <p>In case an order is placed on Sunday or on a holiday; the order will be processed on the next working day.</p>
                       <p>All orders will be processed after phone verification from the customer.</p>
 
-                      <h3>SHIPPING PARTNER:</h3>
+                      <h4 className='fw-bold my-3'>SHIPPING PARTNER:</h4>
                       <p>All orders are dispatched via TCS or LEOPARD and tracking number is provided to customer once the order is shipped.</p>
 
 
-                      <h3>PAYMENT:</h3>
+                      <h4 className='fw-bold my-3'>PAYMENT:</h4>
                       <p>We accept payment through Credit Card, Online Banking & Cash On Delivery.</p>
 
                       <p>Flat Rate of Rs 199 will be applied in the total amount of the order.</p>
                       <p>Shipping charges will be free if the order value exceeded Rs 3500.</p>
 
-                      <h3>INTERNATIONAL DELIVERY:</h3>
+                      <h4 className='fw-bold my-3'>INTERNATIONAL DELIVERY:</h4>
                       <p>We offer international delivery all over the world. International Delivery via DHL and calculated at checkout page.</p>
                       <p>International Orders are shipped after verification of payment.</p>
                       <p>DHL Tracking is provided after shipment is made. If you have any shipment instructions, please mention in the notes or contact the customer support with your query.</p>
