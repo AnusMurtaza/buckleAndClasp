@@ -2,11 +2,9 @@
 import Image from 'next/image';
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation';
-// import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 import ProductGallery from "@/components/productGallery";
-import AddToCart from "@/components/addToCart";
 import SizeModal from '@/app/components/modals/SizeModal';
 import DeliveryReturnModal from '@/app/components/modals/DeliveryReturnModal';
 // import { product } from '../../../../../../public/data';
