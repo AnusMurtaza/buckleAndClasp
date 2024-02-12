@@ -4,14 +4,14 @@ import store from "./redux/store";
 export async function middleware(request) {
   const reduxStore = store.getState();
   const authToken = reduxStore.auth.token;
+  const authToke1 = reduxStore.auth;
   const role = reduxStore.auth.user_type;
-
+console.log("authToke1",authToke1)
   // const authToken = request.cookies.get("token")?.value;
   // const role = request.cookies.get("role")?.value;
 
   const isLoginPage = request.nextUrl.pathname === "/login";
   const isSignUpPage = request.nextUrl.pathname === "/sign-up";
-  ``;
   const isDashboardRoute = request.nextUrl.pathname.startsWith("/dashboard");
   const isSecuredRoute = !isLoginPage && !isSignUpPage;
 

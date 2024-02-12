@@ -1294,10 +1294,10 @@ a {
 -----------------------*/
 
 .deal-of-week {
-  padding-top: 80px;
+  /* padding-top: 80px;
   padding-bottom: 80px;
   margin-left: 65px;
-  margin-right: 65px;
+  margin-right: 65px; */
 }
 
 .countdown-timer {
@@ -1412,7 +1412,7 @@ a {
   Latest Blog
 -----------------------*/
 
-/* .latest-blog {
+.latest-blog {
   padding-top: 72px;
   padding-bottom: 80px;
 }
@@ -1492,7 +1492,7 @@ a {
   margin-bottom: 0;
   color: #252525;
   line-height: 20px;
-} */
+}
 
 /*---------------------
   Partner Logo

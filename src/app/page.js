@@ -168,7 +168,7 @@ export default function Home() {
 
         {/* Deal Of The Week Section Begin*/}
         <section
-          className="deal-of-week set-bg spad"
+          className="deal-of-week set-bg spad mb-4"
           style={{ backgroundImage: `url("/img/2.png")` }}
         >
           <div className="container">
@@ -230,7 +230,7 @@ export default function Home() {
         {/* Women Banner Section End */}
 
         {/* Instagram Section Begin */}
-        <div className="instagram-photo">
+        {/* <div className="instagram-photo">
           <div
             className="insta-item set-bg"
             style={{ backgroundImage: `url("/img/insta-1.jpg")` }}
@@ -297,7 +297,7 @@ export default function Home() {
               </h5>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Instagram Section End */}
 
         <>

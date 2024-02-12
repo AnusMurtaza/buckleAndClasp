@@ -111,8 +111,7 @@ const page = () => {
                 <Link href="/">
                   <i className="fa fa-home" /> Home
                 </Link>
-                <Link href="/">Shop</Link>
-                <span>{product?.name}</span>
+                <span>Product - {product?.name}</span>
               </div>
             </div>
           </div>

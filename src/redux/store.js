@@ -1,49 +1,82 @@
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
-import {
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import authReducer from './features/auth/authSlice';
 import cartReducer from './slices/cartSlice';
 import categoryReducer from './features/categories/categoriesSlice';
-import storage from "redux-persist/lib/storage";
-
 
 const persistConfig = {
-  key: "root",
-  // version: 1,
-  storage,
+  key: 'root',
+  storage: storage,
 };
 
-const reducer = combineReducers({
-    auth: authReducer,
-    cart:cartReducer,
-    category: categoryReducer,
-
+const rootReducer = combineReducers({
+  auth: authReducer,
+  cart: cartReducer,
+  category: categoryReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
 });
 
 export default store;
+
+
+
+
+
+
+
+
+// import {
+//   combineReducers,
+//   configureStore,
+//   getDefaultMiddleware,
+// } from '@reduxjs/toolkit';
+// import {
+//   persistReducer,
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from 'redux-persist';
+// import authReducer from './features/auth/authSlice';
+// import cartReducer from './slices/cartSlice';
+// import categoryReducer from './features/categories/categoriesSlice';
+// import storage from "redux-persist/lib/storage";
+
+
+// const persistConfig = {
+//   key: "root",
+//   // version: 1,
+//   storage,
+// };
+
+// const reducer = combineReducers({
+//     auth: authReducer,
+//     cart:cartReducer,
+//     category: categoryReducer,
+
+// });
+
+// const persistedReducer = persistReducer(persistConfig, reducer);
+
+// const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//   getDefaultMiddleware({
+//     serializableCheck: {
+//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//     },
+//   }),
+// });
+
+// export default store;
 
 // ========== REDUX WITHOUT PERSIST =============
 

@@ -89,26 +89,93 @@ const SizeModal = () => {
                             <table className="table table_main__">
                               <thead>
                                 <tr>
-                                  <th>SIZE</th>
-                                  <th>CHEST</th>
-                                  <th>WAIST</th>
-                                  <th>HIPS</th>
+                                  {/* <th></th>
+                                  <th>SMAAL</th>
+                                  <th>MEDIUM</th>
+                                  <th>LARGE</th>
+                                  <th>X-LARGE</th>
+                                  <th>XX-LARGE</th>
+                                  <th>XXX-LARGE</th> */}
+                                  <th></th>
+                                  <th>S</th>
+                                  <th>M</th>
+                                  <th>L</th>
+                                  <th>XL</th>
+                                  <th>2XL</th>
+                                  <th>3XL</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>XS</td>
-                                  <td>34</td>
-                                  <td>28</td>
-                                  <td>34</td>
+                                  <td>BODY CHEST SIZE</td>
+                                  <td>36-38"</td>
+                                  <td>38-40"</td>
+                                  <td>40-42"</td>
+                                  <td>42-44"</td>
+                                  <td>44-46"</td>
+                                  <td>46-48"</td>
                                 </tr>
+
                                 <tr>
-                                  <td>S</td>
-                                  <td>36</td>
-                                  <td>30</td>
-                                  <td>36</td>
+                                  <td>JACKET CHEST SIZE</td>
+                                  <td>44"</td>
+                                  <td>46"</td>
+                                  <td>48"</td>
+                                  <td>50"</td>
+                                  <td>52"</td>
+                                  <td>54"</td>
                                 </tr>
+
                                 <tr>
+                                  <td>SHOULDER TO SHOULDER</td>
+                                  <td>18 1/2"</td>
+                                  <td>19"</td>
+                                  <td>19 1/2"</td>
+                                  <td>20"</td>
+                                  <td>20 1/2"</td>
+                                  <td>21"</td>
+                                </tr>
+
+                                <tr>
+                                  <td>SHOULDER TO SHOULDER</td>
+                                  <td>18 1/2"</td>
+                                  <td>19"</td>
+                                  <td>19 1/2"</td>
+                                  <td>20"</td>
+                                  <td>20 1/2"</td>
+                                  <td>21"</td>
+                                </tr>
+
+                                <tr>
+                                  <td>ARM LENGTH(INC. CUFF)</td>
+                                  <td>25"</td>
+                                  <td>25 1/2"</td>
+                                  <td>26"</td>
+                                  <td>26 1/2"</td>
+                                  <td>27"</td>
+                                  <td>27 1/2"</td>
+                                </tr>
+
+                                <tr>
+                                  <td>JACKET BACK LENGTH (BELLOW COLLAR)</td>
+                                  <td>26"</td>
+                                  <td>26 1/2"</td>
+                                  <td>27"</td>
+                                  <td>27 1/2"</td>
+                                  <td>28"</td>
+                                  <td>28 1/2"</td>
+                                </tr>
+                                
+                                <tr>
+                                  <td>WAIST</td>
+                                  <td>40"</td>
+                                  <td>42"</td>
+                                  <td>44"</td>
+                                  <td>46"</td>
+                                  <td>48"</td>
+                                  <td>50"</td>
+                                </tr>
+                                {/* <tr>
                                   <td>M</td>
                                   <td>38</td>
                                   <td>32</td>
@@ -133,7 +200,13 @@ const SizeModal = () => {
                                   <td>44</td>
                                 </tr>
                                 <tr>
-                                  <td colSpan={4} className="last_td_main">
+                                  <td>3XL</td>
+                                  <td>34</td>
+                                  <td>28</td>
+                                  <td>34</td>
+                                </tr> */}
+                                <tr>
+                                  <td colSpan={8} className="last_td_main">
                                     <div>
                                       <p className="measure">
                                         All measurements are in INCHES
