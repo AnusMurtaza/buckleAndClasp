@@ -1,11 +1,11 @@
 'use client';
 import { logout } from '@/redux/features/auth/authSlice';
 import { getCategories } from '@/redux/features/categories/categoriesSlice';
-import { decreaseCart, getTotals, removeFromCart } from '@/redux/slices/cartSlice';
+import {  getTotals, removeFromCart } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect,  useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { baseURL, imageUrl } from '../config/apiUrl';
 import axios from 'axios';
@@ -46,13 +46,10 @@ const Header = () => {
       const response = await axios.get(baseURL + "/allCategories");
       const { data } = response.data;
       dispatch(getCategories(data));
-      // setCatalog(data);
     } catch (error) { }
   };
   useEffect(() => {
     fetchCategories()
-    // dispatch(getTotals())
-
   }, [])
   useEffect(() => {
     dispatch(getTotals());
@@ -62,10 +59,26 @@ const Header = () => {
     if (pathname !== `/search`) {
       setSearchValue("")
     }
-    console.log(pathname, "pathname")
   }, [pathname])
 
+  const [isSticky, setIsSticky] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const headerHeight = document.querySelector('.header-section').offsetHeight;
+      if (window.pageYOffset > headerHeight) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <>
     
@@ -237,7 +250,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="nav-item">
+        <div className={`nav-item ${isSticky ? 'sticky' : ''}`}>
           <div className="container text-center">
             <nav className="nav-menu mobile-menu">
               {/* <ul>

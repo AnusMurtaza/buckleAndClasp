@@ -4,19 +4,18 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const page = () => {
-  const params = useParams();
+  const { categories } = useSelector((state) => state.category);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { categories } = useSelector((state) => state.category);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
   const pathname = usePathname();
-console.log(params,"params")
+  const params = useParams();
+  
   const fetchProducts = async () => {
     setLoading(true);
     try {
