@@ -25,7 +25,7 @@ const SizeModal = () => {
               </div>
               <div className="modal-body">
                 <div>
-                  <h3 className="text-center mb-3">Size Guide</h3>
+                  <h4 className="text-center fw-bold mb-3">Size Guide</h4>
                   <div>
                     {/* ---tab-S-- */}
                     <div>
@@ -74,7 +74,23 @@ const SizeModal = () => {
                         
 
                           >
-                            KIDS
+                            KIDS(BOYS)
+                          </span>
+                        </li>
+                        <li role="presentation">
+                          <span
+                        
+                            id="girls-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#girls"
+                            type="button"
+                            role="tab"
+                            aria-controls="girls"
+                            aria-selected="false"
+                        
+
+                          >
+                            KIDS(GIRLS)
                           </span>
                         </li>
                       </ul>
@@ -85,8 +101,8 @@ const SizeModal = () => {
                           role="tabpanel"
                           aria-labelledby="dresses-tab"
                         >
-                          <div>
-                            <table className="table table_main__ table-responsive table-bordered">
+                          <div className='table-responsive'>
+                            <table className="table table_main__  table-bordered">
                               <thead>
                                 <tr>
                                   {/* <th></th>
@@ -222,6 +238,7 @@ const SizeModal = () => {
                             </table>
                           </div>
                         </div>
+
                         <div
                           className="tab-pane fade"
                           id="tshirt"
@@ -292,11 +309,83 @@ const SizeModal = () => {
                             </table>
                           </div>
                         </div>
+
                         <div
                           className="tab-pane fade"
                           id="bottoms"
                           role="tabpanel"
                           aria-labelledby="bottoms-tab"
+                        >
+                          <div>
+                            <table className="table table_main__">
+                              <thead>
+                                <tr>
+                                  <th>SIZE</th>
+                                  <th>CHEST</th>
+                                  <th>WAIST</th>
+                                  <th>HIPS</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>XS</td>
+                                  <td>34</td>
+                                  <td>28</td>
+                                  <td>34</td>
+                                </tr>
+                                <tr>
+                                  <td>S</td>
+                                  <td>36</td>
+                                  <td>30</td>
+                                  <td>36</td>
+                                </tr>
+                                <tr>
+                                  <td>M</td>
+                                  <td>38</td>
+                                  <td>32</td>
+                                  <td>38</td>
+                                </tr>
+                                <tr>
+                                  <td>L</td>
+                                  <td>40</td>
+                                  <td>34</td>
+                                  <td>40</td>
+                                </tr>
+                                <tr>
+                                  <td>XL</td>
+                                  <td>42</td>
+                                  <td>36</td>
+                                  <td>42</td>
+                                </tr>
+                                <tr>
+                                  <td>2XL</td>
+                                  <td>44</td>
+                                  <td>38</td>
+                                  <td>44</td>
+                                </tr>
+                                <tr>
+                                  <td colSpan={4} className="last_td_main">
+                                    <div>
+                                      <p className="measure">
+                                        All measurements are in INCHES
+                                      </p>
+                                      <p className="measure">
+                                        and may vary a half inch in either
+                                        direction.
+                                      </p>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <div
+                          className="tab-pane fade"
+                          id="girls"
+                          role="tabpanel"
+                          aria-labelledby="girls-tab"
                         >
                           <div>
                             <table className="table table_main__">

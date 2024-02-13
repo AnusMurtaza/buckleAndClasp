@@ -15,7 +15,7 @@ const Header = () => {
   const { token, name } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.category);
   const cart = useSelector((state) => state.cart);
-  const [searchValue, setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState("");
   const router = useRouter()
 
   const handleKeyPress = (e) => {
@@ -138,7 +138,7 @@ const Header = () => {
 
           </div>
         </div>
-        <div className="container">
+        <div className="container-fluid container-md">
           <div className="inner-header">
             <div className="row align-items-center">
               <div className="col-lg-2 col-md-2">
@@ -148,7 +148,7 @@ const Header = () => {
                   </Link>
                 </div>
               </div>
-              <div className="col-lg-7 col-md-7">
+              <div className="col-lg-7 col-md-7 mb-2 mb-md-0">
                 <div className="advanced-search">
                   {/* <button type="button" className="category-btn">
                 All Categories

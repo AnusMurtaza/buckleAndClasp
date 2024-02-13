@@ -210,7 +210,7 @@ const page = () => {
                         ))}
 
                       {product?.main_category?.name !== "Kids" &&
-                        ["S", "M", "L", "XL", "2XL"].map((size) => (
+                        ["S", "M", "L", "XL", "2XL","3XL"].map((size) => (
                           <div className="sc-item" key={size}>
                             <input
                               type="radio"
@@ -252,33 +252,30 @@ const page = () => {
                     </div>
                     <div className="my-3">
                       <div className="size__del flex-wrap">
+                      {product?.main_category?.name !== "Accessories" &&
                         <p className="me-md-5 me-2">
-                          <span className="me-3">
-                            <i className="fa-solid fa-book"></i>
-                          </span>
+                          
                           <span
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal3"
                           >
+                              <i className="fa-solid fa-book me-3"></i>
                             Size Guide
                           </span>
                         </p>
+                      }
                         <p className="me-md-5 me-2">
-                          <span className="me-3">
-                            <i className="fa-solid fa-rotate-left"></i>
-                          </span>
                           <span
                             data-bs-toggle="modal"
                             data-bs-target="#delivery_return"
                           >
+                            <i className="fa-solid fa-rotate-left me-3"></i>
                             Delivery & Return
                           </span>
                         </p>
                         <Link href="/contact-us">
-                          <p className="">
-                            <span className="me-3">
-                              <i className="fa-regular fa-circle-question"></i>
-                            </span>
+                          <p className="text-dark">
+                              <i className="fa-regular fa-circle-question me-3"></i>
                             Ask a Question
                           </p>
                         </Link>
