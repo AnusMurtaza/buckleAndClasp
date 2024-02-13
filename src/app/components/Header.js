@@ -161,7 +161,7 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-3 text-end col-md-3 d-flex justify-content-between align-items-center d-md-block">
+              <div className={`col-lg-3 text-end col-md-3 d-flex justify-content-between align-items-center d-md-block mob_nav ${isSticky ? 'sticky' : ''}`}>
                 <ul className="nav-right">
                   <li className="cart-icon">
                     <i className="bi bi-bag cart-icon"></i>
@@ -243,7 +243,7 @@ const Header = () => {
                     aria-controls="offcanvasExample"
                   >
 
-                   <i className="bi bi-list text-dark fs-1"></i>
+                   <i className="bi bi-list text-white fs-1"></i>
                   </span>
                 </span>
               </div>

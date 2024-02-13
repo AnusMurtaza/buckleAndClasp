@@ -21,14 +21,8 @@ h6 {
   font-family: "Muli", sans-serif;
   margin-bottom: 0;
 }
-.nav-item.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #fff; /* Adjust as needed */
-  z-index: 1000; /* Adjust as needed */
-  /* Any other styles for the sticky state */
-}
+
+
 /* h1 {
   font-size: 70px;
 } */
@@ -830,6 +824,20 @@ a {
 
 .slicknav_menu {
   display: none;
+}
+.nav-item.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff; /* Adjust as needed */
+  z-index: 1000; /* Adjust as needed */
+}
+.mob_nav.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #252525; /* Adjust as needed */
+  z-index: 1000; /* Adjust as needed */
 }
 
 /*---------------------
@@ -4387,6 +4395,26 @@ a {
   }
 }
 
+
+@media only screen and (max-width: 768px) {
+  .mob_nav{
+    background-color: #252525;
+    color: white;
+  }
+  .inner-header .nav-right li.cart-price{
+    color: #fff !important;
+  }
+  .size__del{
+    display: flex;
+  }
+  .product-tab-wrap .nav-pills .nav-link {
+    margin-top: 10px;
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+
+
 .empty_cart .card {
   margin-bottom: 30px;
   border: 0;
@@ -4788,10 +4816,11 @@ a {
 .table_main__ td {
   text-align: center;
   vertical-align: middle;
-  padding: 20px 5px;
+  padding: 16px 12px;
   color: #333;
-  font-weight: 800;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 12px;
+
 }
 .table_main__ tbody tr:nth-of-type(2n) td {
   background-color: #f1f1f1;
@@ -5338,6 +5367,10 @@ fieldset legend {
   color: #000;
   text-transform: uppercase;
   font-weight: 500;
+}
+.mob_naV_linK a{
+  color: #000;
+
 }
 .categories__Main .ul_style .active {
   /* text-decoration: underline; */

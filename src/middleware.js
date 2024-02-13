@@ -3,6 +3,9 @@ import store from "./redux/store";
 
 export async function middleware(request) {
   const reduxStore = store.getState();
+  const test = store.getState((state) => state.auth);
+  console.log("check", store.getState())
+  console.log("this", test)
   const authToken = reduxStore.auth.token;
   const authToke1 = reduxStore.auth;
   const role = reduxStore.auth.user_type;

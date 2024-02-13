@@ -86,7 +86,7 @@ const SizeModal = () => {
                           aria-labelledby="dresses-tab"
                         >
                           <div>
-                            <table className="table table_main__">
+                            <table className="table table_main__ table-responsive table-bordered">
                               <thead>
                                 <tr>
                                   {/* <th></th>

@@ -98,7 +98,7 @@ const page = () => {
                 <Link href="/">
                   <i className="fa fa-home" /> Home
                 </Link>
-                <span>Shop</span>
+                <span className="text-capitalize">Category - {params.slug}</span>
               </div>
             </div>
           </div>
