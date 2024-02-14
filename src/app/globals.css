@@ -831,6 +831,7 @@ a {
   width: 100%;
    /* Adjust as needed */
   z-index: 1000; /* Adjust as needed */
+  transition: all 0.3s ease;
 }
 .mob_nav.sticky {
   position: fixed;
@@ -838,6 +839,7 @@ a {
   width: 100%;
   background-color: #252525; /* Adjust as needed */
   z-index: 1000; /* Adjust as needed */
+  transition: all 0.3s ease;
 }
 
 /*---------------------

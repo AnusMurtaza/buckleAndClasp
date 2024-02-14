@@ -15,26 +15,19 @@ export const authSlice = createSlice({
           state.token = action.payload.token;
           state.name = action.payload.name;
           state.user_type = action.payload.user_type;
-          // Cookies.set('token', action.payload.token, { expires: 7 });
-          // Cookies.set('role', action.payload.user_type, { expires: 7 });
+          Cookies.set('token', action.payload.token, { expires: 7 });
+          Cookies.set('role', action.payload.user_type, { expires: 7 });
 
-          // state.address = action.payload.address;
       },
 
       logout:(state) =>{
         state.token = "";
         state.name = "";
         state.user_type = "";
-        // Cookies.remove('token');
-        // Cookies.remove('role');
-        // state.address = "";
+        Cookies.remove('token');
+        Cookies.remove('role');
       },
-    //   isAdminn: (state, action) => {
-    //       state.admin = action.payload
-    //    },
-    //    userDetail: (state, action) => {
-    //     state.user = action.payload
-    //  },
+
     },
 })
 

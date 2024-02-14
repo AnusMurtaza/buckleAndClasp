@@ -2,16 +2,9 @@ import { NextResponse } from "next/server";
 import store from "./redux/store";
 
 export async function middleware(request) {
-  const reduxStore = store.getState();
-  const test = store.getState((state) => state.auth);
-  console.log("check", store.getState())
-  console.log("this", test)
-  const authToken = reduxStore.auth.token;
-  const authToke1 = reduxStore.auth;
-  const role = reduxStore.auth.user_type;
-console.log("authToke1",authToke1)
-  // const authToken = request.cookies.get("token")?.value;
-  // const role = request.cookies.get("role")?.value;
+
+  const authToken = request.cookies.get("token")?.value;
+  const role = request.cookies.get("role")?.value;
 
   const isLoginPage = request.nextUrl.pathname === "/login";
   const isSignUpPage = request.nextUrl.pathname === "/sign-up";
