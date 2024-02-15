@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Poppins } from 'next/font/google';
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Providers } from "../redux/provider";
@@ -8,7 +8,12 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BootstrapClient from "./components/BootstrapClients";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -42,7 +47,7 @@ export default function RootLayout({ children }) {
         />
         {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.6.1/jquery.zoom.min.js" integrity="sha512-xhvWWTTHpLC+d+TEOSX2N0V4Se1989D03qp9ByRsiQsYcdKmQhQ8fsSTX3KLlzs0jF4dPmq0nIzvEc3jdYqKkw==" crossOrigin="anonymous" referrerPolicy="no-referrer"></script> */}
       </head>
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <Providers>
           <Header />
           {children}

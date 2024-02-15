@@ -8,7 +8,7 @@ const page = () => {
                     <div className="row">
                         <div className="col-sm-11 m-auto ">
                             <section className="terms-title">
-                                <h1>Terms and Conditions</h1>
+                                <h1>*Terms and Conditions*</h1>
                                 <p>Welcome to Livinleathers! By accessing this website, you agree to comply with and be bound by the following terms and conditions. Please read these terms carefully before using our website.</p>
                                 <hr />
                             </section>
@@ -126,66 +126,6 @@ const page = () => {
 }
 
 export default page
-
-
-
-
-
-
-
-
-
-
-
-//  *Terms and Conditions*
-
-// Welcome to Livinleathers! By accessing this website, you agree to comply with and be bound by the following terms and conditions. Please read these terms carefully before using our website.
-
-// 1. Acceptance of Terms
-// By accessing or using our website, you agree to be bound by these Terms and Conditions. If you do not agree to all the terms and conditions, you may not access the website.
-
-// 2. Products and Services
-// a. Product Descriptions: We make every effort to accurately display the colors and features of our products. However, we cannot guarantee that your device's display accurately reflects the products.
-
-// b. Availability: All products are subject to availability. We reserve the right to limit the quantities of any products.
-
-// 3. Ordering and Payment
-// Order Acceptance: Your order is an offer to buy, which will only be accepted once we process your payment.
-
-// 4. Shipping and Delivery
-// a. Shipping Costs: Shipping costs are calculated during checkout and are based on the shipping option you select.
-
-// b. Delivery Times: Delivery times may vary based on your location and chosen shipping method.
-
-// 5. Returns and Exchanges
-// a. Return Policy: Please refer to our [Return Policy] for information on returns and exchanges.
-
-// 6. Intellectual Property
-// a. Trademarks: All trademarks, service marks, and trade names of [Livinleathers] used on the site are trademarks or registered trademarks of [Livinleathers].
-
-// b. Copyright: All content on this website is the property of Livinleathers and is protected by copyright laws.
-
-// 7. Privacy Policy
-// a. Personal Information: Your use of our website is also governed by our Privacy Policy. Please review our [Privacy Policy] for more information.
-
-// 8. Limitation of Liability
-// a. Disclaimer: We do not guarantee, represent, or warrant that your use of our service will be uninterrupted, timely, secure, or error-free.
-
-// b. Limitation of Liability: In no case shall Livinleathers, its directors, officers, employees, affiliates, agents, contractors, or licensors be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special, or consequential damages.
-
-// 9. Governing Law
-// These Terms and Conditions shall be governed by and construed in accordance with the laws of [Your Country/State].
-
-// 10. Changes to Terms and Conditions
-// We reserve the right, at our sole discretion, to update, change, or replace any part of these Terms and Conditions. It is your responsibility to check our website periodically for changes.
-
-// By using this website after any changes, you agree to be bound by the revised terms.
-
-// If you have any questions about these Terms and Conditions, please contact us at Livinleathers@gmail.com.
-
-
-
-
 
 
 

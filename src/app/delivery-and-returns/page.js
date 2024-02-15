@@ -1,30 +1,8 @@
-import React from 'react'
+import React from "react";
 
-const DeliveryReturnModal = () => {
+const page = () => {
   return (
-    <>
-       <div className="super_main_guide">
-        {/* Modal */}
-        <div
-          className="modal fade"
-          id="delivery_return"
-          tabIndex={-1}
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-lg ">
-            <div className="modal-content">
-              <div className="modal-header">
-                {/* <h5 className="modal-title" id="exampleModalLabel">Modal title</h5> */}
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                />
-              </div>
-              <div className="modal-body">
-              <div className="container my-5">
+    <div className="container my-5">
       <main className="header-offset content-wrapper about-wrapper">
         <div className="terms-container">
           <div className="row">
@@ -176,13 +154,7 @@ const DeliveryReturnModal = () => {
         {/* /.container */}
       </main>
     </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
+  );
+};
 
-export default DeliveryReturnModal
+export default page;

@@ -1,8 +1,19 @@
+"use client"
 import React from 'react'
 import Link from 'next/link'
 import AdminDashboardSidebar from '../components/AdminDashboardSidebar'
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/redux/features/auth/authSlice';
 
 function page() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/");
+  };
   return (
     <section>
       <section className="container-fluid products_main_banner">
@@ -36,7 +47,7 @@ function page() {
                 <div className="mt-4">
                   <div className="row">
                     <div className="col-md-4 mb-3">
-                      <Link href="/dashboard">
+                      <Link href="/dashboard/orders">
                         <div className="dasH_cardss">
                           <p>
                             <i className="fa-solid fa-clipboard-list dash__iconSs"></i>
@@ -56,7 +67,7 @@ function page() {
                       </Link>
                     </div>
                     <div className="col-md-4 mb-3">
-                      <Link href="/dashboard">
+                      <Link href="/dashboard/main-category">
                         <div className="dasH_cardss">
                           <p>
                             <i className="fa-solid fa-location-dot dash__iconSs"></i>
@@ -66,7 +77,7 @@ function page() {
                       </Link>
                     </div>
                     <div className="col-md-4 mb-3">
-                      <Link href="/dashboard">
+                      <Link href="/dashboard/sub-category">
                         <div className="dasH_cardss">
                           <p>
                             <i className="fa-solid fa-circle-user dash__iconSs"></i>
@@ -76,7 +87,7 @@ function page() {
                       </Link>
                     </div>
                     <div className="col-md-4 mb-3">
-                      <Link href="/dashboard">
+                      <Link href="/dashboard/products">
                         <div className="dasH_cardss">
                           <p>
                             <i className="fa-solid fa-circle-user dash__iconSs"></i>
@@ -86,7 +97,7 @@ function page() {
                       </Link>
                     </div>
                     <div className="col-md-4 mb-3">
-                      <Link href="/dashboard">
+                      <Link href="/dashboard/users">
                         <div className="dasH_cardss">
                           <p>
                             <i className="fa-solid fa-circle-user dash__iconSs"></i>
@@ -96,24 +107,24 @@ function page() {
                       </Link>
                     </div>
                     <div className="col-md-4 mb-3">
-                      <Link href="/dashboard">
+                      <Link href="/dashboard/contacts">
                         <div className="dasH_cardss">
                           <p>
                             <i className="fa-solid fa-circle-user dash__iconSs"></i>
                           </p>
-                          <p>Sub Category</p>
+                          <p>Contact</p>
                         </div>
                       </Link>
                     </div>
                     <div className="col-md-4 mb-3">
-                      <Link href="/dashboard">
-                        <div className="dasH_cardss">
+                      {/* <Link href="/dashboard"> */}
+                        <div className="dasH_cardss" onClick={handleLogout}>
                           <p>
                             <i className="fa-solid fa-reply  dash__iconSs"></i>
                           </p>
                           <p>Logout</p>
                         </div>
-                      </Link>
+                      {/* </Link> */}
                     </div>
                   </div>
                 </div>
