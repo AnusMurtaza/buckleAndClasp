@@ -63,10 +63,10 @@ const page = () => {
       <section className="product-shop spad">
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+            <div className="col-md-3 d-none d-md-block produts-sidebar-filter">
               <div className="filter-widget">
                 <h4 className="fw-title">Categories</h4>
-                <ul className="filter-catagories">
+                <ul className="filter_catagories">
                   {categories &&
                     categories.map((category) => (
                       <li key={category.id}>
@@ -106,7 +106,7 @@ const page = () => {
                   {products &&
                     products.map((value, index) => {
                       return (
-                        <div className="col-lg-4 col-sm-6" key={index}>
+                        <div className="col-lg-4 col-6" key={index}>
                           <Link
                             href={`/collections/${value.sub_category.slug}/products/${value.slug}`}
                           >
@@ -160,7 +160,7 @@ const page = () => {
               </div>
               {!loading && products.length > 0 && !lastPage && (
                 <div className="loading-more">
-                  <i className="icon_loading" />
+                  {/* <i className="icon_loading" /> */}
 
                   <span onClick={() => setPage((prevPage) => prevPage + 1)}>
                     Loading More

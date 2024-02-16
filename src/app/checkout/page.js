@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { checkoutSchema } from '../schemas';
 import { useRouter } from 'next/navigation';
+import StateSelect from '../components/StateSelect';
 
 const page = () => {
   const { cartItems, cartTotalAmount } = useSelector((state) => state.cart);
@@ -233,7 +234,14 @@ const page = () => {
                       <label htmlFor="state" className="form-label">
                         State
                       </label>
-                      <select
+                      <StateSelect 
+                      id="state"
+                       name="state"
+                       value={values.state}
+                       onChange={handleChange}
+                       onBlur={handleBlur}
+                      />
+                      {/* <select
                         className="form-select mt-3"
                         id="state"
                         name="state"
@@ -305,7 +313,7 @@ const page = () => {
                         <option value="Armed Forces Americas">Armed Forces Americas</option>
                         <option value="Armed Forces Europe">Armed Forces Europe</option>
                         <option value="Armed Forces Pacific">Armed Forces Pacific</option>
-                      </select>
+                      </select> */}
                       {errors.state && touched.state ? (
                         <p className="form-error">{errors.state}</p>
                       ) : null}

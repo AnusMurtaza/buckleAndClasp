@@ -1,0 +1,110 @@
+/*---------------------
+  Product Shop
+-----------------------*/
+
+.product-shop {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  
+  
+  
+  .checkmark:after {
+    position: absolute;
+    content: "";
+  }
+  
+  /* .product-show-option {
+    margin-bottom: 30px;
+  }
+  
+  .product-show-option .select-option {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  
+  .product-show-option .select-option .nice-select {
+    border-radius: 0;
+    border: 1px solid #ecedee;
+    height: 40px;
+    line-height: 35px;
+  }
+  
+  .product-show-option .select-option .nice-select .list {
+    margin-top: 0;
+    border-radius: 0;
+    width: 100%;
+  }
+  
+  .product-show-option .select-option .nice-select:after {
+    border-bottom: 2px solid #4c4c4c;
+    border-right: 2px solid #4c4c4c;
+    height: 7px;
+    right: 22px;
+    top: 47%;
+    width: 7px;
+    opacity: 0.7;
+  }
+  
+  .product-show-option .select-option .nice-select span {
+    font-size: 16px;
+    color: #4c4c4c;
+  }
+  
+  .product-show-option .select-option .sorting {
+    margin-right: 20px;
+  }
+  
+  .product-show-option .select-option .sorting.nice-select {
+    padding-right: 70px;
+  }
+  
+  .product-show-option .select-option .p-show.nice-select {
+    padding-right: 105px;
+  }
+  
+  .product-show-option .select-option .p-show.nice-select:before {
+    position: absolute;
+    right: 48px;
+    top: 0;
+    content: "09";
+    font-size: 16px;
+    color: #252525;
+  }
+  
+  .product-show-option p {
+    margin-bottom: 0;
+    color: #636363;
+    line-height: 39px;
+  } */
+  
+  .prduct-list .product_item {
+    margin-bottom: 25px;
+  }
+  
+ 
+  
+  /*---------------------
+    Product Details
+  -----------------------*/
+
+
+
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+  
+    .produts-sidebar-filter {
+      padding-top: 50px;
+    }
+
+  }
+
+
+
+  @media only screen and (max-width: 767px) {
+   
+    .produts-sidebar-filter {
+      padding-top: 50px;
+    }
+
+  }

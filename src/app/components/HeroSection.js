@@ -4,24 +4,24 @@ import { baseURL, imageUrl } from "../config/apiUrl";
 import axios from "axios";
 import Image from "next/image";
 
-const HeroSection = () => {
-  const [banner, setBanner] = useState([]);
-  const [loading, setLoading] = useState(false);
+const HeroSection = ({banner}) => {
+  // const [banner, setBanner] = useState([]);
+  // const [loading, setLoading] = useState(false);
 
-  const fetchBanner = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(baseURL + "/all_banner");
-      const { data } = response.data;
-      setBanner(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchBanner();
-  }, []);
+  // const fetchBanner = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(baseURL + "/all_banner");
+  //     const { data } = response.data;
+  //     setBanner(data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchBanner();
+  // }, []);
 
   return (
     <>

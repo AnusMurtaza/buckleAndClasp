@@ -7,6 +7,7 @@ import ProductCard from "./components/ProductCard";
 import Link from "next/link";
 import axios from "axios";
 import { baseURL, imageUrl } from "./config/apiUrl";
+import LoadingComponent from "./components/LoadingComponent";
 
 
 export default function Home() {
@@ -15,32 +16,27 @@ export default function Home() {
   const [mensproducts, setMensProducts] = useState([]);
   const [womenproducts, setWomenProducts] = useState([]);
   const [time, setTime] = useState(calculateTimeRemaining());
+  const [banner, setBanner] = useState([]);
 
-  const fetchMensProducts = async () => {
-    setLoading(true);
+  const fetchAllApi = async () => {
     try {
-      const response = await axios.get(baseURL + `/products_by_mens`);
-      const { data } = response.data;
-      setMensProducts(data.data);
-      // setLoading(false)
+      setLoading(true);
+      const bannerResponse = await axios.get(baseURL + "/all_banner");
+      const mensResponse = await axios.get(baseURL + "/products_by_mens");
+      const womensResponse = await axios.get(baseURL + "/products_by_womens");
+  
+      setBanner(bannerResponse.data.data);
+      setMensProducts(mensResponse.data.data.data);
+      setWomenProducts(womensResponse.data.data.data);
     } catch (error) {
-      // setLoading(false)
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
-  const fetchWomenProducts = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(baseURL + `/products_by_womens`);
-      const { data } = response.data;
-      setWomenProducts(data.data);
-      // setLoading(false)
-    } catch (error) {
-      // setLoading(false)
-    }
-  };
+  
   useEffect(() => {
-    fetchWomenProducts();
-    fetchMensProducts();
+    fetchAllApi();
   }, []);
 
   useEffect(() => {
@@ -107,11 +103,13 @@ export default function Home() {
       seconds: remainingSecs,
     };
   }
-
+if(loading){
+  return <LoadingComponent/>
+}
   return (
     <>
       <main>
-        <HeroSection />
+        <HeroSection banner={banner}/>
         {/* Banner Section Begin */}
 
         <div className="banner-section spad">
@@ -229,78 +227,7 @@ export default function Home() {
         </section>
         {/* Women Banner Section End */}
 
-        {/* Instagram Section Begin */}
-        {/* <div className="instagram-photo">
-          <div
-            className="insta-item set-bg"
-            style={{ backgroundImage: `url("/img/insta-1.jpg")` }}
-          >
-            <div className="inside-text">
-              <i className="ti-instagram" />
-              <h5>
-                <Link href="/">colorlib_Collection</Link>
-              </h5>
-            </div>
-          </div>
-          <div
-            className="insta-item set-bg"
-            style={{ backgroundImage: `url("/img/insta-2.jpg")` }}
-          >
-            <div className="inside-text">
-              <i className="ti-instagram" />
-              <h5>
-                <Link href="/">colorlib_Collection</Link>
-              </h5>
-            </div>
-          </div>
-          <div
-            className="insta-item set-bg"
-            style={{ backgroundImage: `url("/img/insta-3.jpg")` }}
-          >
-            <div className="inside-text">
-              <i className="ti-instagram" />
-              <h5>
-                <Link href="/">colorlib_Collection</Link>
-              </h5>
-            </div>
-          </div>
-          <div
-            className="insta-item set-bg"
-            style={{ backgroundImage: `url("/img/insta-4.jpg")` }}
-          >
-            <div className="inside-text">
-              <i className="ti-instagram" />
-              <h5>
-                <Link href="/">colorlib_Collection</Link>
-              </h5>
-            </div>
-          </div>
-          <div
-            className="insta-item set-bg"
-            style={{ backgroundImage: `url("/img/insta-5.jpg")` }}
-          >
-            <div className="inside-text">
-              <i className="ti-instagram" />
-              <h5>
-                <Link href="/">colorlib_Collection</Link>
-              </h5>
-            </div>
-          </div>
-          <div
-            className="insta-item set-bg"
-            style={{ backgroundImage: `url("/img/insta-6.jpg")` }}
-          >
-            <div className="inside-text">
-              <i className="ti-instagram" />
-              <h5>
-                <Link href="/">colorlib_Collection</Link>
-              </h5>
-            </div>
-          </div>
-        </div> */}
-        {/* Instagram Section End */}
-
-        <>
+       
           {/* Latest Blog Section Begin */}
           <section className="latest-blog spad">
             <div className="container">
@@ -359,7 +286,6 @@ export default function Home() {
             </div>
           </section>
           {/* Latest Blog Section End */}
-        </>
       </main>
     </>
   );

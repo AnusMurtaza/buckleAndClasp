@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import { contactUsSchema } from '../schemas';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import styles from "./page.module.css"
 
 const page = () => {
   const [loading, setLoading] = useState(false)
@@ -63,11 +64,11 @@ const page = () => {
       {/* Breadcrumb Section Begin */}
 
       {/* Contact Section Begin */}
-      <section className="contact-section spad">
+      <section className={`${styles.contact_section} spad`}>
         <div className="container">
           <div className="row">
             <div className="col-lg-5">
-              <div className="contact-title">
+              <div className={styles.contact_title}>
                 <h4>Contacts Us</h4>
                 <p>
                   Contrary to popular belief, Lorem Ipsum is simply random text. It
@@ -75,30 +76,30 @@ const page = () => {
                   maki years old.
                 </p>
               </div>
-              <div className="contact-widget">
-                <div className="cw-item">
-                  <div className="ci-icon">
+              <div className={styles.contact_widget}>
+                <div className={styles.cw_item}>
+                  <div className={styles.ci_icon}>
                   <i className="bi bi-geo-alt"></i>
                   </div>
-                  <div className="ci-text">
+                  <div className={styles.ci_text}>
                     <span>Address:</span>
                     <p>60-49 Road 11378 New York</p>
                   </div>
                 </div>
-                <div className="cw-item">
-                  <div className="ci-icon">
+                <div className={styles.cw_item}>
+                  <div className={styles.ci_icon}>
                   <i className="bi bi-phone"></i>
                   </div>
-                  <div className="ci-text">
+                  <div className={styles.ci_text}>
                     <span>Phone:</span>
                     <p>+65 11.188.888</p>
                   </div>
                 </div>
-                <div className="cw-item">
-                  <div className="ci-icon">
+                <div className={styles.cw_item}>
+                  <div className={styles.ci_icon}>
                   <i className="bi bi-envelope"></i>
                   </div>
-                  <div className="ci-text">
+                  <div className={styles.ci_text}>
                     <span>Email:</span>
                     <p>hellocolorlib@gmail.com</p>
                   </div>
@@ -106,11 +107,11 @@ const page = () => {
               </div>
             </div>
             <div className="col-lg-6 offset-lg-1">
-              <div className="contact-form">
-                <div className="leave-comment">
+              <div className={styles.contact_form}>
+                <div className={styles.leave_comment}>
                   <h4>Leave A Comment</h4>
                   <p>Our staff will call back later and answer your questions.</p>
-                  <form className="comment-form" onSubmit={handleSubmit}>
+                  <form className={styles.comment_form} onSubmit={handleSubmit}>
                     <div className="row">
                       <div className="col-lg-6 mb-3">
                         <input type="text" placeholder="Your name"

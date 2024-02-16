@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import styles from './page.module.css'
 
 const page = () => {
   const { categories } = useSelector((state) => state.category);
@@ -106,13 +107,13 @@ const page = () => {
       </div>
       {/* Breadcrumb Section Begin */}
       {/* Product Shop Section Begin */}
-      <section className="product-shop spad">
+      <section className={`${styles.shop} spad `}>
         <div className="container">
           <div className="row">
-            <div className="col-md-3 d-none d-md-block produts-sidebar-filter">
+            <div className={`col-md-3 d-none d-md-block ${styles.produts-sidebar-filter}`}>
               <div className="filter-widget">
                 <h4 className="fw-title">Categories</h4>
-                <ul className="filter-catagories">
+                <ul className="filter_catagories">
                   {categories &&
                     categories.map((category) => (
                       <li key={category.id}>
@@ -169,7 +170,7 @@ const page = () => {
                           <Link
                             href={`/collections/${params.slug}/products/${value.slug}`}
                           >
-                            <div className="product-item">
+                            <div className={styles.product_item}>
                               <div className="pi-pic">
                                 <Image
                                   src={`${imageUrl}/${value.images[0].image}`}
@@ -181,9 +182,9 @@ const page = () => {
                                 {value.sale > 0 && (
                                   <div className="sale">Sale</div>
                                 )}
-                                <div className="icon">
+                                {/* <div className="icon">
                                   <i className="icon_heart_alt" />
-                                </div>
+                                </div> */}
                                 <ul>
                                   <li className="quick-view">
                                     <span>+ View</span>
@@ -221,7 +222,7 @@ const page = () => {
 
               {!loading && products.length > 0 && !lastPage && (
                 <div className="loading-more">
-                  <i className="icon_loading" />
+                  {/* <i className="icon_loading" /> */}
 
                   <span onClick={() => setPage((prevPage) => prevPage + 1)}>
                     Loading More
