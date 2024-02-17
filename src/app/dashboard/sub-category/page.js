@@ -130,7 +130,7 @@ const page = () => {
                       <table className="table no-wrap mt-3 align-middle" >
                         <thead>
                           <tr>
-                            <th>Image</th>
+                            {/* <th>Image</th> */}
                             <th>Sub Category</th>
                             <th>Main Category</th>
                             <th>Actions</th>
@@ -140,7 +140,7 @@ const page = () => {
                           {!loading && subCategory.length === 0 && <tr><td colSpan={4} className="text-center">No Data</td></tr>}
                           {loading && (
                             <tr>
-                              <td colSpan={4} className="text-center">
+                              <td colSpan={3} className="text-center">
                                 <div className="spinner-border text-secondary" role="status">
                                 </div>
                               </td>
@@ -149,7 +149,7 @@ const page = () => {
                           {!loading &&
                             subCategory.map((tdata, index) => (
                               <tr key={index} className="border-top">
-                                <td>
+                                {/* <td>
                                   <div className="d-flex align-items-center p-2">
                                     <Image
                                       src={`${imageUrl}/uploads/${tdata.image}`}
@@ -158,7 +158,7 @@ const page = () => {
                                       height={45}
                                     />
                                   </div>
-                                </td>
+                                </td> */}
                                 <td> {tdata.name} </td>
                                 <td> {tdata.main_category.name}</td>
                                 <td>

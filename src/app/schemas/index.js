@@ -103,9 +103,7 @@ export const updateAccountSchema = Yup.object({
 export const checkoutSchema = Yup.object({
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
+  email: Yup.string().email("Invalid email format").required("Email is required"),
   phone_number: Yup.string().required("Phone number is required"),
   address: Yup.string().required("Address is required"),
   appartment: Yup.string(),
@@ -114,4 +112,30 @@ export const checkoutSchema = Yup.object({
   zip_code: Yup.string().required("ZIP code is required"),
   state: Yup.string().required("State is required"),
   same_shipping: Yup.boolean(),
+});
+
+
+export const checkoutSchemaWithShipping = Yup.object({
+  first_name: Yup.string().required("First name is required"),
+  last_name: Yup.string().required("Last name is required"),
+  email: Yup.string().email("Invalid email format").required("Email is required"),
+  phone_number: Yup.string().required("Phone number is required"),
+  address: Yup.string().required("Address is required"),
+  appartment: Yup.string(),
+  city: Yup.string().required("City is required"),
+  country: Yup.string().required("Country is required"),
+  zip_code: Yup.string().required("ZIP code is required"),
+  state: Yup.string().required("State is required"),
+  same_shipping: Yup.boolean(),
+  
+  shipping_first_name: Yup.string().required("First name is required"),
+  shipping_last_name: Yup.string().required("Last name is required"),
+  shipping_email: Yup.string().email("Invalid email format").required("Email is required"),
+  shipping_phone_number: Yup.string().required("Phone number is required"),
+  shipping_address: Yup.string().required("Address is required"),
+  shipping_appartment: Yup.string(),
+  shipping_city: Yup.string().required("City is required"),
+  shipping_country: Yup.string().required("Country is required"),
+  shipping_zip_code: Yup.string().required("ZIP code is required"),
+  shipping_state: Yup.string().required("State is required"),
 });

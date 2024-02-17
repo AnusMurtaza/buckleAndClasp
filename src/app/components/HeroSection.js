@@ -5,23 +5,6 @@ import axios from "axios";
 import Image from "next/image";
 
 const HeroSection = ({banner}) => {
-  // const [banner, setBanner] = useState([]);
-  // const [loading, setLoading] = useState(false);
-
-  // const fetchBanner = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await axios.get(baseURL + "/all_banner");
-  //     const { data } = response.data;
-  //     setBanner(data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setLoading(false);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchBanner();
-  // }, []);
 
   return (
     <>
@@ -52,7 +35,7 @@ const HeroSection = ({banner}) => {
                 height={500}
                 layout="responsive"
               />
-              <div className="carousel-caption d-none d-md-block">
+              {/* <div className="carousel-caption d-none d-md-block">
                 <h5>SEE WHO JUST SAUNTERED IN.</h5>
                 <p>
                   Discover our latest collection of leather jackets, bags, and
@@ -62,7 +45,7 @@ const HeroSection = ({banner}) => {
                   {" "}
                   <button>NEW ARRIVALS</button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

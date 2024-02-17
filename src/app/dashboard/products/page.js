@@ -140,7 +140,7 @@ const page = () => {
                           {!loading && products.length === 0 && <tr><td colSpan={5} className="text-center">No Data</td></tr>}
                           {loading && (
                             <tr>
-                              <td colSpan={4} className="text-center">
+                              <td colSpan={5} className="text-center">
                                 <div className="spinner-border text-secondary" role="status">
                                 </div>
                               </td>

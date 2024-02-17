@@ -43,15 +43,13 @@ const page = () => {
         try {
           const response = await axios.post(baseURL + "/register", userData)
           const { message, data } = response.data;
-          dispatch(login(data));
+          // dispatch(login(data));
           toast.success(message);
-          router.push("/")
+          router.push("/login")
           setLoading(false);
-          console.log("1")
         } catch (error) {
           toast.error(error.response.data.message);
           setLoading(false);
-          console.log("2")
 
         }
       },

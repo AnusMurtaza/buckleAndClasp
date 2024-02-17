@@ -110,7 +110,7 @@ const page = () => {
       <section className={`${styles.shop} spad `}>
         <div className="container">
           <div className="row">
-            <div className={`col-md-3 d-none d-md-block ${styles.produts-sidebar-filter}`}>
+            <div className={`col-md-3 d-none d-md-block ${styles.produts_sidebar_filter}`}>
               <div className="filter-widget">
                 <h4 className="fw-title">Categories</h4>
                 <ul className="filter_catagories">

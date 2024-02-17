@@ -13,14 +13,14 @@ const ProductCard = ({ products }) => {
   return (
     <>
       <Swiper
-        slidesPerView={3}
+        slidesPerView={4}
         spaceBetween={20}
         pagination={{
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
         autoplay={{
-          delay: 2500,
+          delay: 3500,
           disableOnInteraction: false,
         }}
         breakpoints={{
@@ -32,7 +32,7 @@ const ProductCard = ({ products }) => {
             slidesPerView: 3,
             spaceBetween: 20,
           },
-          992: {
+          1600: {
             slidesPerView: 4,
             spaceBetween: 20,
           },
@@ -49,7 +49,7 @@ const ProductCard = ({ products }) => {
                       src={`${imageUrl}/${value.images[0].image}`}
                       alt=""
                       width={300}
-                      height={500}
+                      height={300}
                       layout="responsive"
                     />
                     {value.sale > 0 && <div className="sale">Sale</div>}

@@ -142,7 +142,7 @@ if(loading){
         {/* Man Banner Section Begin */}
         <section className="man-banner spad">
           <div className="container-fluid">
-            <div className="row">
+            <div className="row align-items-center">
               <div className="col-lg-8">
                 <div className="">
                   <ProductCard products={mensproducts} />
