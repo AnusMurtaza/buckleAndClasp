@@ -167,7 +167,7 @@ if(loading){
         {/* Deal Of The Week Section Begin*/}
         <section
           className="deal-of-week set-bg spad mb-4"
-          style={{ backgroundImage: `url("/img/2.png")` }}
+          style={{ backgroundImage: `url("/images/deal of the week banner.webp")` }}
         >
           <div className="container">
             <div className="col-lg-6 text-center">
