@@ -37,7 +37,7 @@ const ProductCard = ({ products }) => {
             spaceBetween: 20,
           },
         }}
-        className="mySwiper"
+        className="mySwiper py-md-5 pb-4"
       >
         {products &&
           products.map((value, index) => (

@@ -140,7 +140,7 @@ if(loading){
         {/* Banner Section End */}
 
         {/* Man Banner Section Begin */}
-        <section className="man-banner spad">
+        <section className="man-banner">
           <div className="container-fluid">
             <div className="row align-items-center">
               <div className="col-lg-8">

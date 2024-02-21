@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
 import Pagination from '../components/Pagination';
+import MyAccountBreadcrumb from '../components/MyAccountBreadcrumb';
 
 const page = () => {
   const { token } = useSelector((state) => state.auth);
@@ -45,23 +46,7 @@ const page = () => {
 
   return (
     <section>
-    <section className="container-fluid products_main_banner">
-      <div className="container">
-        <div className="banner_content">
-          <h4>Orders</h4>
-          <div>
-            {/* <Breadcrumb>
-              <BreadcrumbItem>
-                <Link to="/">Home</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem>
-                <Link to="/my-account">My account</Link>
-              </BreadcrumbItem>
-            </Breadcrumb> */}
-          </div>
-        </div>
-      </div>
-    </section>
+      <MyAccountBreadcrumb name="Orders"/>
     <section className="mt-4 mb-4">
       <div className="container">
         <div className="row">

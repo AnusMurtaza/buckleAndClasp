@@ -1040,14 +1040,14 @@ a {
   margin-bottom: 26px;
 }
 
-/* .product-item:hover .pi-pic .icon {
+.product-item:hover .pi-pic .icon {
   top: 15px;
   opacity: 1;
 }
 
 .product-item:hover .pi-pic ul {
   bottom: 0;
-} */
+}
 
 .product-item .pi-pic {
   overflow: hidden;
@@ -1205,7 +1205,7 @@ a {
 .man-banner {
   padding-right: 65px;
   padding-left: 65px;
-  padding-top: 80px;
+  /* padding-top: 80px; */
   padding-bottom: 80px;
 }
 
@@ -3892,10 +3892,10 @@ a {
   .blog-details-inner .blog-post .next-blog {
     padding-right: 30px;
   }
-  /* .blog-sidebar,
+  .blog-sidebar,
   .produts-sidebar-filter {
     padding-top: 50px;
-  } */
+  }
   .checkout-content input {
     margin-top: 50px;
   }
@@ -4207,7 +4207,7 @@ a {
   font-size: 45px;
 }
 .return_to_Shop {
-  background-color: #f76b6a;
+  background-color: var(--main-color);
   border: none;
   color: #fff;
   width: 250px;
@@ -4220,7 +4220,7 @@ a {
   background-image: url("https://www.shutterstock.com/image-photo/different-rolls-multicolored-natural-color-260nw-2165248291.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: contain;
+  background-size: cover;
   width: 100%;
   height: 200px;
   display: flex;
@@ -4551,7 +4551,7 @@ a {
   margin-bottom: 10px !important;
 }
 .table_main__ th {
-  background-color: #f76b6a;
+  background-color: var(--main-color);
   font-size: 15px;
   color: #fff;
   font-weight: 800;
@@ -4617,7 +4617,7 @@ a {
 }
 
 .terms__con:hover {
-  color: #f76b6a;
+  color: var(--main-color);
 }
 
 /* -------My-Account----- */
@@ -4654,12 +4654,15 @@ a {
 .naV__link__item.active {
   background-color: var(--main-color);
   border-right: 1px solid transparent;
-  /* color: #333 !important; */
+  color: #fff !important;
   padding-left: 10px;
 }
 
 .naV__link__item:hover {
-  color: #333 !important;
+  color: #fff !important;
+  background-color: var(--main-color);
+  padding-left: 10px;
+
 }
 
 .naV__tOp {
@@ -4690,7 +4693,7 @@ a {
 }
 
 .dasH_cardss:hover .dash__iconSs {
-  color: #f76b6a;
+  color: var(--main-color);
   transition: 0.4s;
 }
 
@@ -4711,7 +4714,7 @@ a {
 }
 
 .orderNo:hover {
-  color: #f76b6a;
+  color: var(--main-color);
 }
 
 .form-error {
@@ -4736,8 +4739,8 @@ fieldset legend {
 }
 
 .saveChanges {
-  background-color: #f76b6a;
-  border-color: #f76b6a;
+  background-color: var(--main-color);
+  border-color: var(--main-color);
   color: #fff;
   border-width: 1px;
   border-style: solid;
@@ -4844,7 +4847,7 @@ fieldset legend {
 }
 
 .total_am_color {
-  color: #f76b6a;
+  color: var(--main-color);
 }
 
 .t_foo_bg {
@@ -4869,7 +4872,7 @@ fieldset legend {
 }
 
 .terms__con:hover {
-  color: #f76b6a;
+  color: var(--main-color);
 }
 
 .add__Btn {
@@ -5464,3 +5467,10 @@ fieldset legend {
 
 
 
+
+
+
+
+ .edit-acc-pass-label{
+  font-size: 12px;
+ }

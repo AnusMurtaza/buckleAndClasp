@@ -1,24 +1,16 @@
+"use client"
 import React from 'react'
 import DashboardSidebar from '../components/DashboardSidebar'
 import Link from 'next/link'
+import { useSelector } from 'react-redux';
+import MyAccountBreadcrumb from '../components/MyAccountBreadcrumb';
 
 function page() {
+  const { name } = useSelector((state) => state.auth);
+
   return (
     <section>
-      <section className="container-fluid products_main_banner">
-        <div className="container">
-          <div className="banner_content">
-            <h4>My account</h4>
-            <div>
-              {/* <Breadcrumb>
-                <BreadcrumbItem>
-                  <Link to="/">Home</Link>
-                </BreadcrumbItem>
-              </Breadcrumb> */}
-            </div>
-          </div>
-        </div>
-      </section>
+      <MyAccountBreadcrumb name="My Account"/>
       <section className="mt-4 mb-4">
         <div className="container">
           <div className="row">
@@ -26,7 +18,7 @@ function page() {
             <div className="col-md-9">
               <div>
                 <p className="mb-3">
-                  Hello <span className="fw-bold">assas</span> (not asdasdas?{" "}
+                  Hello <span className="fw-bold">{name}</span> (not {name}?{" "}
                   {/* <span className="terms__con" onClick={handleLogout}> */}
                   <span className="terms__con" >
                     Log out
@@ -68,7 +60,7 @@ function page() {
                         </div>
                       </Link>
                     </div> */}
-                    {/* <div className="col-md-4 mb-3">
+                    <div className="col-md-4 mb-3">
                       <Link href="/addresses">
                         <div className="dasH_cardss">
                           <p>
@@ -77,7 +69,7 @@ function page() {
                           <p>Addresses</p>
                         </div>
                       </Link>
-                    </div> */}
+                    </div>
                     <div className="col-md-4 mb-3">
                       <Link href="/edit-account">
                         <div className="dasH_cardss">

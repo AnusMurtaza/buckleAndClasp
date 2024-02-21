@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styles from './page.module.css'
+// import styles from './page.module.css'
 
 const page = () => {
   const { categories } = useSelector((state) => state.category);
@@ -107,10 +107,10 @@ const page = () => {
       </div>
       {/* Breadcrumb Section Begin */}
       {/* Product Shop Section Begin */}
-      <section className={`${styles.shop} spad `}>
+      <section className="shop spad ">
         <div className="container">
           <div className="row">
-            <div className={`col-md-3 d-none d-md-block ${styles.produts_sidebar_filter}`}>
+            <div className="col-md-3 d-none d-md-block produts-sidebar-filter">
               <div className="filter-widget">
                 <h4 className="fw-title">Categories</h4>
                 <ul className="filter_catagories">
@@ -170,7 +170,7 @@ const page = () => {
                           <Link
                             href={`/collections/${params.slug}/products/${value.slug}`}
                           >
-                            <div className={styles.product_item}>
+                            <div className="product-item">
                               <div className="pi-pic">
                                 <Image
                                   src={`${imageUrl}/${value.images[0].image}`}

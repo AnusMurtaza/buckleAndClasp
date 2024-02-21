@@ -9,6 +9,7 @@ import DashboardSidebar from "../components/DashboardSidebar";
 import Spinner from "../components/Spinner";
 import { updateAccountSchema } from "../schemas";
 import { useRouter } from "next/navigation";
+import MyAccountBreadcrumb from "../components/MyAccountBreadcrumb";
 // import { Breadcrumb, BreadcrumbItem, Spinner } from "reactstrap";
 // import { Link, useNavigate } from "react-router-dom";
 
@@ -102,23 +103,7 @@ const EditAccount = () => {
 
   return (
     <section>
-      <section className="container-fluid products_main_banner">
-        <div className="container">
-          <div className="banner_content">
-            <h4>Account details</h4>
-            {/* <div>
-              <Breadcrumb>
-                <BreadcrumbItem>
-                  <Link to="/">Home</Link>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <Link to="/my-account">My account</Link>
-                </BreadcrumbItem>
-              </Breadcrumb>
-            </div> */}
-          </div>
-        </div>
-      </section>
+      <MyAccountBreadcrumb name="Account details"/>
       <section className="mt-4 mb-4">
         <div className="container">
           <div className="row">
@@ -206,7 +191,7 @@ const EditAccount = () => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
-                        <label htmlFor="old_password">
+                        <label htmlFor="old_password" className="edit-acc-pass-label">
                           Current password (leave blank to leave unchanged)
                         </label>
                       </div>
@@ -220,7 +205,7 @@ const EditAccount = () => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
-                        <label htmlFor="password">
+                        <label htmlFor="password" className="edit-acc-pass-label">
                           New password (leave blank to leave unchanged)
                         </label>
                       </div>

@@ -110,7 +110,7 @@ const Header = () => {
               {token && (
                 <div className="position-relative login-panel login__Regs">
                   <i className="bi bi-person-circle"></i>
-                  <span>&nbsp;Hi, {name}!</span>
+                  <span>&nbsp;Hi, {name.split(" ")[0]}!</span>
                   <div className="login_content">
                     <div>
                       <ul>
@@ -219,6 +219,7 @@ const Header = () => {
                                   className="img-fluid mb-4 mr-3"
                                   alt="Empty Cart"
                                 />
+                                {/* <i class="bi bi-bag-x fs-1"></i> */}
                                 <h3 className='fs-5'>
                                   <strong>Your Cart is Empty</strong>
                                 </h3>
